@@ -1,0 +1,29 @@
+//
+//  LLReactiveMatchersFixtures.m
+//  LLReactiveMatchers
+//
+//  Created by Lawrence Lomax on 6/12/2013.
+//
+//
+
+#import "LLReactiveMatchersFixtures.h"
+
+#define LLTestError LLReactiveMatchersFixtureError()
+
+NSString *const LLReactiveMatcherFixtureErrorDomain = @"com.github.lawrencelomax.llreactivematchers.fixture";
+
+extern NSError * LLReactiveMatchersFixtureError() {
+    static NSError *error;
+    if(!error) {
+        error = [NSError errorWithDomain:LLReactiveMatcherFixtureErrorDomain code:0 userInfo:@{}];
+    }
+    return error;
+}
+
+@implementation LLReactiveMatchersFixtures
+
++ (RACSignal *) signalThatSendsValuesThenErrors {
+    return [[[RACSignal return:@0] concat:[RACSignal return:@1]] concat:[RACSignal error:LLTestError]];
+}
+
+@end

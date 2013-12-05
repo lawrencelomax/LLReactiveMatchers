@@ -1,0 +1,526 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		218E7167185136D500D42D57 /* EXPRACSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E7166185136D500D42D57 /* EXPRACSubscriber.m */; };
+		218E716C18513F5B00D42D57 /* EXPMatchers+receiveErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E716B18513F5B00D42D57 /* EXPMatchers+receiveErrorTest.m */; };
+		218E717518513F6200D42D57 /* EXPExpect+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E716F18513F6200D42D57 /* EXPExpect+Test.m */; };
+		218E717618513F6200D42D57 /* FakeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E717118513F6200D42D57 /* FakeTestCase.m */; };
+		218E717718513F6200D42D57 /* Fixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E717318513F6200D42D57 /* Fixtures.m */; };
+		218E71791851420400D42D57 /* EXPRACSubscriberTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E71781851420400D42D57 /* EXPRACSubscriberTests.m */; };
+		218E717D185142C700D42D57 /* LLReactiveMatchersFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E717C185142C700D42D57 /* LLReactiveMatchersFixtures.m */; };
+		21FD0A4E1850470000DB455B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FD0A4D1850470000DB455B /* Foundation.framework */; };
+		21FD0A5C1850470000DB455B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FD0A5B1850470000DB455B /* XCTest.framework */; };
+		21FD0A5D1850470000DB455B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FD0A4D1850470000DB455B /* Foundation.framework */; };
+		21FD0A5F1850470000DB455B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FD0A5E1850470000DB455B /* UIKit.framework */; };
+		21FD0A621850470000DB455B /* libLLReactiveMatchers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FD0A4A1850470000DB455B /* libLLReactiveMatchers.a */; };
+		21FD0A681850470000DB455B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21FD0A661850470000DB455B /* InfoPlist.strings */; };
+		21FD0A7518504D4700DB455B /* EXPMatchers+receiveError.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FD0A7418504D4700DB455B /* EXPMatchers+receiveError.m */; };
+		D77CF4357E7645CA9CD16B5E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36235DB5AB1140659840DAD1 /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		21FD0A601850470000DB455B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21FD0A42185046FF00DB455B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21FD0A491850470000DB455B;
+			remoteInfo = LLReactiveMatchers;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		21FD0A481850470000DB455B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		218E7165185136D500D42D57 /* EXPRACSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPRACSubscriber.h; sourceTree = "<group>"; };
+		218E7166185136D500D42D57 /* EXPRACSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPRACSubscriber.m; sourceTree = "<group>"; };
+		218E716B18513F5B00D42D57 /* EXPMatchers+receiveErrorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+receiveErrorTest.m"; sourceTree = "<group>"; };
+		218E716E18513F6200D42D57 /* EXPExpect+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPExpect+Test.h"; sourceTree = "<group>"; };
+		218E716F18513F6200D42D57 /* EXPExpect+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPExpect+Test.m"; sourceTree = "<group>"; };
+		218E717018513F6200D42D57 /* FakeTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeTestCase.h; sourceTree = "<group>"; };
+		218E717118513F6200D42D57 /* FakeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeTestCase.m; sourceTree = "<group>"; };
+		218E717218513F6200D42D57 /* Fixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fixtures.h; sourceTree = "<group>"; };
+		218E717318513F6200D42D57 /* Fixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fixtures.m; sourceTree = "<group>"; };
+		218E717418513F6200D42D57 /* TestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHelper.h; sourceTree = "<group>"; };
+		218E71781851420400D42D57 /* EXPRACSubscriberTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPRACSubscriberTests.m; sourceTree = "<group>"; };
+		218E717B185142C700D42D57 /* LLReactiveMatchersFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLReactiveMatchersFixtures.h; sourceTree = "<group>"; };
+		218E717C185142C700D42D57 /* LLReactiveMatchersFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLReactiveMatchersFixtures.m; sourceTree = "<group>"; };
+		21FD0A4A1850470000DB455B /* libLLReactiveMatchers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLLReactiveMatchers.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		21FD0A4D1850470000DB455B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		21FD0A511850470000DB455B /* LLReactiveMatchers-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LLReactiveMatchers-Prefix.pch"; sourceTree = "<group>"; };
+		21FD0A5A1850470000DB455B /* LLReactiveMatchersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LLReactiveMatchersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		21FD0A5B1850470000DB455B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		21FD0A5E1850470000DB455B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		21FD0A651850470000DB455B /* LLReactiveMatchersTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LLReactiveMatchersTests-Info.plist"; sourceTree = "<group>"; };
+		21FD0A671850470000DB455B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		21FD0A7318504D4700DB455B /* EXPMatchers+receiveError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+receiveError.h"; sourceTree = "<group>"; };
+		21FD0A7418504D4700DB455B /* EXPMatchers+receiveError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+receiveError.m"; sourceTree = "<group>"; };
+		36235DB5AB1140659840DAD1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5C77E98CCBE464094EAA1AE /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		21FD0A471850470000DB455B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21FD0A4E1850470000DB455B /* Foundation.framework in Frameworks */,
+				D77CF4357E7645CA9CD16B5E /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21FD0A571850470000DB455B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21FD0A5C1850470000DB455B /* XCTest.framework in Frameworks */,
+				21FD0A5F1850470000DB455B /* UIKit.framework in Frameworks */,
+				21FD0A5D1850470000DB455B /* Foundation.framework in Frameworks */,
+				21FD0A621850470000DB455B /* libLLReactiveMatchers.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		218E716A18513F5B00D42D57 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				218E716B18513F5B00D42D57 /* EXPMatchers+receiveErrorTest.m */,
+				218E71781851420400D42D57 /* EXPRACSubscriberTests.m */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		218E716D18513F6200D42D57 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				218E716E18513F6200D42D57 /* EXPExpect+Test.h */,
+				218E716F18513F6200D42D57 /* EXPExpect+Test.m */,
+				218E717018513F6200D42D57 /* FakeTestCase.h */,
+				218E717118513F6200D42D57 /* FakeTestCase.m */,
+				218E717218513F6200D42D57 /* Fixtures.h */,
+				218E717318513F6200D42D57 /* Fixtures.m */,
+				218E717418513F6200D42D57 /* TestHelper.h */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		218E717A185142A200D42D57 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				218E717B185142C700D42D57 /* LLReactiveMatchersFixtures.h */,
+				218E717C185142C700D42D57 /* LLReactiveMatchersFixtures.m */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		21FD0A41185046FF00DB455B = {
+			isa = PBXGroup;
+			children = (
+				21FD0A4F1850470000DB455B /* LLReactiveMatchers */,
+				21FD0A631850470000DB455B /* LLReactiveMatchersTests */,
+				21FD0A4C1850470000DB455B /* Frameworks */,
+				21FD0A4B1850470000DB455B /* Products */,
+				D5C77E98CCBE464094EAA1AE /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		21FD0A4B1850470000DB455B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				21FD0A4A1850470000DB455B /* libLLReactiveMatchers.a */,
+				21FD0A5A1850470000DB455B /* LLReactiveMatchersTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		21FD0A4C1850470000DB455B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				21FD0A4D1850470000DB455B /* Foundation.framework */,
+				21FD0A5B1850470000DB455B /* XCTest.framework */,
+				21FD0A5E1850470000DB455B /* UIKit.framework */,
+				36235DB5AB1140659840DAD1 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		21FD0A4F1850470000DB455B /* LLReactiveMatchers */ = {
+			isa = PBXGroup;
+			children = (
+				21FD0A7318504D4700DB455B /* EXPMatchers+receiveError.h */,
+				21FD0A7418504D4700DB455B /* EXPMatchers+receiveError.m */,
+				218E7165185136D500D42D57 /* EXPRACSubscriber.h */,
+				218E7166185136D500D42D57 /* EXPRACSubscriber.m */,
+				21FD0A501850470000DB455B /* Supporting Files */,
+			);
+			path = LLReactiveMatchers;
+			sourceTree = "<group>";
+		};
+		21FD0A501850470000DB455B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				21FD0A511850470000DB455B /* LLReactiveMatchers-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		21FD0A631850470000DB455B /* LLReactiveMatchersTests */ = {
+			isa = PBXGroup;
+			children = (
+				218E717A185142A200D42D57 /* Fixtures */,
+				218E716D18513F6200D42D57 /* Helpers */,
+				21FD0A641850470000DB455B /* Supporting Files */,
+				218E716A18513F5B00D42D57 /* Tests */,
+			);
+			path = LLReactiveMatchersTests;
+			sourceTree = "<group>";
+		};
+		21FD0A641850470000DB455B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				21FD0A651850470000DB455B /* LLReactiveMatchersTests-Info.plist */,
+				21FD0A661850470000DB455B /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		21FD0A491850470000DB455B /* LLReactiveMatchers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21FD0A6D1850470000DB455B /* Build configuration list for PBXNativeTarget "LLReactiveMatchers" */;
+			buildPhases = (
+				1267B9E657C9496DA521159C /* Check Pods Manifest.lock */,
+				21FD0A461850470000DB455B /* Sources */,
+				21FD0A471850470000DB455B /* Frameworks */,
+				21FD0A481850470000DB455B /* CopyFiles */,
+				B41B9504AA6F455AA41E300E /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LLReactiveMatchers;
+			productName = LLReactiveMatchers;
+			productReference = 21FD0A4A1850470000DB455B /* libLLReactiveMatchers.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		21FD0A591850470000DB455B /* LLReactiveMatchersTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21FD0A701850470000DB455B /* Build configuration list for PBXNativeTarget "LLReactiveMatchersTests" */;
+			buildPhases = (
+				21FD0A561850470000DB455B /* Sources */,
+				21FD0A571850470000DB455B /* Frameworks */,
+				21FD0A581850470000DB455B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				21FD0A611850470000DB455B /* PBXTargetDependency */,
+			);
+			name = LLReactiveMatchersTests;
+			productName = LLReactiveMatchersTests;
+			productReference = 21FD0A5A1850470000DB455B /* LLReactiveMatchersTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		21FD0A42185046FF00DB455B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+			};
+			buildConfigurationList = 21FD0A45185046FF00DB455B /* Build configuration list for PBXProject "LLReactiveMatchers" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 21FD0A41185046FF00DB455B;
+			productRefGroup = 21FD0A4B1850470000DB455B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				21FD0A491850470000DB455B /* LLReactiveMatchers */,
+				21FD0A591850470000DB455B /* LLReactiveMatchersTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		21FD0A581850470000DB455B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21FD0A681850470000DB455B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1267B9E657C9496DA521159C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B41B9504AA6F455AA41E300E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		21FD0A461850470000DB455B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				218E7167185136D500D42D57 /* EXPRACSubscriber.m in Sources */,
+				21FD0A7518504D4700DB455B /* EXPMatchers+receiveError.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21FD0A561850470000DB455B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				218E717718513F6200D42D57 /* Fixtures.m in Sources */,
+				218E717618513F6200D42D57 /* FakeTestCase.m in Sources */,
+				218E71791851420400D42D57 /* EXPRACSubscriberTests.m in Sources */,
+				218E716C18513F5B00D42D57 /* EXPMatchers+receiveErrorTest.m in Sources */,
+				218E717518513F6200D42D57 /* EXPExpect+Test.m in Sources */,
+				218E717D185142C700D42D57 /* LLReactiveMatchersFixtures.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		21FD0A611850470000DB455B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 21FD0A491850470000DB455B /* LLReactiveMatchers */;
+			targetProxy = 21FD0A601850470000DB455B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		21FD0A661850470000DB455B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21FD0A671850470000DB455B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		21FD0A6B1850470000DB455B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		21FD0A6C1850470000DB455B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		21FD0A6E1850470000DB455B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5C77E98CCBE464094EAA1AE /* Pods.xcconfig */;
+			buildSettings = {
+				DSTROOT = /tmp/LLReactiveMatchers.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LLReactiveMatchers/LLReactiveMatchers-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		21FD0A6F1850470000DB455B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5C77E98CCBE464094EAA1AE /* Pods.xcconfig */;
+			buildSettings = {
+				DSTROOT = /tmp/LLReactiveMatchers.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LLReactiveMatchers/LLReactiveMatchers-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		21FD0A711850470000DB455B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LLReactiveMatchers/LLReactiveMatchers-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "LLReactiveMatchersTests/LLReactiveMatchersTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		21FD0A721850470000DB455B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LLReactiveMatchers/LLReactiveMatchers-Prefix.pch";
+				INFOPLIST_FILE = "LLReactiveMatchersTests/LLReactiveMatchersTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		21FD0A45185046FF00DB455B /* Build configuration list for PBXProject "LLReactiveMatchers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21FD0A6B1850470000DB455B /* Debug */,
+				21FD0A6C1850470000DB455B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21FD0A6D1850470000DB455B /* Build configuration list for PBXNativeTarget "LLReactiveMatchers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21FD0A6E1850470000DB455B /* Debug */,
+				21FD0A6F1850470000DB455B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21FD0A701850470000DB455B /* Build configuration list for PBXNativeTarget "LLReactiveMatchersTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21FD0A711850470000DB455B /* Debug */,
+				21FD0A721850470000DB455B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 21FD0A42185046FF00DB455B /* Project object */;
+}
