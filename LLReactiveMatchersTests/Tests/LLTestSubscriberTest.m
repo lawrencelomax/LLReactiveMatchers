@@ -8,8 +8,8 @@
 - (void) test_signalCategoryIdempotence {
     RACSignal *signal = [LLReactiveMatchersFixtures signalThatSendsValuesThenErrors];
     
-    id firstSubscriber = [signal events];
-    id secondSubscriber = [signal events];
+    id firstSubscriber = [signal testSubscriber];
+    id secondSubscriber = [signal testSubscriber];
     assertEquals(firstSubscriber, secondSubscriber);
 }
 
@@ -21,42 +21,41 @@
 }
 
 - (void) test_subscriberAccumilatesNextValues {
-    RACSubject *subject = [[RACSubject subject] attatchToTestSubscriber];
+    RACSubject *subject = [RACSubject subject];
     
-    expect(subject.events.valuesReceived).to.haveCountOf(0);
+    expect(subject.values).to.haveCountOf(0);
     
     [subject sendNext:@0];
     [subject sendNext:@1];
     [subject sendNext:@2];
 
-    expect(subject.events.valuesReceived).to.contain(@0);
-    expect(subject.events.valuesReceived).to.contain(@1);
-    expect(subject.events.valuesReceived).to.contain(@2);
-    expect(subject.events.valuesReceived).to.haveCountOf(3);
+    expect(subject.values).to.contain(@0);
+    expect(subject.values).to.contain(@1);
+    expect(subject.values).to.contain(@2);
+    expect(subject.values).to.haveCountOf(3);
 }
 
 - (void) test_subscriberErrors {
     RACSubject *subject = [[RACSubject subject] attatchToTestSubscriber];
     
-    expect(subject.events.hasErrored).to.beFalsy();
-    expect(subject.events.errorReceived).to.beNil();
+    expect(subject).toNot.haveErrored();
+    expect(subject.error).to.beNil();
     
     [subject sendError:MI9SpecError];
     
-    expect(subject.events.errorReceived).to.equal(MI9SpecError);
-    expect(subject.events.hasErrored).to.beTruthy();
+    expect(subject.error).to.equal(MI9SpecError);
+    expect(subject).to.haveErrored();
 }
 
 - (void) test_subscriberCompletes {
     RACSubject *subject = [[RACSubject subject] attatchToTestSubscriber];
     
-    expect(subject.events.hasCompleted).to.beFalsy();
+    expect(subject).toNot.haveCompleted();
     
     [subject sendCompleted];
     
-    expect(subject.events.hasCompleted).to.beTruthy();
+    expect(subject).to.haveCompleted();
 }
-
 
 - (void) test_subscriberAccumilatesNextValuesBeforeErroring {
     RACSubject *subject = [[RACSubject subject] attatchToTestSubscriber];
@@ -66,13 +65,13 @@
     [subject sendNext:@2];
     [subject sendError:MI9SpecError];
     
-    expect(subject.events.valuesReceived).to.contain(@0);
-    expect(subject.events.valuesReceived).to.contain(@1);
-    expect(subject.events.valuesReceived).to.contain(@2);
-    expect(subject.events.valuesReceived).to.haveCountOf(3);
+    expect(subject.values).to.contain(@0);
+    expect(subject.values).to.contain(@1);
+    expect(subject.values).to.contain(@2);
+    expect(subject.values).to.haveCountOf(3);
     
-    expect(subject.events.errorReceived).to.equal(MI9SpecError);
-    expect(subject.events.hasErrored).to.beTruthy();
+    expect(subject.error).to.equal(MI9SpecError);
+    expect(subject).to.haveErrored();
 }
 
 - (void) test_subscriberAccumilatesNextValuesBeforeCompleting {
@@ -83,11 +82,11 @@
     [subject sendNext:@2];
     [subject sendCompleted];
     
-    expect(subject.events.valuesReceived).to.contain(@0);
-    expect(subject.events.valuesReceived).to.contain(@1);
-    expect(subject.events.valuesReceived).to.contain(@2);
-    expect(subject.events.valuesReceived).to.haveCountOf(3);
-    expect(subject.events.hasCompleted).to.beTruthy();
+    expect(subject.values).to.contain(@0);
+    expect(subject.values).to.contain(@1);
+    expect(subject.values).to.contain(@2);
+    expect(subject.values).to.haveCountOf(3);
+    expect(subject).to.haveCompleted();
 }
 
 

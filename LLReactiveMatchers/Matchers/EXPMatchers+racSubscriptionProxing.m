@@ -10,8 +10,16 @@
 
 @implementation LLTestSubscriber (RACSubscriptionProxying)
 
+- (NSArray *) values {
+    return self.valuesReceived;
+}
+
 - (BOOL) haveErrored {
     return self.hasErrored;
+}
+
+- (NSError *) error {
+    return self.errorReceived;
 }
 
 - (BOOL) haveCompleted {
@@ -23,12 +31,20 @@
 
 @implementation RACSignal (RACSubscriptionProxying)
 
+- (NSArray *) values {
+    return self.testSubscriber.values;
+}
+
 - (BOOL) haveErrored {
-    return self.events.haveErrored;
+    return self.testSubscriber.haveErrored;
+}
+
+- (NSError *) error {
+    return self.testSubscriber.error;
 }
 
 - (BOOL) haveCompleted {
-    return self.events.haveCompleted;
+    return self.testSubscriber.haveCompleted;
 }
 
 @end

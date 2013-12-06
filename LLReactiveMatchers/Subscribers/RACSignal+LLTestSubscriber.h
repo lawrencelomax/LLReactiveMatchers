@@ -15,7 +15,7 @@
 /// Returns the test subscriber for this signal, subscribing if not already done so.
 /// This will only be subscribed to once, so this is similar to muticasting.
 /// Results will be the same regardless of how many matchers are added.
-- (LLTestSubscriber *) events;
+- (LLTestSubscriber *) testSubscriber;
 
 /// Attatches to the Test Subscriber, purely a side effect.
 /// Returns self for chaining.

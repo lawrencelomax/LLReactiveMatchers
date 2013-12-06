@@ -12,7 +12,7 @@
 
 @implementation RACSignal (LLTestSubscriber)
 
-- (LLTestSubscriber *) events {
+- (LLTestSubscriber *) testSubscriber {
     static const char *key;
     
     LLTestSubscriber *subscriber = objc_getAssociatedObject(self, key);
@@ -26,7 +26,7 @@
 
 - (instancetype) attatchToTestSubscriber {
     // Using getter purely for side effects *yuck*, but chaining.
-    [self events];
+    [self testSubscriber];
     
     return self;
 }
