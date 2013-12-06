@@ -21,12 +21,18 @@
 }
 
 - (void) test_subscriberAccumilatesNextValues {
-    RACSubject *subject = [RACSubject subject];
-    [subject attatchToTestSubscriber];
+    RACSubject *subject = [[RACSubject subject] attatchToTestSubscriber];
     
     expect(subject.events.valuesReceived).to.haveCountOf(0);
     
     [subject sendNext:@0];
+    [subject sendNext:@1];
+    [subject sendNext:@2];
+
+    expect(subject.events.valuesReceived).to.contain(@0);
+    expect(subject.events.valuesReceived).to.contain(@1);
+    expect(subject.events.valuesReceived).to.contain(@2);
+    expect(subject.events.valuesReceived).to.haveCountOf(3);
 }
 
 @end

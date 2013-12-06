@@ -14,11 +14,12 @@
 
 /// Returns the test subscriber for this signal, subscribing if not already done so.
 /// This will only be subscribed to once, so this is similar to muticasting.
-/// Results will be the same regardless of how many matchers are added
+/// Results will be the same regardless of how many matchers are added.
 - (LLTestSubscriber *) events;
 
 /// Attatches to the Test Subscriber, purely a side effect.
-/// The test subscriber can be obtained at any point with ```-events```
-- (void) attatchToTestSubscriber;
+/// Returns self for chaining.
+/// The test subscriber can be obtained at any point with ```-events```.
+- (instancetype) attatchToTestSubscriber;
 
 @end
