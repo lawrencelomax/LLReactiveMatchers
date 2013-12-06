@@ -13,4 +13,11 @@
     assertEquals(firstSubscriber, secondSubscriber);
 }
 
+- (void) test_subscriberReferencesSignal {
+    RACSignal *signal = [LLReactiveMatchersFixtures signalThatSendsValuesThenCompletes];
+    LLTestSubscriber *subscriber = [LLTestSubscriber subscribeWithSignal:signal];
+    
+    assertEquals(subscriber.signal, signal);
+}
+
 @end

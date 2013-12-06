@@ -12,7 +12,7 @@
 
 @interface LLTestSubscriber ()
 
-@property (nonatomic, strong) RACSignal *signal;
+@property (nonatomic, weak) RACSignal *signal;
 
 @end
 
@@ -20,6 +20,7 @@
 
 + (instancetype) subscribeWithSignal:(RACSignal *)signal {
     LLTestSubscriber *subscriber = [LLTestSubscriber replaySubjectWithCapacity:RACReplaySubjectUnlimitedCapacity];
+    subscriber.signal = signal;
     [signal subscribe:subscriber];
     return subscriber;
 }
