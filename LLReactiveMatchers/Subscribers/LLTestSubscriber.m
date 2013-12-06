@@ -8,37 +8,69 @@
 
 #import "LLTestSubscriber.h"
 
-#import <objc/runtime.h>
-
 @interface LLTestSubscriber ()
 
 @property (nonatomic, weak) RACSignal *signal;
+@property (nonatomic, strong) RACDisposable *disposable;
+
+@property (nonatomic, strong) NSMutableArray *valuesReceived;
+
+@property (nonatomic, assign, getter = hasCompleted) BOOL completed;
+
+@property (nonatomic, assign, getter = hasErrored) BOOL errored;
+@property (nonatomic, strong) NSError *errorReceived;
 
 @end
 
 @implementation LLTestSubscriber
 
 + (instancetype) subscribeWithSignal:(RACSignal *)signal {
-    LLTestSubscriber *subscriber = [LLTestSubscriber replaySubjectWithCapacity:RACReplaySubjectUnlimitedCapacity];
+    LLTestSubscriber *subscriber = [[LLTestSubscriber alloc] init];
     subscriber.signal = signal;
     [signal subscribe:subscriber];
     return subscriber;
 }
 
-@end
-
-@implementation RACSignal (LLTestSubscriber)
-
-- (LLTestSubscriber *) events {
-    static const char *key;
-    
-    LLTestSubscriber *subscriber = objc_getAssociatedObject(self, key);
-    if(!subscriber) {
-        subscriber = [LLTestSubscriber subscribeWithSignal:self];
-        objc_setAssociatedObject(self, key, subscriber, OBJC_ASSOCIATION_ASSIGN);
+- (id) init {
+    if( (self = [super init]) ) {
+        self.valuesReceived = [NSMutableArray array];
     }
-    
-    return subscriber;
+    return self;
+}
+
+- (void) dealloc {
+    [self.disposable dispose];
+}
+
+#pragma mark RACSubscriber
+
+- (void)sendNext:(id)value {
+    @synchronized(self) {
+        [self.valuesReceived addObject:value];
+    }
+}
+
+- (void)sendError:(NSError *)error {
+    @synchronized(self) {
+        [self.disposable dispose];
+        
+        self.errored = YES;
+        self.errorReceived = error;
+    }
+}
+
+- (void)sendCompleted {
+    @synchronized(self) {
+        [self.disposable dispose];
+        
+        self.completed = YES;
+    }
+}
+
+- (void)didSubscribeWithDisposable:(RACDisposable *)disposable {
+    @synchronized(self) {
+        self.disposable = disposable;
+    }
 }
 
 @end

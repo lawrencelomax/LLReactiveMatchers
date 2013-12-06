@@ -8,7 +8,7 @@ EXPMatcherImplementationBegin(receiveError, (void)) {
     });
     
     match(^BOOL{
-        return subscriber.hasError;
+        return subscriber.errored;
     });
     
     failureMessageForTo(^NSString *{

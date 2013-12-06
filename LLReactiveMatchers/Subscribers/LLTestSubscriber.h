@@ -11,7 +11,8 @@
 /// The TestSubscriber is used by matchers and stores all of the events that it
 /// receives. The TestSubscriber will continue to consume events until completion
 /// or error.
-@interface LLTestSubscriber : RACReplaySubject
+/// Can only ever subscribe to one signal
+@interface LLTestSubscriber : NSObject <RACSubscriber>
 
 + (instancetype) subscribeWithSignal:(RACSignal *)signal;
 
@@ -19,22 +20,17 @@
 @property (nonatomic, readonly) RACSignal *signal;
 
 /// An Array of all the values the Subscriber has received up to this point
-@property (nonatomic, strong, readonly) NSMutableArray *valuesReceived;
+@property (nonatomic, readonly) NSMutableArray *valuesReceived;
 
 /// Whether the Signal has completed
-@property (nonatomic, assign) BOOL hasCompleted;
+@property (nonatomic, readonly, getter = hasCompleted) BOOL completed;
+
+// The error, if one has been received
+@property (nonatomic, readonly) NSError *errorReceived;
 
 /// Whether the Signal has errored
-@property (nonatomic, assign) BOOL hasError;
+@property (nonatomic, readonly, getter = hasErrored) BOOL errored;
 
 @end
 
 
-/// A Category on RACSignal to easily extract all the events
-@interface RACSignal (LLTestSubscriber)
-
-/// Returns the test subsciber for this signal. Subscribed to only once, results
-/// will be the same regardless of how many matchers are used for the same Signal
-- (LLTestSubscriber *) events;
-
-@end
