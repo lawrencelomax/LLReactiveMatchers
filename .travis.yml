@@ -1,5 +1,2 @@
 language: objective-c
-before_install:
-    - brew update
-    - brew install xctool
 script: xctool ARCHS=i386 VALID_ARCHS=i386 CURRENT_ARCH=i386 ONLY_ACTIVE_ARCH=NO -workspace 'LLReactiveMatchers.xcworkspace' -scheme 'LLReactiveMatchers' -configuration Debug -sdk iphonesimulator clean build test
