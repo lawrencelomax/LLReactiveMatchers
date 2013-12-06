@@ -15,6 +15,7 @@
 		21DD76CD1851792C00488C18 /* EXPExpect+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76C91851792C00488C18 /* EXPExpect+Test.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		21DD76CE1851792C00488C18 /* FakeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76CB1851792C00488C18 /* FakeTestCase.m */; };
 		21DD76D31851805F00488C18 /* RACSignal+LLTestSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76D21851805F00488C18 /* RACSignal+LLTestSubscriber.m */; };
+		21E842B91851A46300B7AC44 /* EXPMatchers+racSubscriptionProxing.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E842B81851A46300B7AC44 /* EXPMatchers+racSubscriptionProxing.m */; };
 		21FD0A4E1850470000DB455B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FD0A4D1850470000DB455B /* Foundation.framework */; };
 		21FD0A5C1850470000DB455B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FD0A5B1850470000DB455B /* XCTest.framework */; };
 		21FD0A5D1850470000DB455B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FD0A4D1850470000DB455B /* Foundation.framework */; };
@@ -54,7 +55,6 @@
 		218E717C185142C700D42D57 /* LLReactiveMatchersFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLReactiveMatchersFixtures.m; sourceTree = "<group>"; };
 		218E718418514BC300D42D57 /* LLReactiveMatchersTestsImports.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLReactiveMatchersTestsImports.h; sourceTree = "<group>"; };
 		218E718518514BE300D42D57 /* LLReactiveMatchersTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LLReactiveMatchersTests-Prefix.pch"; sourceTree = "<group>"; };
-		218E718618514D5B00D42D57 /* LLReactiveMatchersImports.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLReactiveMatchersImports.h; sourceTree = "<group>"; };
 		218E718818514D7C00D42D57 /* EXPMatchers+receiveError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+receiveError.h"; sourceTree = "<group>"; };
 		218E718918514D7C00D42D57 /* EXPMatchers+receiveError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+receiveError.m"; sourceTree = "<group>"; };
 		218E718B18514D7C00D42D57 /* LLTestSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLTestSubscriber.h; sourceTree = "<group>"; };
@@ -65,6 +65,10 @@
 		21DD76CB1851792C00488C18 /* FakeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeTestCase.m; sourceTree = "<group>"; };
 		21DD76D11851805F00488C18 /* RACSignal+LLTestSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+LLTestSubscriber.h"; sourceTree = "<group>"; };
 		21DD76D21851805F00488C18 /* RACSignal+LLTestSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+LLTestSubscriber.m"; sourceTree = "<group>"; };
+		21E842B71851A46300B7AC44 /* EXPMatchers+racSubscriptionProxing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+racSubscriptionProxing.h"; sourceTree = "<group>"; };
+		21E842B81851A46300B7AC44 /* EXPMatchers+racSubscriptionProxing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+racSubscriptionProxing.m"; sourceTree = "<group>"; };
+		21E842BA1851A57D00B7AC44 /* LLReactiveMatchers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLReactiveMatchers.h; sourceTree = "<group>"; };
+		21E842BB1851A73400B7AC44 /* LLReactiveMatchersImports.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLReactiveMatchersImports.h; sourceTree = "<group>"; };
 		21FD0A4A1850470000DB455B /* libLLReactiveMatchers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLLReactiveMatchers.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		21FD0A4D1850470000DB455B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		21FD0A511850470000DB455B /* LLReactiveMatchers-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LLReactiveMatchers-Prefix.pch"; sourceTree = "<group>"; };
@@ -136,6 +140,8 @@
 			children = (
 				218E718818514D7C00D42D57 /* EXPMatchers+receiveError.h */,
 				218E718918514D7C00D42D57 /* EXPMatchers+receiveError.m */,
+				21E842B71851A46300B7AC44 /* EXPMatchers+racSubscriptionProxing.h */,
+				21E842B81851A46300B7AC44 /* EXPMatchers+racSubscriptionProxing.m */,
 			);
 			path = Matchers;
 			sourceTree = "<group>";
@@ -185,10 +191,11 @@
 		21FD0A4F1850470000DB455B /* LLReactiveMatchers */ = {
 			isa = PBXGroup;
 			children = (
+				21E842BB1851A73400B7AC44 /* LLReactiveMatchersImports.h */,
+				21E842BA1851A57D00B7AC44 /* LLReactiveMatchers.h */,
 				218E718718514D7C00D42D57 /* Matchers */,
 				218E718A18514D7C00D42D57 /* Subscribers */,
 				21FD0A501850470000DB455B /* Supporting Files */,
-				218E718618514D5B00D42D57 /* LLReactiveMatchersImports.h */,
 			);
 			path = LLReactiveMatchers;
 			sourceTree = "<group>";
@@ -338,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21E842B91851A46300B7AC44 /* EXPMatchers+racSubscriptionProxing.m in Sources */,
 				21DD76D31851805F00488C18 /* RACSignal+LLTestSubscriber.m in Sources */,
 				218E718E18514D7C00D42D57 /* LLTestSubscriber.m in Sources */,
 				218E718D18514D7C00D42D57 /* EXPMatchers+receiveError.m in Sources */,
