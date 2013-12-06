@@ -27,7 +27,7 @@
 
 @end
 
-@implementation RACSignal (EXPRACSubscriber)
+@implementation RACSignal (LLTestSubscriber)
 
 - (LLTestSubscriber *) events {
     static const char *key;
