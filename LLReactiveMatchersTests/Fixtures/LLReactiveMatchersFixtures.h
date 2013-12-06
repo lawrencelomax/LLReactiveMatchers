@@ -15,5 +15,6 @@ extern NSError * LLReactiveMatchersFixtureError();
 @interface LLReactiveMatchersFixtures : NSObject
 
 + (RACSignal *) signalThatSendsValuesThenErrors;
++ (RACSignal *) signalThatSendsValuesThenCompletes;
 
 @end

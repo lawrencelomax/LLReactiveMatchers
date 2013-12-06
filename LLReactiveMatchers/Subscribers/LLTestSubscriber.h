@@ -1,5 +1,5 @@
 //
-//  EXPRACSubscriber.h
+//  LLTestSubscriber.h
 //  LLReactiveMatchers
 //
 //  Created by Lawrence Lomax on 6/12/2013.
@@ -8,7 +8,7 @@
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface EXPRACSubscriber : RACReplaySubject
+@interface LLTestSubscriber : RACReplaySubject
 
 + (instancetype) subscribeWithSignal:(RACSignal *)signal;
 
@@ -22,6 +22,6 @@
 
 @interface RACSignal (EXPRACSubscriber)
 
-- (EXPRACSubscriber *) events;
+- (LLTestSubscriber *) events;
 
 @end

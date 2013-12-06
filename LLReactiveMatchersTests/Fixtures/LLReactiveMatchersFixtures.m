@@ -26,4 +26,8 @@ extern NSError * LLReactiveMatchersFixtureError() {
     return [[[RACSignal return:@0] concat:[RACSignal return:@1]] concat:[RACSignal error:LLTestError]];
 }
 
++ (RACSignal *) signalThatSendsValuesThenCompletes {
+    return [[RACSignal return:@0] concat:[RACSignal return:@1]];
+}
+
 @end

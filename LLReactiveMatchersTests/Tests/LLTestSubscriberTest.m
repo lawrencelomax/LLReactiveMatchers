@@ -1,11 +1,9 @@
-#import "TestHelper.h"
-#import "EXPRACSubscriber.h"
-#import "LLReactiveMatchersFixtures.h"
+#import "LLTestSubscriber.h"
 
-@interface EXPRACSubscriberTests : TEST_SUPERCLASS
+@interface LLTestSubscriberTests : TEST_SUPERCLASS
 @end
 
-@implementation EXPRACSubscriberTests
+@implementation LLTestSubscriberTests
 
 - (void) test_signalCategoryIdempotence {
     RACSignal *signal = [LLReactiveMatchersFixtures signalThatSendsValuesThenErrors];

@@ -8,6 +8,8 @@
 #else
 #import "Expecta.h"
 #endif
+#import "FakeTestCase.h"
+#import "EXPExpect+Test.h"
 
 
 #ifdef USE_XCTEST

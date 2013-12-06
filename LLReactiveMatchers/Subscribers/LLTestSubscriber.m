@@ -1,25 +1,25 @@
 //
-//  EXPRACSubscriber.m
+//  LLTestSubscriber.m
 //  LLReactiveMatchers
 //
 //  Created by Lawrence Lomax on 6/12/2013.
 //
 //
 
-#import "EXPRACSubscriber.h"
+#import "LLTestSubscriber.h"
 
 #import <objc/runtime.h>
 
-@interface EXPRACSubscriber ()
+@interface LLTestSubscriber ()
 
-@property (nonatomic, weak) RACSignal *signal;
+@property (nonatomic, strong) RACSignal *signal;
 
 @end
 
-@implementation EXPRACSubscriber
+@implementation LLTestSubscriber
 
 + (instancetype) subscribeWithSignal:(RACSignal *)signal {
-    EXPRACSubscriber *subscriber = [EXPRACSubscriber replaySubjectWithCapacity:RACReplaySubjectUnlimitedCapacity];
+    LLTestSubscriber *subscriber = [LLTestSubscriber replaySubjectWithCapacity:RACReplaySubjectUnlimitedCapacity];
     [signal subscribe:subscriber];
     return subscriber;
 }
@@ -28,12 +28,12 @@
 
 @implementation RACSignal (EXPRACSubscriber)
 
-- (EXPRACSubscriber *) events {
+- (LLTestSubscriber *) events {
     static const char *key;
     
-    EXPRACSubscriber *subscriber = objc_getAssociatedObject(self, key);
+    LLTestSubscriber *subscriber = objc_getAssociatedObject(self, key);
     if(!subscriber) {
-        subscriber = [EXPRACSubscriber subscribeWithSignal:self];
+        subscriber = [LLTestSubscriber subscribeWithSignal:self];
         objc_setAssociatedObject(self, key, subscriber, OBJC_ASSOCIATION_ASSIGN);
     }
     
