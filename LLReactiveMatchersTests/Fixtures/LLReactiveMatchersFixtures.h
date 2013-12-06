@@ -12,6 +12,8 @@
 extern NSString *const LLReactiveMatcherFixtureErrorDomain;
 extern NSError * LLReactiveMatchersFixtureError();
 
+#define MI9SpecError LLReactiveMatchersFixtureError()
+
 @interface LLReactiveMatchersFixtures : NSObject
 
 + (RACSignal *) signalThatSendsValuesThenErrors;
