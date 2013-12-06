@@ -24,4 +24,9 @@
     return subscriber;
 }
 
+- (void) attatchToTestSubscriber {
+    // Using getter purely for side effects *yuck*, but it makes tests clearer in the tests
+    [self events];
+}
+
 @end

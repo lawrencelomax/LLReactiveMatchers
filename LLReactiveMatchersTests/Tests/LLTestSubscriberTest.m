@@ -20,4 +20,13 @@
     assertEquals(subscriber.signal, signal);
 }
 
+- (void) test_subscriberAccumilatesNextValues {
+    RACSubject *subject = [RACSubject subject];
+    [subject attatchToTestSubscriber];
+    
+    expect(subject.events.valuesReceived).to.haveCountOf(0);
+    
+    [subject sendNext:@0];
+}
+
 @end
