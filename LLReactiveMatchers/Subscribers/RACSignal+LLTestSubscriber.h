@@ -7,19 +7,21 @@
 //
 
 #import "RACSignal.h"
-#import "LLTestSubscriber.h"
+#import "LLSignalTestProxy.h"
 
-/// A Category on RACSignal to easily extract all the events
 @interface RACSignal (LLTestSubscriber)
 
-/// Returns the test subscriber for this signal, subscribing if not already done so.
-/// This will only be subscribed to once, so this is similar to muticasting.
-/// Results will be the same regardless of how many matchers are added.
-- (LLTestSubscriber *) testSubscriber;
+/// Sets the global default for all Signals to whether a Signal has the same
+/// test proxy returned. Defaults to NO.
++ (void) setShouldHaveSingularTestProxyGlobally:(BOOL)singular;
 
-/// Attatches to the Test Subscriber, purely a side effect.
-/// Returns self for chaining.
-/// The test subscriber can be obtained at any point with ```-events```.
-- (instancetype) attatchToTestSubscriber;
+/// Returns YES if this signal should provide the same test proxy.
+/// This may need to be YES, if the same Signal needs to have its side effects
+/// tested multiple times.
+@property (nonatomic, assign) BOOL shouldHaveSingularTestProxy;
+
+/// Returns the test proxy for this signal which will subscribe to the receiver.
+/// If this is the proxy
+- (LLSignalTestProxy *) testProxy;
 
 @end

@@ -4,8 +4,6 @@
 #import <Specta/Specta.h>
 #import <Expecta/Expecta.h>
 
-#import "LLTestSubscriber.h"
+#import "LLSignalTestProxy.h"
 #import "RACSignal+LLTestSubscriber.h"
 
-#import "EXPMatchers+racSubscriptionProxing.h"
-#import "EXPMatchers+receiveError.h"
