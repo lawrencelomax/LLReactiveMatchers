@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		212E34941856BC5D00D04066 /* EXPMatchers+haveIdenticalEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E34931856BC5D00D04066 /* EXPMatchers+haveIdenticalEvents.m */; };
+		212E34961856BC6D00D04066 /* EXPMatchers+haveIdenticalEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E34951856BC6D00D04066 /* EXPMatchers+haveIdenticalEventsTests.m */; };
 		218E71791851420400D42D57 /* LLSignalTestProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E71781851420400D42D57 /* LLSignalTestProxyTest.m */; };
 		218E717D185142C700D42D57 /* LLReactiveMatchersFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E717C185142C700D42D57 /* LLReactiveMatchersFixtures.m */; };
 		21DD76CD1851792C00488C18 /* EXPExpect+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76C91851792C00488C18 /* EXPExpect+Test.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -45,6 +47,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		212E34921856BC5D00D04066 /* EXPMatchers+haveIdenticalEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+haveIdenticalEvents.h"; sourceTree = "<group>"; };
+		212E34931856BC5D00D04066 /* EXPMatchers+haveIdenticalEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+haveIdenticalEvents.m"; sourceTree = "<group>"; };
+		212E34951856BC6D00D04066 /* EXPMatchers+haveIdenticalEventsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+haveIdenticalEventsTests.m"; sourceTree = "<group>"; };
 		218E717418513F6200D42D57 /* TestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHelper.h; sourceTree = "<group>"; };
 		218E71781851420400D42D57 /* LLSignalTestProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSignalTestProxyTest.m; sourceTree = "<group>"; };
 		218E717B185142C700D42D57 /* LLReactiveMatchersFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLReactiveMatchersFixtures.h; sourceTree = "<group>"; };
@@ -97,10 +102,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		212E34911856BC5D00D04066 /* Matchers */ = {
+			isa = PBXGroup;
+			children = (
+				212E34921856BC5D00D04066 /* EXPMatchers+haveIdenticalEvents.h */,
+				212E34931856BC5D00D04066 /* EXPMatchers+haveIdenticalEvents.m */,
+			);
+			path = Matchers;
+			sourceTree = "<group>";
+		};
 		218E716A18513F5B00D42D57 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				218E71781851420400D42D57 /* LLSignalTestProxyTest.m */,
+				212E34951856BC6D00D04066 /* EXPMatchers+haveIdenticalEventsTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -171,8 +186,9 @@
 		21FD0A4F1850470000DB455B /* LLReactiveMatchers */ = {
 			isa = PBXGroup;
 			children = (
-				21E842BB1851A73400B7AC44 /* LLReactiveMatchersImports.h */,
 				21E842BA1851A57D00B7AC44 /* LLReactiveMatchers.h */,
+				21E842BB1851A73400B7AC44 /* LLReactiveMatchersImports.h */,
+				212E34911856BC5D00D04066 /* Matchers */,
 				218E718A18514D7C00D42D57 /* Subscribers */,
 				21FD0A501850470000DB455B /* Supporting Files */,
 			);
@@ -326,6 +342,7 @@
 			files = (
 				21DD76D31851805F00488C18 /* RACSignal+LLTestSubscriber.m in Sources */,
 				21F5F6B31856731C00F4B30A /* LLSignalTestProxy.m in Sources */,
+				212E34941856BC5D00D04066 /* EXPMatchers+haveIdenticalEvents.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +352,7 @@
 			files = (
 				21DD76CE1851792C00488C18 /* FakeTestCase.m in Sources */,
 				21DD76CD1851792C00488C18 /* EXPExpect+Test.m in Sources */,
+				212E34961856BC6D00D04066 /* EXPMatchers+haveIdenticalEventsTests.m in Sources */,
 				218E71791851420400D42D57 /* LLSignalTestProxyTest.m in Sources */,
 				218E717D185142C700D42D57 /* LLReactiveMatchersFixtures.m in Sources */,
 			);
