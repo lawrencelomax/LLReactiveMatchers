@@ -65,4 +65,12 @@
     assertPass(test_expect(signal).willNot.haveIdenticalEvents(expected));
 }
 
+- (void) test_identicalEventsOneDidNotComplete {
+    RACSignal *signal = [[[RACSignal return:@YES] concat:[RACSignal return:@NO]] concat:[RACSignal return:@5]];
+    RACSignal *expected = [[[[RACSignal return:@YES] concat:[RACSignal return:@NO]] concat:[RACSignal return:@5]] concat:RACSignal.never];
+    
+    assertPass(test_expect(signal).toNot.haveIdenticalEvents(expected));
+    assertFail(test_expect(signal).to.haveIdenticalEvents(expected), @"Both Signals have not finished");
+}
+
 @end

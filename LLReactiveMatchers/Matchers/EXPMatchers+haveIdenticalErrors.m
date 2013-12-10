@@ -6,6 +6,7 @@ BOOL correctClasses = ([expected isKindOfClass:RACSignal.class] && [actual isKin
 
 __block LLSignalTestProxy *leftProxy;
 __block LLSignalTestProxy *rightProxy;
+__block BOOL bothFinished = NO;
 
 prerequisite(^BOOL{
     if(correctClasses) {
@@ -21,11 +22,14 @@ match(^BOOL{
         return NO;
     }
     
+    bothFinished = YES;
     return identicalErrors(leftProxy, rightProxy) && leftProxy.hasErrored && rightProxy.hasErrored;
 });
 
 failureMessageForTo(^NSString *{
-    if(identicalErrors(leftProxy, rightProxy)) {
+    if (!bothFinished) {
+        return @"Both Signals have not finished";
+    } else if(identicalErrors(leftProxy, rightProxy)) {
         return @"Both signals did not error";
     }
     

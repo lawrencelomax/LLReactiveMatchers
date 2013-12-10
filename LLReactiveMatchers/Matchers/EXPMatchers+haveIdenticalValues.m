@@ -6,6 +6,7 @@ BOOL correctClasses = ([expected isKindOfClass:RACSignal.class] && [actual isKin
 
 __block LLSignalTestProxy *leftProxy;
 __block LLSignalTestProxy *rightProxy;
+__block BOOL bothFinished = NO;
 
 prerequisite(^BOOL{
     if(correctClasses) {
@@ -21,10 +22,15 @@ match(^BOOL{
         return NO;
     }
     
+    bothFinished = YES;
     return identicalValues(leftProxy, rightProxy);
 });
 
 failureMessageForTo(^NSString *{
+    if(!bothFinished) {
+        return @"Both Signals have not finished";
+    }
+    
     return [NSString stringWithFormat:@"Values %@ are not the same as %@", EXPDescribeObject(leftProxy.values), EXPDescribeObject(rightProxy.values)];
 });
 

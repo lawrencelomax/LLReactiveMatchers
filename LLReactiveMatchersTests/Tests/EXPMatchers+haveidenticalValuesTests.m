@@ -37,4 +37,12 @@
     assertFail(test_expect(signal).haveIdenticalValues(expected), @"Values (1, 0, 5) are not the same as (1, 0, 1)");
 }
 
+- (void) test_identicalValuesOneDidNotComplete {
+    RACSignal *signal = [[[RACSignal return:@YES] concat:[RACSignal return:@NO]] concat:[RACSignal return:@5]];
+    RACSignal *expected = [[[[RACSignal return:@YES] concat:[RACSignal return:@NO]] concat:[RACSignal return:@1]] concat:RACSignal.never];
+
+    assertPass(test_expect(signal).toNot.haveIdenticalValues(expected));
+    assertFail(test_expect(signal).haveIdenticalValues(expected), @"Both Signals have not finished");
+}
+
 @end
