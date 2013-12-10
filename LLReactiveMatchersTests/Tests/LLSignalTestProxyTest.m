@@ -132,5 +132,4 @@
     expect(proxy.hasCompleted).to.beTruthy();
 }
 
-
 @end
