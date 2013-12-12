@@ -12,6 +12,15 @@ extern BOOL __attribute__((overloadable)) identicalErrors(LLSignalTestProxy *lef
     return identicalErrors(leftProxy.error, rightProxy.error);
 }
 
+extern BOOL containsAllValuesUnordered(LLSignalTestProxy *proxy, NSArray *values) {
+    NSSet *receievedSet = [NSSet setWithArray:proxy.values];
+    NSSet *expectedSet = [NSSet setWithArray:values];
+    NSMutableSet *intersectionSet = [NSMutableSet setWithSet:receievedSet];
+    [intersectionSet intersectSet:expectedSet];
+    
+    return [intersectionSet isEqualToSet:expectedSet];
+}
+
 extern BOOL identicalValues(LLSignalTestProxy *leftProxy, LLSignalTestProxy *rightProxy) {
     return [leftProxy.values isEqualToArray:rightProxy.values];
 }
