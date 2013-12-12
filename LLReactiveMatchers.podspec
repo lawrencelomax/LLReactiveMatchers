@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.frameworks   = 'Foundation', 'XCTest'  
 
-  s.dependency 'ReactiveCocoa', '~>2.0'
+  s.dependency 'ReactiveCocoa', '>=2.1.7'
   s.dependency 'Expecta'
   s.dependency 'Specta'
 end

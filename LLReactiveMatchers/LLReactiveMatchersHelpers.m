@@ -1,10 +1,15 @@
 #import "LLReactiveMatchersHelpers.h"
 
-extern BOOL identicalErrors(LLSignalTestProxy *leftProxy, LLSignalTestProxy *rightProxy) {
-    if(leftProxy.error == rightProxy.error) {
+extern BOOL __attribute__((overloadable)) identicalErrors(NSError *leftError, NSError *rightError) {
+    // Succeeds if errors are both nil
+    if(leftError == rightError) {
         return YES;
     }
-    return [leftProxy.error isEqual:rightProxy.error];
+    return [leftError isEqual:rightError];
+}
+
+extern BOOL __attribute__((overloadable)) identicalErrors(LLSignalTestProxy *leftProxy, LLSignalTestProxy *rightProxy) {
+    return identicalErrors(leftProxy.error, rightProxy.error);
 }
 
 extern BOOL identicalValues(LLSignalTestProxy *leftProxy, LLSignalTestProxy *rightProxy) {
