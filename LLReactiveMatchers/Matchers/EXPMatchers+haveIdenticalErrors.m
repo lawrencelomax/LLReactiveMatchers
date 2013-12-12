@@ -2,7 +2,7 @@
 
 EXPMatcherImplementationBegin(haveIdenticalErrors, (RACSignal *expected))
 
-BOOL correctClasses = ([expected isKindOfClass:RACSignal.class] && [actual isKindOfClass:RACSignal.class]);
+BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 
 __block LLSignalTestProxy *leftProxy;
 __block LLSignalTestProxy *rightProxy;

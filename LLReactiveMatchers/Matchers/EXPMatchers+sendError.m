@@ -2,9 +2,7 @@
 
 EXPMatcherImplementationBegin(sendError, (NSError *expected))
 
-BOOL expectedClassCorrect = [expected isKindOfClass:NSError.class] || expected == nil;
-BOOL actualClassCorrect = [actual isKindOfClass:RACSignal.class];
-BOOL classesAreCorrect = expectedClassCorrect && actualClassCorrect;
+BOOL classesAreCorrect = [actual isKindOfClass:RACSignal.class];
 
 __block LLSignalTestProxy *actualProxy;
 __block BOOL actualFinished = NO;
