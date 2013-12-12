@@ -23,14 +23,14 @@ failureMessageForTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    return @"Did not contain all values";
+    return [NSString stringWithFormat:@"Signal %@ does not contain all values %@", LLDescribeSignal(actual), EXPDescribeObject(expected)];
 });
 
 failureMessageForNotTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    return @"Contained all values";
+    return [NSString stringWithFormat:@"Signal %@ contains all values %@", LLDescribeSignal(actual), EXPDescribeObject(expected)];
 });
 
 EXPMatcherImplementationEnd

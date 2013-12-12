@@ -34,19 +34,13 @@ failureMessageForTo(^NSString *{
     if(!expectedProxy.hasFinished) {
         return [LLReactiveMatchersMessages expectedNotFinished:expected];
     }
-    else if(identicalErrors(actualProxy, expectedProxy)) {
-        return @"Both signals did not error";
-    }
     
-    return @"Signals have different errors";
+    return [NSString stringWithFormat:@"Actual error in Signal %@ not the same as expected error in Signal %@", LLDescribeSignal(actual), LLDescribeSignal(expected)];
 });
 
 failureMessageForNotTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
-    }
-    if(!identicalErrors(actualProxy, expectedProxy)) {
-        return @"Both signals did not error";
     }
     
     return @"Signals have the same errors";

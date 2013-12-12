@@ -31,7 +31,7 @@ failureMessageForTo(^NSString *{
         return [LLReactiveMatchersMessages actualNotFinished:actual];
     }
 
-    return @"Signal finished with error";
+    return [NSString stringWithFormat:@"Signal %@ finished in error instead of completion", LLDescribeSignal(actual)];
 });
 
 failureMessageForNotTo(^NSString *{
@@ -39,7 +39,7 @@ failureMessageForNotTo(^NSString *{
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     
-    return @"Signal completed";
+    return [NSString stringWithFormat:@"Signal %@ finished in completion instead of not completing", LLDescribeSignal(actual)];
 });
 
 EXPMatcherImplementationEnd

@@ -37,11 +37,7 @@ failureMessageForTo(^NSString *{
     if( !identicalValues(actualProxy, expectedProxy) ) {
         return [NSString stringWithFormat:@"Values %@ are not the same as %@", EXPDescribeObject(actualProxy.values), EXPDescribeObject(expectedProxy.values)];
     }
-    if( !identicalFinishingStatus(actualProxy, expectedProxy) ) {
-        return @"Signals do not end the same";
-    }
-    
-    return @"Signals do not have the same errors";
+    return [NSString stringWithFormat:@"Actual %@ does not have the same finishing event as %@", LLDescribeSignal(actual), LLDescribeSignal(expected)];
 });
 
 failureMessageForNotTo(^NSString *{
@@ -51,11 +47,7 @@ failureMessageForNotTo(^NSString *{
     if(!identicalValues(actualProxy, expectedProxy) ) {
         return [NSString stringWithFormat:@"Values %@ are the same as %@", EXPDescribeObject(actualProxy.values), EXPDescribeObject(expectedProxy.values)];
     }
-    if( !identicalFinishingStatus(actualProxy, expectedProxy) ) {
-        return @"Signals end the same";
-    }
-    
-    return @"Signals have the same errors";
+    return [NSString stringWithFormat:@"Actual %@ has the same finishing event as %@", LLDescribeSignal(actual), LLDescribeSignal(expected)];
 });
 
 EXPMatcherImplementationEnd

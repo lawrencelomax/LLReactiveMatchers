@@ -14,17 +14,17 @@
 }
 
 - (void) test_noErrors {
-    RACSignal *signal = [LLReactiveMatchersFixtures values:@[@YES, @NO, @5]];
-    RACSignal *expected = [LLReactiveMatchersFixtures values:@[@YES, @NO, @5]];
+    RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"foo"];
+    RACSignal *expected = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"bar"];
     
-    assertFail(test_expect(signal).to.haveIdenticalErrors(expected), @"Both signals did not error");
+    assertFail(test_expect(signal).to.haveIdenticalErrors(expected), @"Actual error in Signal foo not the same as expected error in Signal bar");
 }
 
 - (void) test_oneError {
-    RACSignal *signal = [LLReactiveMatchersFixtures values:@[@YES, @NO, @5]];
-    RACSignal *expected = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]];
+    RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"foo"];
+    RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"bar"];
     
-    assertFail(test_expect(signal).to.haveIdenticalErrors(expected), @"Signals have different errors");
+    assertFail(test_expect(signal).to.haveIdenticalErrors(expected), @"Actual error in Signal foo not the same as expected error in Signal bar");
 }
 
 - (void) test_identicalErrors {
@@ -38,11 +38,11 @@
 - (void) test_differentErrors {
     NSError *anotherError = [NSError errorWithDomain:@"foo" code:1 userInfo:@{}];
     
-    RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]];
-    RACSignal *expected = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:anotherError]];
+    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"foo"];
+    RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:anotherError]] setNameWithFormat:@"bar"];
     
     assertPass(test_expect(signal).toNot.haveIdenticalErrors(expected));
-    assertFail(test_expect(signal).to.haveIdenticalErrors(expected), @"Signals have different errors");
+    assertFail(test_expect(signal).to.haveIdenticalErrors(expected), @"Actual error in Signal foo not the same as expected error in Signal bar");
 }
 
 @end

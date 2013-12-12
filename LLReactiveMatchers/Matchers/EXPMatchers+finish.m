@@ -32,10 +32,10 @@ failureMessageForNotTo(^NSString *{
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     if(actualProxy.hasErrored) {
-        return @"Signal errored";
+        return [NSString stringWithFormat:@"Signal %@ finished in error instead of not finishing", LLDescribeSignal(actual)];
     }
     
-    return @"Signal completed";
+    return [NSString stringWithFormat:@"Signal %@ finished in completion instead of not finishing", LLDescribeSignal(actual)];
 });
 
 EXPMatcherImplementationEnd

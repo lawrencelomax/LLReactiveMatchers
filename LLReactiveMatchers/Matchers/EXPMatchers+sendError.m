@@ -31,10 +31,10 @@ failureMessageForTo(^NSString *{
         return [LLReactiveMatchersMessages actualNotFinished:actual];
     }
     if(!actualProxy.hasErrored) {
-        return @"Signal did not finish in error";
+        return [NSString stringWithFormat:@"Signal %@ did not finish in error", LLDescribeSignal(actual)];
     }
     
-    return [NSString stringWithFormat:@"Errors are not the same"];
+    return [NSString stringWithFormat:@"Actual %@ does not have the same error as %@", LLDescribeSignal(actual), EXPDescribeObject(expected)];
 });
 
 failureMessageForNotTo(^NSString *{
@@ -42,7 +42,7 @@ failureMessageForNotTo(^NSString *{
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     
-    return [NSString stringWithFormat:@"Errors are the same"];
+    return [NSString stringWithFormat:@"Actual %@ has the same error as %@", LLDescribeSignal(actual), EXPDescribeObject(expected)];
 });
 
 EXPMatcherImplementationEnd
