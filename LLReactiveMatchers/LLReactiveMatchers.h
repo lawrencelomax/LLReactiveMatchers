@@ -5,5 +5,4 @@
 #import <Expecta/Expecta.h>
 
 #import "LLSignalTestProxy.h"
-#import "RACSignal+LLTestSubscriber.h"
 

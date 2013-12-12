@@ -8,7 +8,7 @@ __block LLSignalTestProxy *actualProxy;
 
 prerequisite(^BOOL{
     if(actualClassCorrect) {
-        actualProxy = [actual testProxy];
+        actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
         return YES;
     }
     

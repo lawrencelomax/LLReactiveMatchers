@@ -5,52 +5,6 @@
 
 @implementation LLSignalTestProxyTests
 
-- (void) test_proxyIdempotenceGlobally {
-    [RACSignal setShouldHaveSingularTestProxyGlobally:YES];
-    
-    RACSignal *signal = [LLReactiveMatchersFixtures signalThatSendsValuesThenErrors];
-
-    LLSignalTestProxy *firstProxy = [signal testProxy];
-    LLSignalTestProxy *secondProxy = [signal testProxy];
-    
-    assertEquals(firstProxy, secondProxy);
-}
-
-- (void) test_proxyIdempotenceLocally {
-    [RACSignal setShouldHaveSingularTestProxyGlobally:NO];
-    
-    RACSignal *signal = [LLReactiveMatchersFixtures signalThatSendsValuesThenErrors];
-    signal.shouldHaveSingularTestProxy = YES;
-    
-    LLSignalTestProxy *firstProxy = [signal testProxy];
-    LLSignalTestProxy *secondProxy = [signal testProxy];
-    
-    assertEquals(firstProxy, secondProxy);
-}
-
-- (void) test_proxyNonIdempotenceGlobally {
-    [RACSignal setShouldHaveSingularTestProxyGlobally:NO];
-    
-    RACSignal *signal = [LLReactiveMatchersFixtures signalThatSendsValuesThenErrors];
-    
-    LLSignalTestProxy *firstProxy = [signal testProxy];
-    LLSignalTestProxy *secondProxy = [signal testProxy];
-    
-    assertFalse(firstProxy == secondProxy);
-}
-
-- (void) test_proxyNonIdempotenceLocally {
-    [RACSignal setShouldHaveSingularTestProxyGlobally:YES];
-    
-    RACSignal *signal = [LLReactiveMatchersFixtures signalThatSendsValuesThenErrors];
-    signal.shouldHaveSingularTestProxy = NO;
-    
-    LLSignalTestProxy *firstProxy = [signal testProxy];
-    LLSignalTestProxy *secondProxy = [signal testProxy];
-    
-    assertFalse(firstProxy == secondProxy);
-}
-
 - (void) test_proxyReferencesSignal {
     RACSignal *signal = [LLReactiveMatchersFixtures signalThatSendsValuesThenCompletes];
     LLSignalTestProxy *subscriber = [LLSignalTestProxy testProxyWithSignal:signal];
@@ -60,7 +14,7 @@
 
 - (void) test_proxyAccumilatesNextValues {
     RACSubject *subject = [RACSubject subject];
-    LLSignalTestProxy *proxy = [subject testProxy];
+    LLSignalTestProxy *proxy = [LLSignalTestProxy testProxyWithSignal:subject];
     
     expect(proxy.values).to.haveCountOf(0);
     
@@ -76,7 +30,7 @@
 
 - (void) test_proxyErrors {
     RACSubject *subject = [RACSubject subject];
-    LLSignalTestProxy *proxy = [subject testProxy];
+    LLSignalTestProxy *proxy = [LLSignalTestProxy testProxyWithSignal:subject];
     
     expect(proxy.hasErrored).to.beFalsy();
     expect(proxy.error).to.beNil();
@@ -89,7 +43,7 @@
 
 - (void) test_proxyCompletes {
     RACSubject *subject = [RACSubject subject];
-    LLSignalTestProxy *proxy = [subject testProxy];
+    LLSignalTestProxy *proxy = [LLSignalTestProxy testProxyWithSignal:subject];
     
     expect(proxy.hasCompleted).to.beFalsy();
     
@@ -100,7 +54,7 @@
 
 - (void) test_proxyAccumilatesNextValuesBeforeErroring {
     RACSubject *subject = [RACSubject subject];
-    LLSignalTestProxy *proxy = [subject testProxy];
+    LLSignalTestProxy *proxy = [LLSignalTestProxy testProxyWithSignal:subject];
     
     [subject sendNext:@0];
     [subject sendNext:@1];
@@ -118,7 +72,7 @@
 
 - (void) test_proxyAccumilatesNextValuesBeforeCompleting {
     RACSubject *subject = [RACSubject subject];
-    LLSignalTestProxy *proxy = [subject testProxy];
+    LLSignalTestProxy *proxy = [LLSignalTestProxy testProxyWithSignal:subject];
     
     [subject sendNext:@0];
     [subject sendNext:@1];

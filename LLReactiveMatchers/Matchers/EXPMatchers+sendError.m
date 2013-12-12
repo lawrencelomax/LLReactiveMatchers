@@ -11,7 +11,7 @@ __block BOOL actualFinished = NO;
 
 prerequisite(^BOOL{
     if(classesAreCorrect) {
-        actualProxy = [actual testProxy];
+        actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
         return YES;
     }
     

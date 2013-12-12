@@ -10,8 +10,8 @@ __block BOOL bothFinished = NO;
 
 prerequisite(^BOOL{
     if(correctClasses) {
-        leftProxy = [actual testProxy];
-        rightProxy = [expected testProxy];
+        leftProxy = [LLSignalTestProxy testProxyWithSignal:actual];
+        rightProxy = [LLSignalTestProxy testProxyWithSignal:expected];
     }
     
     return correctClasses;
