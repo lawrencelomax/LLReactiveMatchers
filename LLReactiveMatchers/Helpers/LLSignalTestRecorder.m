@@ -1,14 +1,14 @@
 //
-//  LLSignalTestProxy.m
+//  LLSignalTestRecorder.m
 //  LLReactiveMatchers
 //
 //  Created by Lawrence Lomax on 10/12/2013.
 //
 //
 
-#import "LLSignalTestProxy.h"
+#import "LLSignalTestRecorder.h"
 
-@interface LLSignalTestProxy ()
+@interface LLSignalTestRecorder ()
 
 @property (nonatomic, strong) RACSignal *signal;
 @property (nonatomic, strong) RACDisposable *subscriptionDisposable;
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation LLSignalTestProxy
+@implementation LLSignalTestRecorder
 
 - (id) init {
     if( (self = [super init]) ) {
@@ -30,10 +30,10 @@
     return self;
 }
 
-+ (instancetype) testProxyWithSignal:(RACSignal *)signal {
-    LLSignalTestProxy *proxy = [[LLSignalTestProxy alloc] init];
-    [proxy subscribeToSignal:signal];
-    return proxy;
++ (instancetype) recordWithSignal:(RACSignal *)signal {
+    LLSignalTestRecorder *recorder = [[LLSignalTestRecorder alloc] init];
+    [recorder subscribeToSignal:signal];
+    return recorder;
 }
 
 - (void) dealloc {

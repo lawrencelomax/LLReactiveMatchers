@@ -4,40 +4,40 @@ EXPMatcherImplementationBegin(haveIdenticalEvents, (RACSignal *expected))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 
-__block LLSignalTestProxy *actualProxy = nil;
-__block LLSignalTestProxy *expectedProxy = nil;
+__block LLSignalTestRecorder *actualRecorder = nil;
+__block LLSignalTestRecorder *expectedRecorder = nil;
 
 prerequisite(^BOOL{
     return correctClasses;
 });
 
 match(^BOOL{
-    if(!actualProxy) {
-        actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
+    if(!actualRecorder) {
+        actualRecorder = [LLSignalTestRecorder recordWithSignal:actual];
     }
-    if(!expectedProxy) {
-        expectedProxy = [LLSignalTestProxy testProxyWithSignal:expected];
+    if(!expectedRecorder) {
+        expectedRecorder = [LLSignalTestRecorder recordWithSignal:expected];
     }
     
-    if(!actualProxy.hasFinished || !expectedProxy.hasFinished) {
+    if(!actualRecorder.hasFinished || !expectedRecorder.hasFinished) {
         return NO;
     }
     
-    return identicalValues(actualProxy, expectedProxy) && identicalFinishingStatus(actualProxy, expectedProxy) && identicalErrors(actualProxy, expectedProxy);
+    return identicalValues(actualRecorder, expectedRecorder) && identicalFinishingStatus(actualRecorder, expectedRecorder) && identicalErrors(actualRecorder, expectedRecorder);
 });
 
 failureMessageForTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    if(!actualProxy.hasFinished) {
+    if(!actualRecorder.hasFinished) {
         return [LLReactiveMatchersMessages actualNotFinished:actual];
     }
-    if(!expectedProxy.hasFinished) {
+    if(!expectedRecorder.hasFinished) {
         return [LLReactiveMatchersMessages expectedNotFinished:expected];
     }
-    if( !identicalValues(actualProxy, expectedProxy) ) {
-        return [NSString stringWithFormat:@"Values %@ are not the same as %@", EXPDescribeObject(actualProxy.values), EXPDescribeObject(expectedProxy.values)];
+    if( !identicalValues(actualRecorder, expectedRecorder) ) {
+        return [NSString stringWithFormat:@"Values %@ are not the same as %@", EXPDescribeObject(actualRecorder.values), EXPDescribeObject(expectedRecorder.values)];
     }
     return [NSString stringWithFormat:@"Actual %@ does not have the same finishing event as %@", LLDescribeSignal(actual), LLDescribeSignal(expected)];
 });
@@ -46,8 +46,8 @@ failureMessageForNotTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    if(!identicalValues(actualProxy, expectedProxy) ) {
-        return [NSString stringWithFormat:@"Values %@ are the same as %@", EXPDescribeObject(actualProxy.values), EXPDescribeObject(expectedProxy.values)];
+    if(!identicalValues(actualRecorder, expectedRecorder) ) {
+        return [NSString stringWithFormat:@"Values %@ are the same as %@", EXPDescribeObject(actualRecorder.values), EXPDescribeObject(expectedRecorder.values)];
     }
     return [NSString stringWithFormat:@"Actual %@ has the same finishing event as %@", LLDescribeSignal(actual), LLDescribeSignal(expected)];
 });

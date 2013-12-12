@@ -2,5 +2,5 @@
 #import <Specta/Specta.h>
 
 #import "LLReactiveMatchersMessages.h"
-#import "LLSignalTestProxy.h"
+#import "LLSignalTestRecorder.h"
 #import "LLReactiveMatchersHelpers.h"

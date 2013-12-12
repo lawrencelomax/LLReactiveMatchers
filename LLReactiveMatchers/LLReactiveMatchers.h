@@ -4,5 +4,5 @@
 #import <Specta/Specta.h>
 #import <Expecta/Expecta.h>
 
-#import "LLSignalTestProxy.h"
+#import "LLSignalTestRecorder.h"
 

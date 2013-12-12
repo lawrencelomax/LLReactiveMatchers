@@ -1,8 +1,8 @@
 
 extern BOOL __attribute__((overloadable)) identicalErrors(NSError *leftError, NSError *rightError);
-extern BOOL __attribute__((overloadable)) identicalErrors(LLSignalTestProxy *leftProxy, LLSignalTestProxy *rightProxy);
+extern BOOL __attribute__((overloadable)) identicalErrors(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder);
 
-extern BOOL containsAllValuesUnordered(LLSignalTestProxy *proxy, NSArray *values);
+extern BOOL containsAllValuesUnordered(LLSignalTestRecorder *recorder, NSArray *values);
 
-extern BOOL identicalValues(LLSignalTestProxy *leftProxy, LLSignalTestProxy *rightProxy);
-extern BOOL identicalFinishingStatus(LLSignalTestProxy *leftProxy, LLSignalTestProxy *rightProxy);
+extern BOOL identicalValues(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder);
+extern BOOL identicalFinishingStatus(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder);

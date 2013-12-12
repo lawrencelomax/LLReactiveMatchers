@@ -8,12 +8,12 @@ extern BOOL __attribute__((overloadable)) identicalErrors(NSError *leftError, NS
     return [leftError isEqual:rightError];
 }
 
-extern BOOL __attribute__((overloadable)) identicalErrors(LLSignalTestProxy *leftProxy, LLSignalTestProxy *rightProxy) {
-    return identicalErrors(leftProxy.error, rightProxy.error);
+extern BOOL __attribute__((overloadable)) identicalErrors(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder) {
+    return identicalErrors(leftRecorder.error, rightRecorder.error);
 }
 
-extern BOOL containsAllValuesUnordered(LLSignalTestProxy *proxy, NSArray *values) {
-    NSSet *receievedSet = [NSSet setWithArray:proxy.values];
+extern BOOL containsAllValuesUnordered(LLSignalTestRecorder *recorder, NSArray *values) {
+    NSSet *receievedSet = [NSSet setWithArray:recorder.values];
     NSSet *expectedSet = [NSSet setWithArray:values];
     NSMutableSet *intersectionSet = [NSMutableSet setWithSet:receievedSet];
     [intersectionSet intersectSet:expectedSet];
@@ -21,10 +21,10 @@ extern BOOL containsAllValuesUnordered(LLSignalTestProxy *proxy, NSArray *values
     return [intersectionSet isEqualToSet:expectedSet];
 }
 
-extern BOOL identicalValues(LLSignalTestProxy *leftProxy, LLSignalTestProxy *rightProxy) {
-    return [leftProxy.values isEqualToArray:rightProxy.values];
+extern BOOL identicalValues(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder) {
+    return [leftRecorder.values isEqualToArray:rightRecorder.values];
 }
 
-extern BOOL identicalFinishingStatus(LLSignalTestProxy *leftProxy, LLSignalTestProxy *rightProxy) {
-    return (leftProxy.hasCompleted == rightProxy.hasCompleted) && (leftProxy.hasErrored == rightProxy.hasErrored);
+extern BOOL identicalFinishingStatus(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder) {
+    return (leftRecorder.hasCompleted == rightRecorder.hasCompleted) && (leftRecorder.hasErrored == rightRecorder.hasErrored);
 }

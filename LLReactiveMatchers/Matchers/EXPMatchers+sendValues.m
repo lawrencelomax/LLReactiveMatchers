@@ -3,18 +3,18 @@
 EXPMatcherImplementationBegin(sendValues, (NSArray *expected))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
-__block LLSignalTestProxy *actualProxy = nil;
+__block LLSignalTestRecorder *actualRecorder = nil;
 
 prerequisite(^BOOL{
     return correctClasses;
 });
 
 match(^BOOL{
-    if(!actualProxy) {
-        actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
+    if(!actualRecorder) {
+        actualRecorder = [LLSignalTestRecorder recordWithSignal:actual];
     }
     
-    return containsAllValuesUnordered(actualProxy, expected);
+    return containsAllValuesUnordered(actualRecorder, expected);
 });
 
 failureMessageForTo(^NSString *{

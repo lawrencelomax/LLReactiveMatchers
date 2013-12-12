@@ -1,5 +1,5 @@
 //
-//  LLSignalTestProxy.h
+//  LLSignalTestRecorder.h
 //  LLReactiveMatchers
 //
 //  Created by Lawrence Lomax on 10/12/2013.
@@ -8,12 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-/// This class is used to provide dynamic predicate matchers for Signals without
-/// polluting the Signal class lots of categories
-@interface LLSignalTestProxy : NSObject
+/// This class is used to record the events sent by a Signal for asserting against procedurally
+@interface LLSignalTestRecorder : NSObject
 
-/// The designated initializer, will subscribe to the Signal passed through
-+ (instancetype) testProxyWithSignal:(RACSignal *)signal;
+/// The designated initializer, will subscribe and record to the events sent by ```Signal```
++ (instancetype) recordWithSignal:(RACSignal *)signal;
 
 @property (nonatomic, readonly) RACSignal *signal;
 
