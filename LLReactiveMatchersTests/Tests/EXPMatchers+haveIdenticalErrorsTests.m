@@ -17,6 +17,7 @@
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"foo"];
     RACSignal *expected = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"bar"];
     
+    assertPass(test_expect(signal).toNot.haveIdenticalErrors(expected));
     assertFail(test_expect(signal).to.haveIdenticalErrors(expected), @"Actual error in Signal foo not the same as expected error in Signal bar");
 }
 
@@ -24,6 +25,7 @@
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"foo"];
     RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"bar"];
     
+    assertPass(test_expect(signal).toNot.haveIdenticalErrors(expected));
     assertFail(test_expect(signal).to.haveIdenticalErrors(expected), @"Actual error in Signal foo not the same as expected error in Signal bar");
 }
 

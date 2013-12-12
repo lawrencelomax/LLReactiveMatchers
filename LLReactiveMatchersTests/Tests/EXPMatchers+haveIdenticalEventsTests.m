@@ -14,10 +14,11 @@
 }
 
 - (void) test_identicalEventsCompletion {
-    RACSignal *signal = [LLReactiveMatchersFixtures values:@[@YES, @NO, @5]];
-    RACSignal *expected = [LLReactiveMatchersFixtures values:@[@YES, @NO, @5]];
+    RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"foo"];
+    RACSignal *expected = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"bar"];
     
     assertPass(test_expect(signal).to.haveIdenticalEvents(expected));
+    assertFail(test_expect(signal).toNot.haveIdenticalEvents(expected), @"Actual foo has all the same events as bar");
 }
 
 - (void) test_differentEventsCompletion {
@@ -33,7 +34,7 @@
     RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"bar"];
     
     assertPass(test_expect(signal).to.haveIdenticalEvents(expected));
-    assertFail(test_expect(signal).toNot.haveIdenticalEvents(expected), @"Actual foo has the same finishing event as bar");
+    assertFail(test_expect(signal).toNot.haveIdenticalEvents(expected), @"Actual foo has all the same events as bar");
 }
 
 - (void) test_identicalEventsDifferentErrors {

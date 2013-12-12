@@ -36,7 +36,7 @@ failureMessageForTo(^NSString *{
     if(!expectedRecorder.hasFinished) {
         return [LLReactiveMatchersMessages expectedNotFinished:expected];
     }
-    if( !identicalValues(actualRecorder, expectedRecorder) ) {
+    if(!identicalValues(actualRecorder, expectedRecorder)) {
         return [NSString stringWithFormat:@"Values %@ are not the same as %@", EXPDescribeObject(actualRecorder.values), EXPDescribeObject(expectedRecorder.values)];
     }
     return [NSString stringWithFormat:@"Actual %@ does not have the same finishing event as %@", LLDescribeSignal(actual), LLDescribeSignal(expected)];
@@ -46,10 +46,7 @@ failureMessageForNotTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    if(!identicalValues(actualRecorder, expectedRecorder) ) {
-        return [NSString stringWithFormat:@"Values %@ are the same as %@", EXPDescribeObject(actualRecorder.values), EXPDescribeObject(expectedRecorder.values)];
-    }
-    return [NSString stringWithFormat:@"Actual %@ has the same finishing event as %@", LLDescribeSignal(actual), LLDescribeSignal(expected)];
+    return [NSString stringWithFormat:@"Actual %@ has all the same events as %@", LLDescribeSignal(actual), LLDescribeSignal(expected)];
 });
 
 EXPMatcherImplementationEnd
