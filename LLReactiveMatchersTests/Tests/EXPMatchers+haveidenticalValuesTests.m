@@ -5,6 +5,14 @@
 
 @implementation EXPMatchers_haveIdenticalValuesTests
 
+- (void) test_nonSignalActual {
+    NSArray *actual = @[@1, @2, @3];
+    RACSignal *expected = [RACSignal return:@1];
+    
+    assertFail(test_expect(actual).to.haveIdenticalValues(expected), @"Actual (1, 2, 3) is not a Signal");
+    assertFail(test_expect(actual).toNot.haveIdenticalValues(expected), @"Actual (1, 2, 3) is not a Signal");
+}
+
 - (void) test_identicalValues {
     RACSignal *signal = [LLReactiveMatchersFixtures values:@[@YES, @NO, @5]];
     RACSignal *expected = [LLReactiveMatchersFixtures values:@[@YES, @NO, @5]];

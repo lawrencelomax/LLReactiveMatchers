@@ -5,6 +5,14 @@
 
 @implementation EXPMatchers_sendErrorTests
 
+- (void) test_nonSignalActual {
+    NSArray *actual = @[@1, @2, @3];
+    NSError *expected = MI9SpecError;
+    
+    assertFail(test_expect(actual).to.sendError(expected), @"Actual (1, 2, 3) is not a Signal");
+    assertFail(test_expect(actual).toNot.sendError(expected), @"Actual (1, 2, 3) is not a Signal");
+}
+
 - (void) test_endsInCompletion {
     RACSignal *signal = [LLReactiveMatchersFixtures values:@[@1, @2, @3]];
     NSError *error = nil;

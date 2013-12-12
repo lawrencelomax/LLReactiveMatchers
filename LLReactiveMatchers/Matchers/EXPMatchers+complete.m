@@ -36,7 +36,7 @@ failureMessageForTo(^NSString *{
 
 failureMessageForNotTo(^NSString *{
     if(!correctClasses) {
-        return @"Matcher not provided with correct classes";
+        return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     
     return @"Signal completed";

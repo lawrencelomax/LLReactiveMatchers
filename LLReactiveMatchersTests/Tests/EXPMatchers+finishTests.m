@@ -5,6 +5,13 @@
 
 @implementation EXPMatchers_finishTests
 
+- (void) test_nonSignalActual {
+    NSArray *actual = @[@1, @2, @3];
+    
+    assertFail(test_expect(actual).to.finish(), @"Actual (1, 2, 3) is not a Signal");
+    assertFail(test_expect(actual).toNot.finish(), @"Actual (1, 2, 3) is not a Signal");
+}
+
 - (void) test_completion {
     RACSignal *signal = [LLReactiveMatchersFixtures values:@[@YES, @NO, @5]];
     
