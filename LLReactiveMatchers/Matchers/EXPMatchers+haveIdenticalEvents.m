@@ -4,54 +4,58 @@ EXPMatcherImplementationBegin(haveIdenticalEvents, (RACSignal *expected))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 
-__block LLSignalTestProxy *leftProxy;
-__block LLSignalTestProxy *rightProxy;
-__block BOOL bothFinished = NO;
+__block LLSignalTestProxy *actualProxy;
+__block LLSignalTestProxy *expectedProxy;
 
 prerequisite(^BOOL{
     if(correctClasses) {
-        leftProxy = [LLSignalTestProxy testProxyWithSignal:actual];
-        rightProxy = [LLSignalTestProxy testProxyWithSignal:expected];
+        actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
+        expectedProxy = [LLSignalTestProxy testProxyWithSignal:expected];
     }
     
     return correctClasses;
 });
 
 match(^BOOL{
-    if(!leftProxy.hasFinished || !rightProxy.hasFinished) {
+    if(!actualProxy.hasFinished || !expectedProxy.hasFinished) {
         return NO;
     }
     
-    bothFinished = YES;
-    return identicalValues(leftProxy, rightProxy) && identicalFinishingStatus(leftProxy, rightProxy) && identicalErrors(leftProxy, rightProxy);
+    return identicalValues(actualProxy, expectedProxy) && identicalFinishingStatus(actualProxy, expectedProxy) && identicalErrors(actualProxy, expectedProxy);
 });
 
 failureMessageForTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    if(!bothFinished) {
-        return @"Both Signals have not finished";
-    } else if( !identicalValues(leftProxy, rightProxy) ) {
-        return [NSString stringWithFormat:@"Values %@ are not the same as %@", EXPDescribeObject(leftProxy.values), EXPDescribeObject(rightProxy.values)];
-    } else if( !identicalFinishingStatus(leftProxy, rightProxy) ) {
-        return @"Signals do not end the same";
-    } else {
-        return @"Signals do not have the same errors";
+    if(!actualProxy.hasFinished) {
+        return [LLReactiveMatchersMessages actualNotFinished:actual];
     }
+    if(!expectedProxy.hasFinished) {
+        return [LLReactiveMatchersMessages expectedNotFinished:expected];
+    }
+    if( !identicalValues(actualProxy, expectedProxy) ) {
+        return [NSString stringWithFormat:@"Values %@ are not the same as %@", EXPDescribeObject(actualProxy.values), EXPDescribeObject(expectedProxy.values)];
+    }
+    if( !identicalFinishingStatus(actualProxy, expectedProxy) ) {
+        return @"Signals do not end the same";
+    }
+    
+    return @"Signals do not have the same errors";
 });
 
 failureMessageForNotTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    if( !identicalValues(leftProxy, rightProxy) ) {
-        return [NSString stringWithFormat:@"Values %@ are the same as %@", EXPDescribeObject(leftProxy.values), EXPDescribeObject(rightProxy.values)];
-    } else if( !identicalFinishingStatus(leftProxy, rightProxy) ) {
-        return @"Signals end the same";
-    } else {
-        return @"Signals have the same errors";
+    if(!identicalValues(actualProxy, expectedProxy) ) {
+        return [NSString stringWithFormat:@"Values %@ are the same as %@", EXPDescribeObject(actualProxy.values), EXPDescribeObject(expectedProxy.values)];
     }
+    if( !identicalFinishingStatus(actualProxy, expectedProxy) ) {
+        return @"Signals end the same";
+    }
+    
+    return @"Signals have the same errors";
 });
 
 EXPMatcherImplementationEnd

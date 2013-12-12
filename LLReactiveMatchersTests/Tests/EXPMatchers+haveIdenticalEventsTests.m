@@ -73,12 +73,12 @@
     assertPass(test_expect(signal).willNot.haveIdenticalEvents(expected));
 }
 
-- (void) test_identicalEventsOneDidNotComplete {
+- (void) test_identicalEventsExpectedDidNotComplete {
     RACSignal *signal = [LLReactiveMatchersFixtures values:@[@YES, @NO, @5]];
-    RACSignal *expected = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:RACSignal.never];
+    RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:RACSignal.never] setNameWithFormat:@"foo"];
     
     assertPass(test_expect(signal).toNot.haveIdenticalEvents(expected));
-    assertFail(test_expect(signal).to.haveIdenticalEvents(expected), @"Both Signals have not finished");
+    assertFail(test_expect(signal).to.haveIdenticalEvents(expected), @"Expected foo has not finished");
 }
 
 @end

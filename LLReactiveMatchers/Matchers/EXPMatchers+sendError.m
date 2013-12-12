@@ -5,7 +5,6 @@ EXPMatcherImplementationBegin(sendError, (NSError *expected))
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 
 __block LLSignalTestProxy *actualProxy;
-__block BOOL actualFinished = NO;
 
 prerequisite(^BOOL{
     if(correctClasses) {
@@ -21,7 +20,6 @@ match(^BOOL{
         return NO;
     }
     
-    actualFinished = YES;
     return identicalErrors(actualProxy.error, expected) && actualProxy.hasErrored;
 });
 
@@ -29,7 +27,7 @@ failureMessageForTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    if(!actualFinished) {
+    if(!actualProxy.hasFinished) {
         return [LLReactiveMatchersMessages actualNotFinished:actual];
     }
     if(!actualProxy.hasErrored) {
@@ -42,9 +40,6 @@ failureMessageForTo(^NSString *{
 failureMessageForNotTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
-    }
-    if(!actualFinished) {
-        return [LLReactiveMatchersMessages actualNotFinished:actual];
     }
     
     return [NSString stringWithFormat:@"Errors are the same"];
