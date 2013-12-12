@@ -3,35 +3,58 @@
 EXPMatcherImplementationBegin(haveIdenticalErrors, (RACSignal *expected))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
-
-__block LLSignalTestProxy *actualProxy;
-__block LLSignalTestProxy *expectedProxy;
+__block BOOL hasSubscribed = NO;
+__block BOOL actualHasErrored = NO;
+__block BOOL actualHasCompleted = NO;
+__block BOOL expectedHasErrored = NO;
+__block BOOL expectedHasCompleted = NO;
+__block NSError *actualError = nil;
+__block NSError *expectedError = nil;
 
 prerequisite(^BOOL{
-    if(correctClasses) {
-        actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
-        expectedProxy = [LLSignalTestProxy testProxyWithSignal:expected];
-    }
-    
     return correctClasses;
 });
 
 match(^BOOL{
-    if(!actualProxy.hasFinished && !expectedProxy.hasFinished) {
-        return NO;
+    if(!hasSubscribed) {
+        [self.rac_deallocDisposable addDisposable:
+         [actual subscribeError:^(NSError *error) {
+            @synchronized(actual) {
+                actualHasErrored = YES;
+                actualError = error;
+            }
+         } completed:^{
+            @synchronized(actual) {
+                actualHasCompleted = YES;
+            }
+        }]];
+        
+        [self.rac_deallocDisposable addDisposable:
+         [expected subscribeError:^(NSError *error) {
+            @synchronized(actual) {
+                expectedHasErrored = YES;
+                expectedError = error;
+            }
+         } completed:^{
+            @synchronized(actual) {
+                expectedHasCompleted = YES;
+            }
+        }]];
+         
+        hasSubscribed = YES;
     }
-    
-    return identicalErrors(actualProxy, expectedProxy) && actualProxy.hasErrored && expectedProxy.hasErrored;
+        
+    return identicalErrors(actualError, expectedError) && actualHasErrored && expectedHasErrored;
 });
 
 failureMessageForTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    if(!actualProxy.hasFinished) {
+    if(!(actualHasErrored || actualHasCompleted)) {
         return [LLReactiveMatchersMessages actualNotFinished:actual];
     }
-    if(!expectedProxy.hasFinished) {
+    if(!(expectedHasErrored || expectedHasCompleted)) {
         return [LLReactiveMatchersMessages expectedNotFinished:expected];
     }
     
