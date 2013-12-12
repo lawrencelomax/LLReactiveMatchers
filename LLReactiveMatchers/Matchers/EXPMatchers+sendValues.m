@@ -3,8 +3,7 @@
 EXPMatcherImplementationBegin(sendValues, (NSArray *expected))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
-
-__block LLSignalTestProxy *actualProxy;
+__block LLSignalTestProxy *actualProxy = nil;
 
 prerequisite(^BOOL{
     return correctClasses;

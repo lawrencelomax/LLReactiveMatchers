@@ -5,7 +5,7 @@ EXPMatcherImplementationBegin(sendError, (NSError *expected))
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 __block BOOL hasErrored = NO;
 __block BOOL hasCompleted = NO;
-__block NSError *errorReceived;
+__block NSError *errorReceived = nil;
 
 prerequisite(^BOOL{
     return correctClasses;

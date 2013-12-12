@@ -4,8 +4,8 @@ EXPMatcherImplementationBegin(haveIdenticalEvents, (RACSignal *expected))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 
-__block LLSignalTestProxy *actualProxy;
-__block LLSignalTestProxy *expectedProxy;
+__block LLSignalTestProxy *actualProxy = nil;
+__block LLSignalTestProxy *expectedProxy = nil;
 
 prerequisite(^BOOL{
     return correctClasses;
