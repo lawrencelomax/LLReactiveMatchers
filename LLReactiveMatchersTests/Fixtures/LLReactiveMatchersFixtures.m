@@ -26,4 +26,8 @@ extern NSError * LLReactiveMatchersFixtureError() {
     return [[values.rac_sequence signalWithScheduler:RACScheduler.immediateScheduler] setNameWithFormat:@"values %@", EXPDescribeObject(values)];
 }
 
++ (RACSignal *) valuesAsynchronously:(NSArray *)values {
+    return [[[values.rac_sequence signalWithScheduler:RACScheduler.scheduler] delay:0.1] setNameWithFormat:@"values %@", EXPDescribeObject(values)];
+}
+
 @end
