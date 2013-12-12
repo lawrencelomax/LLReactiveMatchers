@@ -7,15 +7,14 @@ BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 __block LLSignalTestProxy *actualProxy;
 
 prerequisite(^BOOL{
-    if(correctClasses) {
-        actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
-        return YES;
-    }
-    
-    return NO;
+    return correctClasses;
 });
 
 match(^BOOL{
+    if(!actualProxy) {
+        actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
+    }
+    
     return containsAllValuesUnordered(actualProxy, expected);
 });
 

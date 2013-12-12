@@ -8,15 +8,17 @@ __block LLSignalTestProxy *actualProxy;
 __block LLSignalTestProxy *expectedProxy;
 
 prerequisite(^BOOL{
-    if(correctClasses) {
-        actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
-        expectedProxy = [LLSignalTestProxy testProxyWithSignal:expected];
-    }
-    
     return correctClasses;
 });
 
 match(^BOOL{
+    if(!actualProxy) {
+        actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
+    }
+    if(!expectedProxy) {
+        expectedProxy = [LLSignalTestProxy testProxyWithSignal:expected];
+    }
+    
     if(!actualProxy.hasFinished || !expectedProxy.hasFinished) {
         return NO;
     }

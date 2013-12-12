@@ -3,34 +3,38 @@
 EXPMatcherImplementationBegin(sendError, (NSError *expected))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
-
-__block LLSignalTestProxy *actualProxy;
+__block BOOL hasErrored = NO;
+__block BOOL hasCompleted = NO;
+__block NSError *errorReceived;
 
 prerequisite(^BOOL{
-    if(correctClasses) {
-        actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
-        return YES;
-    }
-    
-    return NO;
+    return correctClasses;
 });
 
 match(^BOOL{
-    if(!actualProxy.hasFinished) {
-        return NO;
-    }
+    [self.rac_deallocDisposable addDisposable:
+     [actual subscribeError:^(NSError *error) {
+        @synchronized(actual) {
+            hasErrored = YES;
+            errorReceived = error;
+        }
+    } completed:^{
+        @synchronized(actual) {
+            hasCompleted = YES;
+        }
+    }]];
     
-    return identicalErrors(actualProxy.error, expected) && actualProxy.hasErrored;
+    return hasErrored && identicalErrors(errorReceived, expected);
 });
 
 failureMessageForTo(^NSString *{
     if(!correctClasses) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    if(!actualProxy.hasFinished) {
+    if(!(hasCompleted || hasErrored)) {
         return [LLReactiveMatchersMessages actualNotFinished:actual];
     }
-    if(!actualProxy.hasErrored) {
+    if(!hasErrored) {
         return [NSString stringWithFormat:@"Signal %@ did not finish in error", LLDescribeSignal(actual)];
     }
     
