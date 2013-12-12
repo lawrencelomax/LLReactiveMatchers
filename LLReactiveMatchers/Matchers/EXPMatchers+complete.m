@@ -2,12 +2,12 @@
 
 EXPMatcherImplementationBegin(complete, (void))
 
-BOOL actualClassCorrect = [actual isKindOfClass:RACSignal.class];
+BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 
 __block LLSignalTestProxy *actualProxy;
 
 prerequisite(^BOOL{
-    if(actualClassCorrect) {
+    if(correctClasses) {
         actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
         return YES;
     }
@@ -24,18 +24,18 @@ match(^BOOL{
 });
 
 failureMessageForTo(^NSString *{
-    if(!actualClassCorrect) {
-        return @"Matcher not provided with correct classes";
+    if(!correctClasses) {
+        return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     if(!actualProxy.hasFinished) {
-        return @"Signal has not finished";
+        return [LLReactiveMatchersMessages actualNotFinished:actual];
     }
 
     return @"Signal finished with error";
 });
 
 failureMessageForNotTo(^NSString *{
-    if(!actualClassCorrect) {
+    if(!correctClasses) {
         return @"Matcher not provided with correct classes";
     }
     

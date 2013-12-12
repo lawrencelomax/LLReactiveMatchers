@@ -30,11 +30,11 @@
 }
 
 - (void) test_notYetCompleted {
-    RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] concat:RACSignal.never];
+    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@1, @2, @3]] concat:RACSignal.never] setNameWithFormat:@"foo"];
     NSError *error = MI9SpecError;
     
     assertPass(test_expect(signal).toNot.sendError(error));
-    assertFail(test_expect(signal).to.sendError(error), @"Signal has not finished");
+    assertFail(test_expect(signal).to.sendError(error), @"Actual foo has not finished");
 }
 
 @end

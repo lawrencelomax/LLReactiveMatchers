@@ -19,7 +19,4 @@ extern NSError * LLReactiveMatchersFixtureError();
 /// Values are sent synchronously then signal completes all synchronously
 + (RACSignal *) values:(NSArray *)values;
 
-+ (RACSignal *) signalThatSendsValuesThenErrors;
-+ (RACSignal *) signalThatSendsValuesThenCompletes;
-
 @end

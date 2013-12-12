@@ -6,7 +6,7 @@
 @implementation LLSignalTestProxyTests
 
 - (void) test_proxyReferencesSignal {
-    RACSignal *signal = [LLReactiveMatchersFixtures signalThatSendsValuesThenCompletes];
+    RACSignal *signal = [LLReactiveMatchersFixtures values:@[@1, @2, @3]];
     LLSignalTestProxy *subscriber = [LLSignalTestProxy testProxyWithSignal:signal];
     
     assertEquals(subscriber.signal, signal);

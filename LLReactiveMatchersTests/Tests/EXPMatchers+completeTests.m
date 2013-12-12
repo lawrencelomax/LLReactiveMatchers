@@ -20,10 +20,10 @@
 }
 
 - (void) test_notYetCompleted {
-    RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] concat:RACSignal.never];
+    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@1, @2, @3]] concat:RACSignal.never] setNameWithFormat:@"foo"];
     
     assertPass(test_expect(signal).toNot.complete());
-    assertFail(test_expect(signal).to.complete(), @"Signal has not finished");
+    assertFail(test_expect(signal).to.complete(), @"Actual foo has not finished");
 }
 
 @end

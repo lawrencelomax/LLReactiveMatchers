@@ -27,6 +27,9 @@ match(^BOOL{
 });
 
 failureMessageForTo(^NSString *{
+    if(!correctClasses) {
+        return [LLReactiveMatchersMessages actualNotSignal:actual];
+    }
     if(!bothFinished) {
         return @"Both Signals have not finished";
     }
@@ -35,6 +38,9 @@ failureMessageForTo(^NSString *{
 });
 
 failureMessageForNotTo(^NSString *{
+    if(!correctClasses) {
+        return [LLReactiveMatchersMessages actualNotSignal:actual];
+    }
     return [NSString stringWithFormat:@"Values %@ are the same as %@", EXPDescribeObject(leftProxy.values), EXPDescribeObject(rightProxy.values)];
 });
 

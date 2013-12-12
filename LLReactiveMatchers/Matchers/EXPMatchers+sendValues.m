@@ -2,12 +2,12 @@
 
 EXPMatcherImplementationBegin(sendValues, (NSArray *expected))
 
-BOOL classesAreCorrect = [actual isKindOfClass:RACSignal.class];
+BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 
 __block LLSignalTestProxy *actualProxy;
 
 prerequisite(^BOOL{
-    if(classesAreCorrect) {
+    if(correctClasses) {
         actualProxy = [LLSignalTestProxy testProxyWithSignal:actual];
         return YES;
     }
@@ -20,10 +20,16 @@ match(^BOOL{
 });
 
 failureMessageForTo(^NSString *{
+    if(!correctClasses) {
+        return [LLReactiveMatchersMessages actualNotSignal:actual];
+    }
     return @"Did not contain all values";
 });
 
 failureMessageForNotTo(^NSString *{
+    if(!correctClasses) {
+        return [LLReactiveMatchersMessages actualNotSignal:actual];
+    }
     return @"Contained all values";
 });
 

@@ -23,15 +23,7 @@ extern NSError * LLReactiveMatchersFixtureError() {
 @implementation LLReactiveMatchersFixtures
 
 + (RACSignal *) values:(NSArray *)values {
-    return [values.rac_sequence signalWithScheduler:RACScheduler.immediateScheduler];
-}
-
-+ (RACSignal *) signalThatSendsValuesThenErrors {
-    return [[[RACSignal return:@0] concat:[RACSignal return:@1]] concat:[RACSignal error:LLTestError]];
-}
-
-+ (RACSignal *) signalThatSendsValuesThenCompletes {
-    return [[RACSignal return:@0] concat:[RACSignal return:@1]];
+    return [[values.rac_sequence signalWithScheduler:RACScheduler.immediateScheduler] setNameWithFormat:@"values %@", EXPDescribeObject(values)];
 }
 
 @end
