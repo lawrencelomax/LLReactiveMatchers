@@ -25,9 +25,9 @@
 		21A1FCF718598D3E0097995D /* EXPMatchers+sendValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCF618598D3E0097995D /* EXPMatchers+sendValues.m */; };
 		21A1FCF91859903A0097995D /* EXPMatchers+sendValuesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCF81859903A0097995D /* EXPMatchers+sendValuesTests.m */; };
 		21A1FCFD1859B7770097995D /* LLReactiveMatchersMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCFC1859B7770097995D /* LLReactiveMatchersMessages.m */; };
+		21A1FD011859BDA20097995D /* LLSignalTestProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FD001859BDA20097995D /* LLSignalTestProxy.m */; };
 		21DD76CD1851792C00488C18 /* EXPExpect+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76C91851792C00488C18 /* EXPExpect+Test.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		21DD76CE1851792C00488C18 /* FakeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76CB1851792C00488C18 /* FakeTestCase.m */; };
-		21F5F6B31856731C00F4B30A /* LLSignalTestProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F5F6B21856731C00F4B30A /* LLSignalTestProxy.m */; };
 		21FD0A4E1850470000DB455B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FD0A4D1850470000DB455B /* Foundation.framework */; };
 		21FD0A5C1850470000DB455B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FD0A5B1850470000DB455B /* XCTest.framework */; };
 		21FD0A5D1850470000DB455B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FD0A4D1850470000DB455B /* Foundation.framework */; };
@@ -91,14 +91,14 @@
 		21A1FCF81859903A0097995D /* EXPMatchers+sendValuesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+sendValuesTests.m"; sourceTree = "<group>"; };
 		21A1FCFB1859B7770097995D /* LLReactiveMatchersMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLReactiveMatchersMessages.h; sourceTree = "<group>"; };
 		21A1FCFC1859B7770097995D /* LLReactiveMatchersMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLReactiveMatchersMessages.m; sourceTree = "<group>"; };
+		21A1FCFF1859BDA20097995D /* LLSignalTestProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSignalTestProxy.h; sourceTree = "<group>"; };
+		21A1FD001859BDA20097995D /* LLSignalTestProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSignalTestProxy.m; sourceTree = "<group>"; };
 		21DD76C81851792C00488C18 /* EXPExpect+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPExpect+Test.h"; sourceTree = "<group>"; };
 		21DD76C91851792C00488C18 /* EXPExpect+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPExpect+Test.m"; sourceTree = "<group>"; };
 		21DD76CA1851792C00488C18 /* FakeTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeTestCase.h; sourceTree = "<group>"; };
 		21DD76CB1851792C00488C18 /* FakeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeTestCase.m; sourceTree = "<group>"; };
 		21E842BA1851A57D00B7AC44 /* LLReactiveMatchers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLReactiveMatchers.h; sourceTree = "<group>"; };
 		21E842BB1851A73400B7AC44 /* LLReactiveMatchersImports.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLReactiveMatchersImports.h; sourceTree = "<group>"; };
-		21F5F6B11856731C00F4B30A /* LLSignalTestProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSignalTestProxy.h; sourceTree = "<group>"; };
-		21F5F6B21856731C00F4B30A /* LLSignalTestProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSignalTestProxy.m; sourceTree = "<group>"; };
 		21FD0A4A1850470000DB455B /* libLLReactiveMatchers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLLReactiveMatchers.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		21FD0A4D1850470000DB455B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		21FD0A511850470000DB455B /* LLReactiveMatchers-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LLReactiveMatchers-Prefix.pch"; sourceTree = "<group>"; };
@@ -192,13 +192,13 @@
 			path = Fixtures;
 			sourceTree = "<group>";
 		};
-		218E718A18514D7C00D42D57 /* Subscribers */ = {
+		21A1FCFE1859BDA20097995D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				21F5F6B11856731C00F4B30A /* LLSignalTestProxy.h */,
-				21F5F6B21856731C00F4B30A /* LLSignalTestProxy.m */,
+				21A1FCFF1859BDA20097995D /* LLSignalTestProxy.h */,
+				21A1FD001859BDA20097995D /* LLSignalTestProxy.m */,
 			);
-			path = Subscribers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		21FD0A41185046FF00DB455B = {
@@ -235,6 +235,7 @@
 		21FD0A4F1850470000DB455B /* LLReactiveMatchers */ = {
 			isa = PBXGroup;
 			children = (
+				21A1FCFE1859BDA20097995D /* Helpers */,
 				21E842BA1851A57D00B7AC44 /* LLReactiveMatchers.h */,
 				212E349D1856DE7000D04066 /* LLReactiveMatchersHelpers.h */,
 				212E349E1856DE7000D04066 /* LLReactiveMatchersHelpers.m */,
@@ -242,7 +243,6 @@
 				21A1FCFB1859B7770097995D /* LLReactiveMatchersMessages.h */,
 				21A1FCFC1859B7770097995D /* LLReactiveMatchersMessages.m */,
 				212E34911856BC5D00D04066 /* Matchers */,
-				218E718A18514D7C00D42D57 /* Subscribers */,
 				21FD0A501850470000DB455B /* Supporting Files */,
 			);
 			path = LLReactiveMatchers;
@@ -397,7 +397,6 @@
 				21A1FCEB18596B8E0097995D /* EXPMatchers+complete.m in Sources */,
 				21A1FCF218598AA60097995D /* EXPMatchers+finish.m in Sources */,
 				212E349F1856DE7000D04066 /* LLReactiveMatchersHelpers.m in Sources */,
-				21F5F6B31856731C00F4B30A /* LLSignalTestProxy.m in Sources */,
 				21A1FCFD1859B7770097995D /* LLReactiveMatchersMessages.m in Sources */,
 				212E34A31856E2BA00D04066 /* EXPMatchers+haveIdenticalErrors.m in Sources */,
 				212E34AD185746FA00D04066 /* EXPMatchers+sendError.m in Sources */,
@@ -420,6 +419,7 @@
 				212E34AF1857C93100D04066 /* EXPMatchers+sendErrorTest.m in Sources */,
 				21A1FCF418598B2B0097995D /* EXPMatchers+finishTests.m in Sources */,
 				218E717D185142C700D42D57 /* LLReactiveMatchersFixtures.m in Sources */,
+				21A1FD011859BDA20097995D /* LLSignalTestProxy.m in Sources */,
 				212E34A51856E2CE00D04066 /* EXPMatchers+haveIdenticalErrorsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
