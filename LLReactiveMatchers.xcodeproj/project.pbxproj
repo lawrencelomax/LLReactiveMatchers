@@ -20,6 +20,8 @@
 		218E717D185142C700D42D57 /* LLReactiveMatchersFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E717C185142C700D42D57 /* LLReactiveMatchersFixtures.m */; };
 		21A1FCEB18596B8E0097995D /* EXPMatchers+complete.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCEA18596B8E0097995D /* EXPMatchers+complete.m */; };
 		21A1FCED18596DB30097995D /* EXPMatchers+completeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCEC18596DB30097995D /* EXPMatchers+completeTests.m */; };
+		21A1FCF218598AA60097995D /* EXPMatchers+finish.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCF118598AA60097995D /* EXPMatchers+finish.m */; };
+		21A1FCF418598B2B0097995D /* EXPMatchers+finishTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCF318598B2B0097995D /* EXPMatchers+finishTests.m */; };
 		21DD76CD1851792C00488C18 /* EXPExpect+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76C91851792C00488C18 /* EXPExpect+Test.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		21DD76CE1851792C00488C18 /* FakeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76CB1851792C00488C18 /* FakeTestCase.m */; };
 		21DD76D31851805F00488C18 /* RACSignal+LLTestSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76D21851805F00488C18 /* RACSignal+LLTestSubscriber.m */; };
@@ -79,6 +81,9 @@
 		21A1FCE918596B8E0097995D /* EXPMatchers+complete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+complete.h"; sourceTree = "<group>"; };
 		21A1FCEA18596B8E0097995D /* EXPMatchers+complete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+complete.m"; sourceTree = "<group>"; };
 		21A1FCEC18596DB30097995D /* EXPMatchers+completeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+completeTests.m"; sourceTree = "<group>"; };
+		21A1FCF018598AA60097995D /* EXPMatchers+finish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+finish.h"; sourceTree = "<group>"; };
+		21A1FCF118598AA60097995D /* EXPMatchers+finish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+finish.m"; sourceTree = "<group>"; };
+		21A1FCF318598B2B0097995D /* EXPMatchers+finishTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+finishTests.m"; sourceTree = "<group>"; };
 		21DD76C81851792C00488C18 /* EXPExpect+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPExpect+Test.h"; sourceTree = "<group>"; };
 		21DD76C91851792C00488C18 /* EXPExpect+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPExpect+Test.m"; sourceTree = "<group>"; };
 		21DD76CA1851792C00488C18 /* FakeTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeTestCase.h; sourceTree = "<group>"; };
@@ -130,6 +135,8 @@
 			children = (
 				21A1FCE918596B8E0097995D /* EXPMatchers+complete.h */,
 				21A1FCEA18596B8E0097995D /* EXPMatchers+complete.m */,
+				21A1FCF018598AA60097995D /* EXPMatchers+finish.h */,
+				21A1FCF118598AA60097995D /* EXPMatchers+finish.m */,
 				212E34A11856E2BA00D04066 /* EXPMatchers+haveIdenticalErrors.h */,
 				212E34A21856E2BA00D04066 /* EXPMatchers+haveIdenticalErrors.m */,
 				212E34921856BC5D00D04066 /* EXPMatchers+haveIdenticalEvents.h */,
@@ -146,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				21A1FCEC18596DB30097995D /* EXPMatchers+completeTests.m */,
+				21A1FCF318598B2B0097995D /* EXPMatchers+finishTests.m */,
 				212E34A41856E2CE00D04066 /* EXPMatchers+haveIdenticalErrorsTests.m */,
 				212E34951856BC6D00D04066 /* EXPMatchers+haveIdenticalEventsTests.m */,
 				212E34A91856E68B00D04066 /* EXPMatchers+haveidenticalValuesTests.m */,
@@ -380,6 +388,7 @@
 				212E34A81856E61100D04066 /* EXPMatchers+haveIdenticalValues.m in Sources */,
 				21A1FCEB18596B8E0097995D /* EXPMatchers+complete.m in Sources */,
 				21DD76D31851805F00488C18 /* RACSignal+LLTestSubscriber.m in Sources */,
+				21A1FCF218598AA60097995D /* EXPMatchers+finish.m in Sources */,
 				212E349F1856DE7000D04066 /* LLReactiveMatchersHelpers.m in Sources */,
 				21F5F6B31856731C00F4B30A /* LLSignalTestProxy.m in Sources */,
 				212E34A31856E2BA00D04066 /* EXPMatchers+haveIdenticalErrors.m in Sources */,
@@ -399,6 +408,7 @@
 				212E34AA1856E68B00D04066 /* EXPMatchers+haveidenticalValuesTests.m in Sources */,
 				218E71791851420400D42D57 /* LLSignalTestProxyTest.m in Sources */,
 				212E34AF1857C93100D04066 /* EXPMatchers+sendErrorTest.m in Sources */,
+				21A1FCF418598B2B0097995D /* EXPMatchers+finishTests.m in Sources */,
 				218E717D185142C700D42D57 /* LLReactiveMatchersFixtures.m in Sources */,
 				212E34A51856E2CE00D04066 /* EXPMatchers+haveIdenticalErrorsTests.m in Sources */,
 			);
