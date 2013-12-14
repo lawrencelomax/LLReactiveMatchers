@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
 /// This class is used to record the events sent by a Signal for asserting against procedurally
 @interface LLSignalTestRecorder : NSObject
 

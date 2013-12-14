@@ -1,5 +1,10 @@
 #import "EXPMatchers+sendValues.h"
 
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "LLReactiveMatchersMessages.h"
+#import "LLReactiveMatchersHelpers.h"
+#import "LLSignalTestRecorder.h"
+
 EXPMatcherImplementationBegin(sendValues, (NSArray *expected))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];

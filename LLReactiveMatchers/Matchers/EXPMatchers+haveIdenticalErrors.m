@@ -1,5 +1,8 @@
 #import "EXPMatchers+haveIdenticalErrors.h"
 
+#import "LLReactiveMatchersHelpers.h"
+#import "LLReactiveMatchersMessages.h"
+
 EXPMatcherImplementationBegin(haveIdenticalErrors, (RACSignal *expected))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];

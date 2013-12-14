@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
 extern NSString *LLDescribeSignal(RACSignal *signal);
 
 @interface LLReactiveMatchersMessages : NSObject

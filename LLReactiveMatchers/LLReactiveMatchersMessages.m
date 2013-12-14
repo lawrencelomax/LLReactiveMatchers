@@ -8,11 +8,11 @@
 
 #import "LLReactiveMatchersMessages.h"
 
+#import "Expecta.h"
+
 extern NSString *LLDescribeSignal(RACSignal *signal) {
     return [signal name];
 }
-
-#import <Expecta/Expecta.h>
 
 @implementation LLReactiveMatchersMessages
 

@@ -1,3 +1,4 @@
+#import "LLSignalTestRecorder.h"
 
 extern BOOL __attribute__((overloadable)) identicalErrors(NSError *leftError, NSError *rightError);
 extern BOOL __attribute__((overloadable)) identicalErrors(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder);

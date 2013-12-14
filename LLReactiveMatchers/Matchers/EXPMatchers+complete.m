@@ -1,5 +1,8 @@
 #import "EXPMatchers+complete.h"
 
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "LLReactiveMatchersMessages.h"
+
 EXPMatcherImplementationBegin(complete, (void))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
