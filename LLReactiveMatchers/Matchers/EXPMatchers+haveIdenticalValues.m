@@ -7,17 +7,21 @@ BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 __block LLSignalTestRecorder *actualRecorder = nil;
 __block LLSignalTestRecorder *expectedRecorder = nil;
 
-prerequisite(^BOOL{
-    return correctClasses;
-});
-
-match(^BOOL{
+void (^subscribe)(void) = ^{
     if(!actualRecorder) {
         actualRecorder = [LLSignalTestRecorder recordWithSignal:actual];
     }
     if(!expectedRecorder) {
         expectedRecorder = [LLSignalTestRecorder recordWithSignal:expected];
     }
+};
+
+prerequisite(^BOOL{
+    return correctClasses;
+});
+
+match(^BOOL{
+    subscribe();
     
     if(!actualRecorder.hasFinished || !expectedRecorder.hasFinished) {
         return NO;

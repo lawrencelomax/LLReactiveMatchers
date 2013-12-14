@@ -5,15 +5,18 @@ EXPMatcherImplementationBegin(sendValues, (NSArray *expected))
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 __block LLSignalTestRecorder *actualRecorder = nil;
 
+void (^subscribe)(void) = ^{
+    if(!actualRecorder) {
+        actualRecorder = [LLSignalTestRecorder recordWithSignal:actual];
+    }
+};
+
 prerequisite(^BOOL{
     return correctClasses;
 });
 
 match(^BOOL{
-    if(!actualRecorder) {
-        actualRecorder = [LLSignalTestRecorder recordWithSignal:actual];
-    }
-    
+    subscribe();
     return containsAllValuesUnordered(actualRecorder, expected);
 });
 

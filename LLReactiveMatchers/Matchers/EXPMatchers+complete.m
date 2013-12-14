@@ -7,11 +7,7 @@ __block BOOL hasSubscribed = NO;
 __block BOOL hasCompleted = NO;
 __block BOOL hasErrored = NO;
 
-prerequisite(^BOOL{
-    return correctClasses;
-});
-
-match(^BOOL{
+void (^subscribe)() = ^{
     if(!hasSubscribed) {
         [self.rac_deallocDisposable addDisposable:
          [actual subscribeError:^(NSError *error) {
@@ -25,6 +21,14 @@ match(^BOOL{
         }]];
         hasSubscribed = YES;
     }
+};
+
+prerequisite(^BOOL{
+    return correctClasses;
+});
+
+match(^BOOL{
+    subscribe();
     
     return hasCompleted;
 });

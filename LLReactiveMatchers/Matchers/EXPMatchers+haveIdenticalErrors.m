@@ -11,11 +11,7 @@ __block BOOL expectedHasCompleted = NO;
 __block NSError *actualError = nil;
 __block NSError *expectedError = nil;
 
-prerequisite(^BOOL{
-    return correctClasses;
-});
-
-match(^BOOL{
+void (^subscribe)() = ^(){
     if(!hasSubscribed) {
         [self.rac_deallocDisposable addDisposable:
          [actual subscribeError:^(NSError *error) {
@@ -23,7 +19,7 @@ match(^BOOL{
                 actualHasErrored = YES;
                 actualError = error;
             }
-         } completed:^{
+        } completed:^{
             @synchronized(actual) {
                 actualHasCompleted = YES;
             }
@@ -35,15 +31,23 @@ match(^BOOL{
                 expectedHasErrored = YES;
                 expectedError = error;
             }
-         } completed:^{
+        } completed:^{
             @synchronized(actual) {
                 expectedHasCompleted = YES;
             }
         }]];
-         
-        hasSubscribed = YES;
     }
-        
+    
+    hasSubscribed = YES;
+};
+
+prerequisite(^BOOL{
+    return correctClasses;
+});
+
+match(^BOOL{
+    subscribe();
+    
     return identicalErrors(actualError, expectedError) && actualHasErrored && expectedHasErrored;
 });
 

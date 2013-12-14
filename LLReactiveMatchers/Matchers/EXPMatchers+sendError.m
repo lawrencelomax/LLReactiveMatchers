@@ -5,25 +5,33 @@ EXPMatcherImplementationBegin(sendError, (NSError *expected))
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 __block BOOL hasErrored = NO;
 __block BOOL hasCompleted = NO;
+__block BOOL hasSubscribed = NO;
 __block NSError *errorReceived = nil;
+
+void (^subscribe)(void) = ^{
+    if(!hasSubscribed) {
+        [self.rac_deallocDisposable addDisposable:
+         [actual subscribeError:^(NSError *error) {
+            @synchronized(actual) {
+                hasErrored = YES;
+                errorReceived = error;
+            }
+        } completed:^{
+            @synchronized(actual) {
+                hasCompleted = YES;
+            }
+        }]];
+        
+        hasSubscribed = YES;
+    }
+};
 
 prerequisite(^BOOL{
     return correctClasses;
 });
 
 match(^BOOL{
-    [self.rac_deallocDisposable addDisposable:
-     [actual subscribeError:^(NSError *error) {
-        @synchronized(actual) {
-            hasErrored = YES;
-            errorReceived = error;
-        }
-    } completed:^{
-        @synchronized(actual) {
-            hasCompleted = YES;
-        }
-    }]];
-    
+    subscribe();
     return hasErrored && identicalErrors(errorReceived, expected);
 });
 
