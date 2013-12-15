@@ -7,3 +7,4 @@
 #import "EXPMatchers+haveIdenticalValues.h"
 #import "EXPMatchers+sendError.h"
 #import "EXPMatchers+sendValues.h"
+#import "EXPMatchers+sendValuesWithCount.h"
