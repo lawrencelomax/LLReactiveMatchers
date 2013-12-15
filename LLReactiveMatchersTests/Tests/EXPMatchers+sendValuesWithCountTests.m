@@ -20,4 +20,11 @@
     assertFail(test_expect(actual).toNot.sendValuesWithCount(0), @"Actual foo sent 0 next events");
 }
 
+- (void) test_10Values {
+    RACSignal *actual = [[LLReactiveMatchersFixtures values:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]] setNameWithFormat:@"foo"];
+    
+    assertPass(test_expect(actual).to.sendValuesWithCount(10));
+    assertFail(test_expect(actual).toNot.sendValuesWithCount(10), @"Actual foo sent 10 next events");
+}
+
 @end
