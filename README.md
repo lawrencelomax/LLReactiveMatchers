@@ -36,8 +36,9 @@ Using a matcher will cause the Signal to be subscribed to, successive calls to c
     expect(signal).to.haveIdenticalErrors(expectedSignal);  //Succeeds if 'signal' and 'expectedSignal' both send errors that are equal
     expect(signal).to.haveIdenticalValues(expectedSignal);  //Succeeds if 'signal' and 'expectedSignal' both send the same next events in the same order
     expect(signal).to.sendError(expectedError);  //Succeeds if 'signal' sends an error that is equal to 'expectedError'
-    expect(signal).to.sendValues(@[ @1, @2 ]);  //Succeeds if 'signal' sends the values in the array. Ordering and additional values do not effect success
+    expect(signal).to.sendValues( @[@1, @2] );  //Succeeds if 'signal' sends the values in the array. Ordering and additional values do not effect success
     expect(signal).to.sendValuesWithCount(4);  //Succeeds if 'signal' sends exactly 4 next events
+    expect(signal).to.sendValuesIdentically( @[@1, @2] );   //Succeeds if values sent in 'signal' is identical to the array
     
 
 ## Tips
