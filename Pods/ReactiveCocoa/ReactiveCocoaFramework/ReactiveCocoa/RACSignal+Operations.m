@@ -343,7 +343,7 @@ static RACDisposable *subscribeForever (RACSignal *signal, void (^next)(id), voi
 						}];
 				}
 
-				[values addObject:x];
+				[values addObject:x ?: RACTupleNil.tupleNil];
 			}
 		} error:^(NSError *error) {
 			[subscriber sendError:error];
@@ -543,6 +543,10 @@ static RACDisposable *subscribeForever (RACSignal *signal, void (^next)(id), voi
 
 		[compoundDisposable addDisposable:[RACDisposable disposableWithBlock:^{
 			@synchronized (compoundDisposable) {
+				// Keep an autoreleasing reference to the block that still has the
+				// retain cycle so dequeueAndSubscribeIfAllowed doesn't get teared down
+				// until after everything is done.
+				__autoreleasing id oldCompleteSignal __attribute__((unused)) = completeSignal;
 				completeSignal = ^(RACSignal *signal) {
 					// Do nothing. We're just replacing this block to break the
 					// retain cycle.
@@ -733,6 +737,34 @@ static RACDisposable *subscribeForever (RACSignal *signal, void (^next)(id), voi
 
 		return disposable;
 	}] setNameWithFormat:@"[%@] -takeUntil: %@", self.name, signalTrigger];
+}
+
+- (RACSignal *)takeUntilReplacement:(RACSignal *)replacement {
+	return [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
+		RACSerialDisposable *selfDisposable = [[RACSerialDisposable alloc] init];
+
+		RACDisposable *replacementDisposable = [replacement subscribeNext:^(id x) {
+			[selfDisposable dispose];
+			[subscriber sendNext:x];
+		} error:^(NSError *error) {
+			[selfDisposable dispose];
+			[subscriber sendError:error];
+		} completed:^{
+			[selfDisposable dispose];
+			[subscriber sendCompleted];
+		}];
+
+		if (!selfDisposable.disposed) {
+			selfDisposable.disposable = [[self
+				concat:[RACSignal never]]
+				subscribe:subscriber];
+		}
+
+		return [RACDisposable disposableWithBlock:^{
+			[selfDisposable dispose];
+			[replacementDisposable dispose];
+		}];
+	}];
 }
 
 - (RACSignal *)switchToLatest {
