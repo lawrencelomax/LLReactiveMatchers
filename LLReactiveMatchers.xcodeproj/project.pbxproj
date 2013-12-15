@@ -16,6 +16,8 @@
 		212E34AA1856E68B00D04066 /* EXPMatchers+haveidenticalValuesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E34A91856E68B00D04066 /* EXPMatchers+haveidenticalValuesTests.m */; };
 		212E34AD185746FA00D04066 /* EXPMatchers+sendError.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E34AC185746F900D04066 /* EXPMatchers+sendError.m */; };
 		212E34AF1857C93100D04066 /* EXPMatchers+sendErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E34AE1857C93100D04066 /* EXPMatchers+sendErrorTest.m */; };
+		2179D08D185D6FD5009DDA23 /* EXPMatchers+sendValuesIdentically.m in Sources */ = {isa = PBXBuildFile; fileRef = 2179D08C185D6FD5009DDA23 /* EXPMatchers+sendValuesIdentically.m */; };
+		2179D08F185D71AA009DDA23 /* EXPMatchers+sendValuesIdenticallyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2179D08E185D71AA009DDA23 /* EXPMatchers+sendValuesIdenticallyTests.m */; };
 		218E71791851420400D42D57 /* LLSignalTestRecorderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E71781851420400D42D57 /* LLSignalTestRecorderTests.m */; };
 		218E717D185142C700D42D57 /* LLReactiveMatchersFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = 218E717C185142C700D42D57 /* LLReactiveMatchersFixtures.m */; };
 		21A1FCEB18596B8E0097995D /* EXPMatchers+complete.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCEA18596B8E0097995D /* EXPMatchers+complete.m */; };
@@ -76,6 +78,9 @@
 		212E34AB185746F900D04066 /* EXPMatchers+sendError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+sendError.h"; sourceTree = "<group>"; };
 		212E34AC185746F900D04066 /* EXPMatchers+sendError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+sendError.m"; sourceTree = "<group>"; };
 		212E34AE1857C93100D04066 /* EXPMatchers+sendErrorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+sendErrorTest.m"; sourceTree = "<group>"; };
+		2179D08B185D6FD4009DDA23 /* EXPMatchers+sendValuesIdentically.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+sendValuesIdentically.h"; sourceTree = "<group>"; };
+		2179D08C185D6FD5009DDA23 /* EXPMatchers+sendValuesIdentically.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+sendValuesIdentically.m"; sourceTree = "<group>"; };
+		2179D08E185D71AA009DDA23 /* EXPMatchers+sendValuesIdenticallyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+sendValuesIdenticallyTests.m"; sourceTree = "<group>"; };
 		218E717418513F6200D42D57 /* TestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHelper.h; sourceTree = "<group>"; };
 		218E71781851420400D42D57 /* LLSignalTestRecorderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSignalTestRecorderTests.m; sourceTree = "<group>"; };
 		218E717B185142C700D42D57 /* LLReactiveMatchersFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLReactiveMatchersFixtures.h; sourceTree = "<group>"; };
@@ -157,6 +162,8 @@
 				212E34AC185746F900D04066 /* EXPMatchers+sendError.m */,
 				21A1FCF518598D3E0097995D /* EXPMatchers+sendValues.h */,
 				21A1FCF618598D3E0097995D /* EXPMatchers+sendValues.m */,
+				2179D08B185D6FD4009DDA23 /* EXPMatchers+sendValuesIdentically.h */,
+				2179D08C185D6FD5009DDA23 /* EXPMatchers+sendValuesIdentically.m */,
 				21BEA0FE185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.h */,
 				21BEA0FF185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.m */,
 			);
@@ -172,6 +179,7 @@
 				212E34951856BC6D00D04066 /* EXPMatchers+haveIdenticalEventsTests.m */,
 				212E34A91856E68B00D04066 /* EXPMatchers+haveidenticalValuesTests.m */,
 				212E34AE1857C93100D04066 /* EXPMatchers+sendErrorTest.m */,
+				2179D08E185D71AA009DDA23 /* EXPMatchers+sendValuesIdenticallyTests.m */,
 				21A1FCF81859903A0097995D /* EXPMatchers+sendValuesTests.m */,
 				21BEA101185D2D0300D8030C /* EXPMatchers+sendValuesWithCountTests.m */,
 				218E71781851420400D42D57 /* LLSignalTestRecorderTests.m */,
@@ -401,6 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2179D08D185D6FD5009DDA23 /* EXPMatchers+sendValuesIdentically.m in Sources */,
 				212E34A81856E61100D04066 /* EXPMatchers+haveIdenticalValues.m in Sources */,
 				21A1FCEB18596B8E0097995D /* EXPMatchers+complete.m in Sources */,
 				21BEA100185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.m in Sources */,
@@ -427,6 +436,7 @@
 				212E34AA1856E68B00D04066 /* EXPMatchers+haveidenticalValuesTests.m in Sources */,
 				218E71791851420400D42D57 /* LLSignalTestRecorderTests.m in Sources */,
 				212E34AF1857C93100D04066 /* EXPMatchers+sendErrorTest.m in Sources */,
+				2179D08F185D71AA009DDA23 /* EXPMatchers+sendValuesIdenticallyTests.m in Sources */,
 				21A1FCF418598B2B0097995D /* EXPMatchers+finishTests.m in Sources */,
 				218E717D185142C700D42D57 /* LLReactiveMatchersFixtures.m in Sources */,
 				21A1FD011859BDA20097995D /* LLSignalTestRecorder.m in Sources */,
@@ -490,7 +500,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -523,7 +533,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

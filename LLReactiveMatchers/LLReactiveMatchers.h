@@ -8,3 +8,4 @@
 #import "EXPMatchers+sendError.h"
 #import "EXPMatchers+sendValues.h"
 #import "EXPMatchers+sendValuesWithCount.h"
+#import "EXPMatchers+sendValuesIdentically.h"

@@ -37,7 +37,7 @@ failureMessageForTo(^NSString *{
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     
-    return [NSString stringWithFormat:@"Actual %@ sent %d next events instead of %d", LLDescribeSignal(actual), receivedCount, expected];
+    return [NSString stringWithFormat:@"Actual %@ sent %ld next events instead of %ld", LLDescribeSignal(actual), (long)receivedCount, (long)expected];
 });
 
 failureMessageForNotTo(^NSString *{
@@ -45,7 +45,7 @@ failureMessageForNotTo(^NSString *{
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     
-    return [NSString stringWithFormat:@"Actual %@ sent %d next events", LLDescribeSignal(actual), expected];
+    return [NSString stringWithFormat:@"Actual %@ sent %ld next events", LLDescribeSignal(actual), (long)expected];
 });
 
 EXPMatcherImplementationEnd
