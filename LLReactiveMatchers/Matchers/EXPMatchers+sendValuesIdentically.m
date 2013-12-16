@@ -6,6 +6,7 @@
 EXPMatcherImplementationBegin(sendValuesIdentically, (NSArray *expected))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
+
 __block LLSignalTestRecorder *actualRecorder = nil;
 
 void (^subscribe)(void) = ^{
@@ -20,7 +21,7 @@ prerequisite(^BOOL{
 
 match(^BOOL{
     subscribe();
-    return identicalValues(actualRecorder.values, expected);
+    return LLRMIdenticalValues(actualRecorder.values, expected);
 });
 
 failureMessageForTo(^NSString *{

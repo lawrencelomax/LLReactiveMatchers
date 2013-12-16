@@ -22,7 +22,7 @@ prerequisite(^BOOL{
 
 match(^BOOL{
     subscribe();
-    return containsAllValuesUnordered(actualRecorder, expected);
+    return LLRMContainsAllValuesUnordered(actualRecorder, expected);
 });
 
 failureMessageForTo(^NSString *{

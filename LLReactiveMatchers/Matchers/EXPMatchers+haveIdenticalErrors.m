@@ -51,7 +51,7 @@ prerequisite(^BOOL{
 match(^BOOL{
     subscribe();
     
-    return identicalErrors(actualError, expectedError) && actualHasErrored && expectedHasErrored;
+    return LLRMIdenticalErrors(actualError, expectedError) && actualHasErrored && expectedHasErrored;
 });
 
 failureMessageForTo(^NSString *{

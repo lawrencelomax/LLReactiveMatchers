@@ -31,7 +31,7 @@ match(^BOOL{
         return NO;
     }
     
-    return identicalValues(actualRecorder, expectedRecorder);
+    return LLRMIdenticalValues(actualRecorder, expectedRecorder);
 });
 
 failureMessageForTo(^NSString *{

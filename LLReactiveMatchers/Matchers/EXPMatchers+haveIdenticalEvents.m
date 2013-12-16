@@ -31,7 +31,7 @@ match(^BOOL{
         return NO;
     }
     
-    return identicalValues(actualRecorder, expectedRecorder) && identicalFinishingStatus(actualRecorder, expectedRecorder) && identicalErrors(actualRecorder, expectedRecorder);
+    return LLRMIdenticalValues(actualRecorder, expectedRecorder) && LLRMIdenticalFinishingStatus(actualRecorder, expectedRecorder) && LLRMIdenticalErrors(actualRecorder, expectedRecorder);
 });
 
 failureMessageForTo(^NSString *{
@@ -44,7 +44,7 @@ failureMessageForTo(^NSString *{
     if(!expectedRecorder.hasFinished) {
         return [LLReactiveMatchersMessages expectedNotFinished:expected];
     }
-    if(!identicalValues(actualRecorder, expectedRecorder)) {
+    if(!LLRMIdenticalValues(actualRecorder, expectedRecorder)) {
         return [NSString stringWithFormat:@"Values %@ are not the same as %@", EXPDescribeObject(actualRecorder.values), EXPDescribeObject(expectedRecorder.values)];
     }
     return [NSString stringWithFormat:@"Actual %@ does not have the same finishing event as %@", LLDescribeSignal(actual), LLDescribeSignal(expected)];

@@ -36,7 +36,7 @@ prerequisite(^BOOL{
 
 match(^BOOL{
     subscribe();
-    return hasErrored && identicalErrors(errorReceived, expected);
+    return hasErrored && LLRMIdenticalErrors(errorReceived, expected);
 });
 
 failureMessageForTo(^NSString *{
