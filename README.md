@@ -24,9 +24,9 @@ Can be changed to this:
     NSError *expectedError = ...;
     expect(signal).to.sendError(expectedError);
 
-The matchers will also ensure that certain conditions dependent for the matcher to succeed are met. For example, when comparing the output of two Signals with the ```haveIdenticalEvents()``` matcher, the matcher will not pass until the Signal has ended in completion or error. In other words, two Signals do not have the same output until we know that the lifecycle is completed.
+The matchers will also ensure that dependent conditions are also met. For example, when comparing the output of two Signals with the ```haveIdenticalEvents()``` matcher, the matcher will not be able to pass until both signals have ended.
 
-Using a matcher will cause the Signal to be subscribed to, successive calls to create match Signals will result in further subscription to the Signal. This encourages the usage of [Cold Signals](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/FrameworkOverview.md#connections), as well as Signals having [repeatable results](http://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning).
+Using a matcher will result in the Signal passed through to be subscribed to. Further epectations using the matchers will result in additional subscriptions. This encourages the usage of [Cold Signals](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/FrameworkOverview.md#connections), as well as Signals having [repeatable results](http://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning).
 
 ## Matchers
     
@@ -45,6 +45,11 @@ Using a matcher will cause the Signal to be subscribed to, successive calls to c
 
 - Keep Signals Cold
 - Use ```RACReplaySubject``` to declare the sequence of events before matching
+- If you have a Signal that does not have repeatable results by design and you need to test multiple behaviours, multicast it, or subscribe to it with a ```RACReplaySubject``` then add matchers to the result
 - Async testing isn't completely working yet
+
+## Todo
+- Sort out async
+- Injecting mocks for testing side effects
 
 ## [License](./LICENSE)
