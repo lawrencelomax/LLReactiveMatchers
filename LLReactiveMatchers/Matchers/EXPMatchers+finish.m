@@ -3,7 +3,6 @@
 
 EXPMatcherImplementationBegin(finish, (void))
 
-BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 __block BOOL hasSubscribed = NO;
 __block BOOL hasErrored = NO;
 __block BOOL hasCompleted = NO;
@@ -25,7 +24,7 @@ void (^subscribe)(void) = ^{
 };
 
 prerequisite(^BOOL{
-    return correctClasses;
+    return LLRMCorrectClassesForActual(actual);
 });
 
 match(^BOOL{
@@ -35,7 +34,7 @@ match(^BOOL{
 });
 
 failureMessageForTo(^NSString *{
-    if(!correctClasses) {
+    if(!LLRMCorrectClassesForActual(actual)) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     
@@ -43,7 +42,7 @@ failureMessageForTo(^NSString *{
 });
 
 failureMessageForNotTo(^NSString *{
-    if(!correctClasses) {
+    if(!LLRMCorrectClassesForActual(actual)) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     if(hasErrored) {

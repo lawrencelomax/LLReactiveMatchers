@@ -6,22 +6,20 @@
 
 EXPMatcherImplementationBegin(haveIdenticalValues, (RACSignal *expected))
 
-BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
-
 __block LLSignalTestRecorder *actualRecorder = nil;
 __block LLSignalTestRecorder *expectedRecorder = nil;
 
 void (^subscribe)(void) = ^{
     if(!actualRecorder) {
-        actualRecorder = [LLSignalTestRecorder recordWithSignal:actual];
+        actualRecorder = LLRMRecorderForObject(actual);
     }
     if(!expectedRecorder) {
-        expectedRecorder = [LLSignalTestRecorder recordWithSignal:expected];
+        expectedRecorder = LLRMRecorderForObject(expected);
     }
 };
 
 prerequisite(^BOOL{
-    return correctClasses;
+    return LLRMCorrectClassesForActual(actual);
 });
 
 match(^BOOL{
@@ -35,7 +33,7 @@ match(^BOOL{
 });
 
 failureMessageForTo(^NSString *{
-    if(!correctClasses) {
+    if(!LLRMCorrectClassesForActual(actual)) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     if(!actualRecorder.hasFinished) {
@@ -49,7 +47,7 @@ failureMessageForTo(^NSString *{
 });
 
 failureMessageForNotTo(^NSString *{
-    if(!correctClasses) {
+    if(!LLRMCorrectClassesForActual(actual)) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     return [NSString stringWithFormat:@"Values %@ are the same as %@", EXPDescribeObject(actualRecorder.values), EXPDescribeObject(expectedRecorder.values)];

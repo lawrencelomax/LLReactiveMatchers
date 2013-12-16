@@ -7,17 +7,16 @@
 
 EXPMatcherImplementationBegin(sendValues, (NSArray *expected))
 
-BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
 __block LLSignalTestRecorder *actualRecorder = nil;
 
 void (^subscribe)(void) = ^{
     if(!actualRecorder) {
-        actualRecorder = [LLSignalTestRecorder recordWithSignal:actual];
+        actualRecorder = LLRMRecorderForObject(actual);
     }
 };
 
 prerequisite(^BOOL{
-    return correctClasses;
+    return LLRMCorrectClassesForActual(actual);
 });
 
 match(^BOOL{
@@ -26,14 +25,14 @@ match(^BOOL{
 });
 
 failureMessageForTo(^NSString *{
-    if(!correctClasses) {
+    if(!LLRMCorrectClassesForActual(actual)) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     return [NSString stringWithFormat:@"Signal %@ does not contain all values %@", LLDescribeSignal(actual), EXPDescribeObject(expected)];
 });
 
 failureMessageForNotTo(^NSString *{
-    if(!correctClasses) {
+    if(!LLRMCorrectClassesForActual(actual)) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     return [NSString stringWithFormat:@"Signal %@ contains all values %@", LLDescribeSignal(actual), EXPDescribeObject(expected)];
