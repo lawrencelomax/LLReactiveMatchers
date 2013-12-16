@@ -2,26 +2,15 @@
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "LLReactiveMatchersMessages.h"
+#import "LLSignalTestRecorder.h"
 
 EXPMatcherImplementationBegin(complete, (void))
 
-__block BOOL hasSubscribed = NO;
-__block BOOL hasCompleted = NO;
-__block BOOL hasErrored = NO;
+__block LLSignalTestRecorder *actualRecorder;
 
 void (^subscribe)() = ^{
-    if(!hasSubscribed) {
-        [self.rac_deallocDisposable addDisposable:
-         [actual subscribeError:^(NSError *error) {
-            @synchronized(actual) {
-                hasErrored = YES;
-            }
-        } completed:^{
-            @synchronized(actual) {
-                hasCompleted = YES;
-            }
-        }]];
-        hasSubscribed = YES;
+    if(!actualRecorder) {
+        actualRecorder = LLRMRecorderForObject(actual);
     }
 };
 
@@ -32,7 +21,7 @@ prerequisite(^BOOL{
 match(^BOOL{
     subscribe();
     
-    return hasCompleted;
+    return actualRecorder.hasCompleted;
 });
 
 failureMessageForTo(^NSString *{
@@ -40,7 +29,7 @@ failureMessageForTo(^NSString *{
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     @synchronized(actual) {
-        if(!(hasCompleted || hasErrored)) {
+        if(!(actualRecorder.hasCompleted || actualRecorder.hasErrored)) {
             return [LLReactiveMatchersMessages actualNotFinished:actual];
         }
     }

@@ -2,6 +2,7 @@
 
 extern BOOL __attribute__((overloadable)) LLRMIdenticalErrors(NSError *leftError, NSError *rightError);
 extern BOOL __attribute__((overloadable)) LLRMIdenticalErrors(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder);
+extern BOOL __attribute__((overloadable)) LLRMIdenticalErrors(LLSignalTestRecorder *recorder, NSError *error);
 
 extern BOOL __attribute__((overloadable)) LLRMIdenticalValues(NSArray *left, NSArray *right);
 extern BOOL __attribute__((overloadable)) LLRMIdenticalValues(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder);

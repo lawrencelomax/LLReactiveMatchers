@@ -3,23 +3,11 @@
 
 EXPMatcherImplementationBegin(finish, (void))
 
-__block BOOL hasSubscribed = NO;
-__block BOOL hasErrored = NO;
-__block BOOL hasCompleted = NO;
+__block LLSignalTestRecorder *actualRecorder;
 
-void (^subscribe)(void) = ^{
-    if(!hasSubscribed) {
-        [self.rac_deallocDisposable addDisposable:
-         [actual subscribeError:^(NSError *error) {
-            @synchronized(actual) {
-                hasErrored = YES;
-            }
-        } completed:^{
-            @synchronized(actual) {
-                hasCompleted = YES;
-            }
-        }]];
-        hasSubscribed = YES;
+void (^subscribe)() = ^{
+    if(!actualRecorder) {
+        actualRecorder = LLRMRecorderForObject(actual);
     }
 };
 
@@ -30,7 +18,7 @@ prerequisite(^BOOL{
 match(^BOOL{
     subscribe();
     
-    return hasCompleted || hasErrored;
+    return actualRecorder.hasCompleted || actualRecorder.hasErrored;
 });
 
 failureMessageForTo(^NSString *{
@@ -45,7 +33,7 @@ failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    if(hasErrored) {
+    if(actualRecorder.hasErrored) {
         return [NSString stringWithFormat:@"Signal %@ finished in error instead of not finishing", LLDescribeSignal(actual)];
     }
     
