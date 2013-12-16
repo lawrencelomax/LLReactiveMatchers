@@ -5,42 +5,16 @@
 
 EXPMatcherImplementationBegin(haveIdenticalErrors, (RACSignal *expected))
 
-__block BOOL hasSubscribed = NO;
-__block BOOL actualHasErrored = NO;
-__block BOOL actualHasCompleted = NO;
-__block BOOL expectedHasErrored = NO;
-__block BOOL expectedHasCompleted = NO;
-__block NSError *actualError = nil;
-__block NSError *expectedError = nil;
+__block LLSignalTestRecorder *actualRecorder;
+__block LLSignalTestRecorder *expectedRecorder;
 
 void (^subscribe)() = ^(){
-    if(!hasSubscribed) {
-        [self.rac_deallocDisposable addDisposable:
-         [actual subscribeError:^(NSError *error) {
-            @synchronized(actual) {
-                actualHasErrored = YES;
-                actualError = error;
-            }
-        } completed:^{
-            @synchronized(actual) {
-                actualHasCompleted = YES;
-            }
-        }]];
-        
-        [self.rac_deallocDisposable addDisposable:
-         [expected subscribeError:^(NSError *error) {
-            @synchronized(actual) {
-                expectedHasErrored = YES;
-                expectedError = error;
-            }
-        } completed:^{
-            @synchronized(actual) {
-                expectedHasCompleted = YES;
-            }
-        }]];
+    if(!actualRecorder) {
+        actualRecorder = LLRMRecorderForObject(actual);
     }
-    
-    hasSubscribed = YES;
+    if(!expectedRecorder) {
+        expectedRecorder = LLRMRecorderForObject(expected);
+    }
 };
 
 prerequisite(^BOOL{
@@ -50,17 +24,17 @@ prerequisite(^BOOL{
 match(^BOOL{
     subscribe();
     
-    return LLRMIdenticalErrors(actualError, expectedError) && actualHasErrored && expectedHasErrored;
+    return LLRMIdenticalErrors(actualRecorder.error, expectedRecorder.error) && actualRecorder.hasErrored && expectedRecorder.hasErrored;
 });
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
-    if(!(actualHasErrored || actualHasCompleted)) {
+    if(!(actualRecorder.hasErrored || actualRecorder.hasCompleted)) {
         return [LLReactiveMatchersMessages actualNotFinished:actual];
     }
-    if(!(expectedHasErrored || expectedHasCompleted)) {
+    if(!(expectedRecorder.hasErrored || expectedRecorder.hasCompleted)) {
         return [LLReactiveMatchersMessages expectedNotFinished:expected];
     }
     
