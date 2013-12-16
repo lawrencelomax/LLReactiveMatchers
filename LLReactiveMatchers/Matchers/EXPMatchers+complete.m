@@ -1,8 +1,9 @@
 #import "EXPMatchers+complete.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
-#import "LLReactiveMatchersMessages.h"
 #import "LLSignalTestRecorder.h"
+#import "LLReactiveMatchersHelpers.h"
+#import "LLReactiveMatchersMessages.h"
 
 EXPMatcherImplementationBegin(complete, (void))
 

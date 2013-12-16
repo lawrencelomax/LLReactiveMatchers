@@ -1,4 +1,7 @@
 #import "EXPMatchers+finish.h"
+
+#import "LLSignalTestRecorder.h"
+#import "LLReactiveMatchersHelpers.h"
 #import "LLReactiveMatchersMessages.h"
 
 EXPMatcherImplementationBegin(finish, (void))

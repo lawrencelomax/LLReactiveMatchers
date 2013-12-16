@@ -1,3 +1,3 @@
 #import "Expecta.h"
 
-EXPMatcherInterface(sendValuesWithCount, (NSInteger expected))
+EXPMatcherInterface(sendValuesWithCount, (NSUInteger expected))

@@ -4,7 +4,7 @@
 #import "LLReactiveMatchersMessages.h"
 #import "LLReactiveMatchersHelpers.h"
 
-EXPMatcherImplementationBegin(sendValuesWithCount, (NSInteger expected))
+EXPMatcherImplementationBegin(sendValuesWithCount, (NSUInteger expected))
 
 __block LLSignalTestRecorder *actualRecorder;
 
