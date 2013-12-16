@@ -69,6 +69,10 @@
     }
 }
 
+- (NSUInteger) valuesSentCount {
+    return self.values.count;
+}
+
 - (BOOL) haveErrored {
     @synchronized(self) {
         return self.receivedErrorEvent;

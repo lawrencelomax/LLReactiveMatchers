@@ -6,19 +6,11 @@
 
 EXPMatcherImplementationBegin(sendValuesWithCount, (NSInteger expected))
 
-__block BOOL hasSubscribed = NO;
-__block NSInteger receivedCount = 0;
+__block LLSignalTestRecorder *actualRecorder;
 
-void (^subscribe)(void) = ^{
-    if(!hasSubscribed) {
-        [self.rac_deallocDisposable addDisposable:
-          [actual subscribeNext:^(id x) {
-            @synchronized(actual) {
-                receivedCount++;
-            }
-          }]
-        ];
-        hasSubscribed = YES;
+void (^subscribe)() = ^{
+    if(!actualRecorder) {
+        actualRecorder = LLRMRecorderForObject(actual);
     }
 };
 
@@ -28,7 +20,7 @@ prerequisite(^BOOL{
 
 match(^BOOL{
     subscribe();
-    return (receivedCount == expected);
+    return (actualRecorder.valuesSentCount == expected);
 });
 
 failureMessageForTo(^NSString *{
@@ -36,7 +28,7 @@ failureMessageForTo(^NSString *{
         return [LLReactiveMatchersMessages actualNotSignal:actual];
     }
     
-    return [NSString stringWithFormat:@"Actual %@ sent %ld next events instead of %ld", LLDescribeSignal(actual), (long)receivedCount, (long)expected];
+    return [NSString stringWithFormat:@"Actual %@ sent %ld next events instead of %ld", LLDescribeSignal(actual), (long)actualRecorder.valuesSentCount, (long)expected];
 });
 
 failureMessageForNotTo(^NSString *{

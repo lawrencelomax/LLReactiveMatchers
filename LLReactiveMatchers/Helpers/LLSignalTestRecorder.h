@@ -19,6 +19,7 @@
 @property (nonatomic, readonly) RACSignal *signal;
 
 @property (nonatomic, readonly) NSArray *values;
+@property (nonatomic, readonly) NSUInteger valuesSentCount;
 
 @property (nonatomic, readonly) BOOL haveErrored;
 @property (nonatomic, readonly) BOOL hasErrored;
