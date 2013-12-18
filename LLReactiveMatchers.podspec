@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/lawrencelomax/LLReactiveMatchers"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Lawrence Lomax" => "lomax.lawrence@gmail.com" }
-  s.source       = { :git => "https://github.com/lawrencelomax/LLReactiveMatchers.git", :commit => "db86084d6445df422c15150adc689f0c9e6ba7a1" }
+  s.source       = { :git => "https://github.com/lawrencelomax/LLReactiveMatchers.git", :commit => "98c7daec0208cfadf18d6415e1f10536d5cbb286" }
 
   s.source_files  = 'LLReactiveMatchers/**/*.{h,m}'
   s.prefix_header_file = 'LLReactiveMatchers/LLReactiveMatchers-Prefix.pch'
