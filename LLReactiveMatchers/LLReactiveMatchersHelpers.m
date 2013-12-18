@@ -44,3 +44,17 @@ extern BOOL LLRMContainsAllValuesUnordered(LLSignalTestRecorder *recorder, NSArr
 extern BOOL LLRMIdenticalFinishingStatus(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder) {
     return (leftRecorder.hasCompleted == rightRecorder.hasCompleted) && (leftRecorder.hasErrored == rightRecorder.hasErrored);
 }
+
+extern id LLRMArrayValueForSignalValue(id signalValue) {
+    if(signalValue == nil) {
+        return NSNull.null;
+    }
+    return signalValue;
+}
+
+extern id LLRMSignalValueForArrayValue(id signalValue) {
+    if([signalValue isKindOfClass:NSNull.class]) {
+        return nil;
+    }
+    return signalValue;
+}

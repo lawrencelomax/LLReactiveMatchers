@@ -22,9 +22,9 @@
     [subject sendNext:@1];
     [subject sendNext:@2];
 
-    expect(recorder.values).to.contain(@0);
-    expect(recorder.values).to.contain(@1);
-    expect(recorder.values).to.contain(@2);
+    expect(recorder.values[0]).to.equal(@0);
+    expect(recorder.values[1]).to.equal(@1);
+    expect(recorder.values[2]).to.equal(@2);
     expect(recorder.values).to.haveCountOf(3);
 }
 
@@ -61,9 +61,9 @@
     [subject sendNext:@2];
     [subject sendError:MI9SpecError];
     
-    expect(recorder.values).to.contain(@0);
-    expect(recorder.values).to.contain(@1);
-    expect(recorder.values).to.contain(@2);
+    expect(recorder.values[0]).to.equal(@0);
+    expect(recorder.values[1]).to.equal(@1);
+    expect(recorder.values[2]).to.equal(@2);
     expect(recorder.values).to.haveCountOf(3);
     
     expect(recorder.error).to.equal(MI9SpecError);
@@ -79,9 +79,25 @@
     [subject sendNext:@2];
     [subject sendCompleted];
     
-    expect(recorder.values).to.contain(@0);
-    expect(recorder.values).to.contain(@1);
-    expect(recorder.values).to.contain(@2);
+    expect(recorder.values[0]).to.equal(@0);
+    expect(recorder.values[1]).to.equal(@1);
+    expect(recorder.values[2]).to.equal(@2);
+    expect(recorder.values).to.haveCountOf(3);
+    expect(recorder.hasCompleted).to.beTruthy();
+}
+
+- (void) test_recorderChangesNilToNSNull {
+    RACSubject *subject = [RACSubject subject];
+    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:subject];
+    
+    [subject sendNext:@0];
+    [subject sendNext:nil];
+    [subject sendNext:@2];
+    [subject sendCompleted];
+    
+    expect(recorder.values[0]).to.equal(@0);
+    expect(recorder.values[1]).to.equal(NSNull.null);
+    expect(recorder.values[2]).to.equal(@2);
     expect(recorder.values).to.haveCountOf(3);
     expect(recorder.hasCompleted).to.beTruthy();
 }

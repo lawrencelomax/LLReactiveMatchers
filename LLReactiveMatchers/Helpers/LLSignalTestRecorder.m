@@ -8,6 +8,8 @@
 
 #import "LLSignalTestRecorder.h"
 
+#import "LLReactiveMatchersHelpers.h"
+
 @interface LLSignalTestRecorder ()
 
 @property (nonatomic, strong) RACSignal *originalSignal;
@@ -50,7 +52,7 @@
     // as the signal sends events
     self.subscriptionDisposable = [signal subscribeNext:^(id x) {
         @synchronized(self) {
-            [self.receivedEvents addObject:x];
+            [self.receivedEvents addObject:LLRMArrayValueForSignalValue(x)];
             [self.relaySubject sendNext:x];
         }
     } error:^(NSError *error) {

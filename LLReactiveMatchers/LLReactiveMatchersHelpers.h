@@ -12,3 +12,6 @@ extern LLSignalTestRecorder *LLRMRecorderForObject(id object);
 
 extern BOOL LLRMContainsAllValuesUnordered(LLSignalTestRecorder *recorder, NSArray *values);
 extern BOOL LLRMIdenticalFinishingStatus(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder);
+
+extern id LLRMArrayValueForSignalValue(id signalValue);
+extern id LLRMSignalValueForArrayValue(id signalValue);
