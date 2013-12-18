@@ -1,13 +1,4 @@
-//
-//  EXPMatchers+matchValues.h
-//  LLReactiveMatchers
-//
-//  Created by Lawrence Lomax on 18/12/2013.
-//
-//
+#import "Expecta.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
-
-
-@interface EXPMatchers (matchValues)
-
-@end
+EXPMatcherInterface(matchValues, (BOOL(^matchBlock)(NSUInteger index, id value) ) )
