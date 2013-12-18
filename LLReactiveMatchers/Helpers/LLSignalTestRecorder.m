@@ -10,7 +10,7 @@
 
 @interface LLSignalTestRecorder ()
 
-@property (nonatomic, strong) RACSignal *signal;
+@property (nonatomic, strong) RACSignal *originalSignal;
 @property (nonatomic, strong) RACDisposable *subscriptionDisposable;
 
 @property (nonatomic, assign) BOOL receivedCompletedEvent;
@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSMutableArray *receivedEvents;
 @property (nonatomic, strong) NSError *receivedError;
 
+@property (nonatomic, strong) RACReplaySubject *relaySubject;
+
 @end
 
 @implementation LLSignalTestRecorder
@@ -26,6 +28,7 @@
 - (id) init {
     if( (self = [super init]) ) {
         self.receivedEvents = [NSMutableArray array];
+        self.relaySubject = [RACReplaySubject subject];
     }
     return self;
 }
@@ -41,27 +44,36 @@
 }
 
 - (void) subscribeToSignal:(RACSignal *)signal {
-    self.signal = signal;
+    self.originalSignal = signal;
     
     // No need to break a cycle here, we want self to live as long
     // as the signal sends events
     self.subscriptionDisposable = [signal subscribeNext:^(id x) {
         @synchronized(self) {
             [self.receivedEvents addObject:x];
+            [self.relaySubject sendNext:x];
         }
     } error:^(NSError *error) {
         @synchronized(self) {
             self.receivedErrorEvent = YES;
             self.receivedError = error;
+            [self.relaySubject sendError:error];
         }
     } completed:^{
         @synchronized(self) {
             self.receivedCompletedEvent = YES;
+            [self.relaySubject sendCompleted];
         }
     }];
 }
 
 #pragma mark Getters
+
+- (RACSignal *) relayedSignal {
+    @synchronized(self) {
+        return self.relaySubject;
+    }
+}
 
 - (NSArray *) values {
     @synchronized(self) {

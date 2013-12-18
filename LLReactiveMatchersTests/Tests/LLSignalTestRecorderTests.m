@@ -9,7 +9,7 @@
     RACSignal *signal = [LLReactiveMatchersFixtures values:@[@1, @2, @3]];
     LLSignalTestRecorder *subscriber = [LLSignalTestRecorder recordWithSignal:signal];
     
-    assertEquals(subscriber.signal, signal);
+    assertEquals(subscriber.originalSignal, signal);
 }
 
 - (void) test_recorderAccumilatesNextValues {
@@ -84,6 +84,27 @@
     expect(recorder.values).to.contain(@2);
     expect(recorder.values).to.haveCountOf(3);
     expect(recorder.hasCompleted).to.beTruthy();
+}
+
+- (void) test_recorderRelays {
+    RACSubject *subject = [RACSubject subject];
+    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:subject];
+    
+    expect(recorder.relayedSignal).toNot.complete();
+    
+    [subject sendNext:@0];
+    [subject sendNext:@1];
+    [subject sendNext:@2];
+ 
+    expect(recorder.relayedSignal).toNot.complete();
+    expect(recorder.relayedSignal).to.sendValuesIdentically(@[@0, @1, @2]);
+
+    [subject sendNext:@3];
+    [subject sendNext:@4];
+    [subject sendCompleted];
+    
+    expect(recorder.relayedSignal).to.complete();
+    expect(recorder.relayedSignal).to.sendValuesIdentically(@[@0, @1, @2, @3, @4]);
 }
 
 @end

@@ -16,7 +16,8 @@
 /// The designated initializer, will subscribe and record to the events sent by ```Signal```
 + (instancetype) recordWithSignal:(RACSignal *)signal;
 
-@property (nonatomic, readonly) RACSignal *signal;
+@property (nonatomic, readonly) RACSignal *originalSignal;
+@property (nonatomic, readonly) RACSignal *relayedSignal;
 
 @property (nonatomic, readonly) NSArray *values;
 @property (nonatomic, readonly) NSUInteger valuesSentCount;
