@@ -21,7 +21,11 @@ extern BOOL __attribute__((overloadable)) LLRMIdenticalValues(NSArray *left, NSA
 }
 
 extern BOOL __attribute__((overloadable)) LLRMIdenticalValues(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder) {
-    return [leftRecorder.values isEqualToArray:rightRecorder.values];
+    return LLRMIdenticalValues(leftRecorder.values, rightRecorder.values);
+}
+
+extern BOOL __attribute__((overloadable)) LLRMIdenticalValues(LLSignalTestRecorder *recorder, NSArray *array) {
+    return LLRMIdenticalValues(recorder.values, array);
 }
 
 extern BOOL LLRMCorrectClassesForActual(id object) {
