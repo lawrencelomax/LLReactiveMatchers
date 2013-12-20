@@ -1,3 +1,3 @@
 #import "Expecta.h"
 
-EXPMatcherInterface(sendError, (NSError *))
+EXPMatcherInterface(sendError, (NSError *expected))

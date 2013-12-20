@@ -2,4 +2,4 @@
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-EXPMatcherInterface(haveIdenticalErrors, (RACSignal *))
+EXPMatcherInterface(haveIdenticalErrors, (RACSignal *expected))
