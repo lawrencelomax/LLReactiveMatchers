@@ -1,10 +1,10 @@
-#import "EXPMatchers+haveIdenticalEvents.h"
+#import "EXPMatchers+sendEvents.h"
 
 #import "LLSignalTestRecorder.h"
 #import "LLReactiveMatchersHelpers.h"
-#import "LLReactiveMatchersMessages.h"
+#import "LLReactiveMatchersMessageBuilder.h"
 
-EXPMatcherImplementationBegin(haveIdenticalEvents, (RACSignal *expected))
+EXPMatcherImplementationBegin(sendEvents, (id expected))
 
 __block LLSignalTestRecorder *actualRecorder = nil;
 __block LLSignalTestRecorder *expectedRecorder = nil;
@@ -34,25 +34,27 @@ match(^BOOL{
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessages actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
     }
     if(!actualRecorder.hasFinished) {
-        return [LLReactiveMatchersMessages actualNotFinished:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotFinished:actual];
     }
     if(!expectedRecorder.hasFinished) {
-        return [LLReactiveMatchersMessages expectedNotFinished:expected];
+        return [LLReactiveMatchersMessageBuilder expectedNotFinished:expected];
     }
     if(!LLRMIdenticalValues(actualRecorder, expectedRecorder)) {
         return [NSString stringWithFormat:@"Values %@ are not the same as %@", EXPDescribeObject(actualRecorder.values), EXPDescribeObject(expectedRecorder.values)];
     }
-    return [NSString stringWithFormat:@"Actual %@ does not have the same finishing event as %@", LLDescribeSignal(actual), LLDescribeSignal(expected)];
+    
+    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:expected] expectedBehaviour:@"to have the same finishing event as"] build];
 });
 
 failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessages actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
     }
-    return [NSString stringWithFormat:@"Actual %@ has all the same events as %@", LLDescribeSignal(actual), LLDescribeSignal(expected)];
+    
+    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:expected] expectedBehaviour:@"to have identical events as"] build];
 });
 
 EXPMatcherImplementationEnd

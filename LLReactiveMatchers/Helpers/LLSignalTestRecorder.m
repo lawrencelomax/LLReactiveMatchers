@@ -41,6 +41,22 @@
     return recorder;
 }
 
++ (instancetype) recorderThatSendsValuesThenCompletes:(id)values {
+    LLSignalTestRecorder *recorder = [[LLSignalTestRecorder alloc] init];
+    recorder.receivedEvents = [values mutableCopy];
+    recorder.receivedCompletedEvent = YES;
+    return recorder;
+}
+
++ (instancetype) recorderThatSendsValues:(id)values thenErrors:(NSError *)error {
+    LLSignalTestRecorder *recorder = [[LLSignalTestRecorder alloc] init];
+    recorder.receivedEvents = [values mutableCopy];
+    recorder.receivedErrorEvent = YES;
+    recorder.receivedError = error;
+    return recorder;
+    
+}
+
 - (void) dealloc {
     [self.subscriptionDisposable dispose];
 }

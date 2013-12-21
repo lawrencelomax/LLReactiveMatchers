@@ -1,3 +1,3 @@
 #import "Expecta.h"
 
-EXPMatcherInterface(sendValues, (NSArray *expected))
+EXPMatcherInterface(sendValues, (id expected))

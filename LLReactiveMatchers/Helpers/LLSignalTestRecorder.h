@@ -16,6 +16,9 @@
 /// The designated initializer, will subscribe and record to the events sent by ```Signal```
 + (instancetype) recordWithSignal:(RACSignal *)signal;
 
++ (instancetype) recorderThatSendsValues:(id)values thenErrors:(NSError *)error;
++ (instancetype) recorderThatSendsValuesThenCompletes:(id)values;
+
 @property (nonatomic, readonly) RACSignal *originalSignal;
 @property (nonatomic, readonly) RACSignal *relayedSignal;
 

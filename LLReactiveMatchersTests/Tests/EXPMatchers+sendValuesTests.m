@@ -21,13 +21,22 @@
     assertFail(test_expect(signal).toNot.sendValues(expected), @"Signal foo contains all values (1, 3, 2)");
 }
 
-- (void) test_all {
+- (void) test_all_wrongOrder {
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] setNameWithFormat:@"foo"];
     NSArray *expected = @[@1, @3, @2];
     
     assertPass(test_expect(signal).to.sendValues(expected));
     assertFail(test_expect(signal).toNot.sendValues(expected), @"Signal foo contains all values (1, 3, 2)");
 }
+
+- (void) test_all_correctOrder {
+    RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] setNameWithFormat:@"foo"];
+    NSArray *expected = @[@1, @2, @3];
+    
+    assertPass(test_expect(signal).to.sendValues(expected));
+    assertFail(test_expect(signal).toNot.sendValues(expected), @"Signal foo contains all values (1, 3, 2)");
+}
+
 
 - (void) test_someAllExpected {
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] setNameWithFormat:@"foo"];
@@ -43,6 +52,14 @@
     
     assertPass(test_expect(signal).toNot.sendValues(expected));
     assertFail(test_expect(signal).to.sendValues(expected), @"Signal foo does not contain all values (1, 2, 20)");
+}
+
+- (void) test_subRange {
+    RACSignal *actual = [LLReactiveMatchersFixtures values:@[@0, @1, @2, @3]];
+    NSArray *expected = @[@0, @1, @2];
+    
+    assertPass(test_expect(actual).toNot.sendValues(expected));
+    assertFail(test_expect(actual).to.sendValues(expected), @"Signal values (0, 1, 2, 3) does not have identical values to (0, 1, 2)");
 }
 
 - (void) test_none {

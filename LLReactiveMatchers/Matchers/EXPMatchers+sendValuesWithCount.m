@@ -1,7 +1,7 @@
 #import "EXPMatchers+sendValuesWithCount.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
-#import "LLReactiveMatchersMessages.h"
+#import "LLReactiveMatchersMessageBuilder.h"
 #import "LLReactiveMatchersHelpers.h"
 
 EXPMatcherImplementationBegin(sendValuesWithCount, (NSUInteger expected))
@@ -25,18 +25,17 @@ match(^BOOL{
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessages actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
     }
     
-    return [NSString stringWithFormat:@"Actual %@ sent %ld next events instead of %ld", LLDescribeSignal(actual), (long)actualRecorder.valuesSentCount, (long)expected];
+    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual] expectedBehaviour:[NSString stringWithFormat:@"to send %@ events", @(expected)]] build];
 });
 
 failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessages actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
     }
-    
-    return [NSString stringWithFormat:@"Actual %@ sent %ld next events", LLDescribeSignal(actual), (long)expected];
+    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual] expectedBehaviour:[NSString stringWithFormat:@"to send %@ next events", @(expected)]] build];
 });
 
 EXPMatcherImplementationEnd

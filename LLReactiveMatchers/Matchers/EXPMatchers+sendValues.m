@@ -1,13 +1,14 @@
 #import "EXPMatchers+sendValues.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
-#import "LLReactiveMatchersMessages.h"
+#import "LLReactiveMatchersMessageBuilder.h"
 #import "LLReactiveMatchersHelpers.h"
 #import "LLSignalTestRecorder.h"
 
-EXPMatcherImplementationBegin(sendValues, (NSArray *expected))
+EXPMatcherImplementationBegin(sendValues, (id expected))
 
 __block LLSignalTestRecorder *actualRecorder = nil;
+__block LLSignalTestRecorder *expectedRecorder = nil;
 
 void (^subscribe)(void) = ^{
     if(!actualRecorder) {
@@ -26,16 +27,16 @@ match(^BOOL{
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessages actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
     }
-    return [NSString stringWithFormat:@"Signal %@ does not contain all values %@", LLDescribeSignal(actual), EXPDescribeObject(expected)];
+    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:expected] expectedBehaviour:@"to not contain all of the same values as"] build];
 });
 
 failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessages actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
     }
-    return [NSString stringWithFormat:@"Signal %@ contains all values %@", LLDescribeSignal(actual), EXPDescribeObject(expected)];
+    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:expected] expectedBehaviour:@"to contain all the values of"] build];
 });
 
 EXPMatcherImplementationEnd

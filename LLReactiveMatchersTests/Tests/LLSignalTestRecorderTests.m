@@ -112,15 +112,15 @@
     [subject sendNext:@1];
     [subject sendNext:@2];
  
-    expect(recorder.relayedSignal).toNot.complete();
-    expect(recorder.relayedSignal).to.sendValuesIdentically(@[@0, @1, @2]);
+    expect(recorder.hasCompleted).to.beFalsy();
+    expect(recorder.values).to.equal( (@[@0, @1, @2]) );
 
     [subject sendNext:@3];
     [subject sendNext:@4];
     [subject sendCompleted];
     
-    expect(recorder.relayedSignal).to.complete();
-    expect(recorder.relayedSignal).to.sendValuesIdentically(@[@0, @1, @2, @3, @4]);
+    expect(recorder.hasCompleted).to.beTruthy();
+    expect(recorder.values).to.equal( (@[@0, @1, @2, @3, @4]) );
 }
 
 @end

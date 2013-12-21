@@ -3,11 +3,11 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "LLSignalTestRecorder.h"
 #import "LLReactiveMatchersHelpers.h"
-#import "LLReactiveMatchersMessages.h"
+#import "LLReactiveMatchersMessageBuilder.h"
 
 EXPMatcherImplementationBegin(complete, (void))
 
-__block LLSignalTestRecorder *actualRecorder;
+__block LLSignalTestRecorder *actualRecorder = nil;
 
 void (^subscribe)() = ^{
     if(!actualRecorder) {
@@ -27,23 +27,23 @@ match(^BOOL{
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessages actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
     }
     @synchronized(actual) {
         if(!(actualRecorder.hasCompleted || actualRecorder.hasErrored)) {
-            return [LLReactiveMatchersMessages actualNotFinished:actual];
+            return [LLReactiveMatchersMessageBuilder actualNotFinished:actual];
         }
     }
-   
-    return [NSString stringWithFormat:@"Signal %@ finished in error instead of completion", LLDescribeSignal(actual)];
+    
+    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:@"completion"] expectedBehaviour:@"to complete"] build];
 });
 
 failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessages actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
     }
     
-    return [NSString stringWithFormat:@"Signal %@ finished in completion instead of not completing", LLDescribeSignal(actual)];
+    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:@"error"] expectedBehaviour:@"to error"] build];
 });
 
 EXPMatcherImplementationEnd
