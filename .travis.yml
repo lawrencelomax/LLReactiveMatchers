@@ -1,5 +1,8 @@
 language: objective-c
 rvm: 1.9.3
+branches:
+  only:
+    - master
 
 #before_install:
 #  - sudo pip install cpp-coveralls --use-mirrors
