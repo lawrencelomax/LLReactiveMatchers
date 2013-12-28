@@ -10,12 +10,12 @@
 
 #import "Expecta.h"
 
-typedef enum  {
-    RenderActualValues = 1 << 0,
+typedef NS_OPTIONS(NSUInteger, LLReactiveMatchersMessageBuilderRendering) {
+    RenderActualValues = 1,
     RenderExpectedValues = 1 << 1,
     RenderActualError = 1 << 2,
     RenderExpectedError = 1 << 3
-} LLReactiveMatchersMessageBuilderRendering;
+};
 
 #ifndef LLBitmaskIsOn
 #define LLBitmaskIsOn(enum, mask) ( (enum & mask) == mask )
@@ -45,12 +45,12 @@ typedef enum  {
 }
 
 - (instancetype) renderActualValues {
-    self.rendering = self.rendering & RenderActualValues;
+    self.rendering = (self.rendering & RenderActualValues);
     return self;
 }
 
-- (instancetype) renderActualErrors {
-    self.rendering = self.rendering & RenderActualError;
+- (instancetype) renderActualError {
+    self.rendering = (self.rendering & RenderActualError);
     return self;
 }
 
@@ -60,12 +60,12 @@ typedef enum  {
 }
 
 - (instancetype) renderExpectedValues {
-    self.rendering = self.rendering & RenderExpectedValues;
+    self.rendering = (self.rendering | RenderExpectedValues);
     return self;
 }
 
-- (instancetype) renderExpectedErrors {
-    self.rendering = self.rendering & RenderExpectedError;
+- (instancetype) renderExpectedError {
+    self.rendering = (self.rendering | RenderExpectedError);
     return self;
 }
 
@@ -77,15 +77,19 @@ typedef enum  {
     if(actualString) {
         [string appendFormat:@" actual %@", actualString];
     }
+    
+    NSString *expectedString = self.expected.originalSignalDescription;
     if(LLBitmaskIsOn(self.rendering, RenderExpectedValues)) {
         [string appendFormat:@" to send values %@", self.expected.valuesDescription];
+    }
+    else if(LLBitmaskIsOn(self.rendering, RenderExpectedError)) {
+        [string appendFormat:@" to send error %@", self.expected.errorDescription];
     }
     else if(self.expectedBehaviour) {
         [string appendFormat:@" to %@", self.expectedBehaviour];
     }
-    NSString *expectedString = self.expected.originalSignalDescription;
-    if(expectedString) {
-        [string appendFormat:@" %@", expectedString];
+    else if (expectedString) {
+        [string appendFormat:@" expected %@", expectedString];
     }
     
     if(self.actualBehaviour || LLBitmaskIsOn(self.rendering, RenderActualValues)) {

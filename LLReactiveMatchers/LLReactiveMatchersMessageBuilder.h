@@ -16,12 +16,12 @@
 
 - (instancetype) actual:(LLSignalTestRecorder *)actual;
 - (instancetype) renderActualValues;
-- (instancetype) renderActualErrors;
+- (instancetype) renderActualError;
 - (instancetype) actualBehaviour:(NSString *)behaviour;
 
 - (instancetype) expected:(LLSignalTestRecorder *)actual;
 - (instancetype) renderExpectedValues;
-- (instancetype) renderExpectedErrors;
+- (instancetype) renderExpectedError;
 - (instancetype) expectedBehaviour:(NSString *)behaviour;
 
 - (NSString *) build;

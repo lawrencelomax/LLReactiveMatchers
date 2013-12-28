@@ -35,10 +35,12 @@ extern BOOL LLRMCorrectClassesForActual(id object) {
 extern LLSignalTestRecorder *LLRMRecorderForObject(id object) {
     if([object isKindOfClass:LLSignalTestRecorder.class]) {
         return object;
-    } else if([object isKindOfClass:NSArray.class]) {
-        return [LLSignalTestRecorder recorderThatSendsValuesThenCompletes:object];
     } else if([object isKindOfClass:RACSignal.class]){
         return [LLSignalTestRecorder recordWithSignal:object];
+    } else if([object isKindOfClass:NSArray.class]) {
+        return [LLSignalTestRecorder recorderThatSendsValuesThenCompletes:object];
+    } else if([object isKindOfClass:NSError.class]) {
+        return [LLSignalTestRecorder recorderThatSendsValues:@[] thenErrors:object];
     }
     return nil;
 }
