@@ -52,7 +52,9 @@ failureMessageForNotTo(^NSString *{
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
-    return [NSString stringWithFormat:@"Match succeeded at index %lu", (unsigned long)valueIndex];
+    NSString *expectedBehaviour = [NSString stringWithFormat:@"to not match value at index %@", @(valueIndex)];
+    NSString *actualBehaviour = [NSString stringWithFormat:@"matched value at index %@", @(valueIndex)];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:expectedBehaviour] actualBehaviour:actualBehaviour] build];
 });
 
 EXPMatcherImplementationEnd

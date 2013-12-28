@@ -20,7 +20,7 @@
 }
 
 - (void) test_emptySignal {
-    RACSignal *actual = RACSignal.empty;
+    RACSignal *actual = [RACSignal.empty setNameWithFormat:@"foo"];
     
     assertPass(test_expect(actual).toNot.matchValue(0, ^(id value){
         return NO;
@@ -28,11 +28,11 @@
     
     assertFail(test_expect(actual).to.matchValue(0, ^(id value){
         return NO;
-    }), @"Could not match value at index 0, as only 0 values sent");
+    }), @"expected: actual foo to to match value at index 0, got: only 0 values sent");
 }
 
 - (void) test_matchIndexToDamnHigh {
-    RACSignal *actual = [LLReactiveMatchersFixtures values:@[@0, @1, @2, @3]];
+    RACSignal *actual = [[LLReactiveMatchersFixtures values:@[@0, @1, @2, @3]] setNameWithFormat:@"foo"];
     
     assertPass(test_expect(actual).toNot.matchValue(10, ^(id value){
         return NO;
@@ -40,11 +40,11 @@
     
     assertFail(test_expect(actual).to.matchValue(10, ^(id value){
         return NO;
-    }), @"Could not match value at index 10, as only 4 values sent");
+    }), @"expected: actual foo to to match value at index 10, got: only 4 values sent");
 }
 
 - (void) test_matchPassIndex {
-    RACSignal *actual = [LLReactiveMatchersFixtures values:@[@0, @1, @2, @3]];
+    RACSignal *actual = [[LLReactiveMatchersFixtures values:@[@0, @1, @2, @3]] setNameWithFormat:@"foo"];
     
     assertPass(test_expect(actual).to.matchValue(2, ^(id value){
         assertEqualObjects(@2, value);
@@ -54,7 +54,7 @@
     assertFail(test_expect(actual).toNot.matchValue(2, ^(id value){
         assertEqualObjects(@2, value);
         return YES;
-    }), @"Match succeeded at index 2");
+    }), @"expected: actual foo to to not match value at index 2, got: matched value at index 2");
 }
 
 
