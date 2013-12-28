@@ -17,6 +17,10 @@ typedef enum  {
     RenderExpectedError = 1 << 3
 } LLReactiveMatchersMessageBuilderRendering;
 
+#ifndef LLBitmaskIsOn
+#define LLBitmaskIsOn(enum, mask) ( (enum & mask) == mask )
+#endif
+
 @interface LLReactiveMatchersMessageBuilder ()
 
 @property (nonatomic, strong) LLSignalTestRecorder *actual;
@@ -69,27 +73,29 @@ typedef enum  {
     NSMutableString *string = [NSMutableString string];
 
     [string appendString:@"expected:"];
-    NSString *expectedString = self.expected.originalSignalDescription;
-    if(expectedString) {
-        [string appendFormat:@" %@", expectedString];
+    NSString *actualString = self.actual.originalSignalDescription;
+    if(actualString) {
+        [string appendFormat:@" %@", actualString];
     }
-    if(self.renderExpectedValues) {
+    if(LLBitmaskIsOn(self.rendering, RenderExpectedValues)) {
         [string appendFormat:@" to send values %@", self.expected.valuesDescription];
     }
     else if(self.expectedBehaviour) {
         [string appendFormat:@" to %@", self.expectedBehaviour];
     }
+    NSString *expectedString = self.expected.originalSignalDescription;
+    if(expectedString) {
+        [string appendFormat:@" %@", expectedString];
+    }
     
-    [string appendString:@" got:"];
-    NSString *actualString = self.actual.originalSignalDescription;
-    if(actualString) {
-        [string appendFormat:@" %@", actualString];
-    }
-    if(self.renderActualValues) {
-        [string appendFormat:@" %@ values sent", self.actual.valuesDescription];
-    }
-    else if (self.actualBehaviour) {
-        [string appendFormat:@" %@", self.expected.valuesDescription];
+    if(self.actualBehaviour || LLBitmaskIsOn(self.rendering, RenderActualValues)) {
+        [string appendString:@", got:"];
+        if(LLBitmaskIsOn(self.rendering, RenderActualValues)) {
+            [string appendFormat:@" %@ values sent", self.actual.valuesDescription];
+        }
+        else {
+            [string appendFormat:@" %@", self.actualBehaviour];
+        }
     }
     
     return [string copy];
@@ -106,11 +112,11 @@ typedef enum  {
 }
 
 + (NSString *) actualNotCorrectClass:(id)actual {
-    return [NSString stringWithFormat:@"expected: actual %@ to be a signal or recorder", EXPDescribeObject(actual)];
+    return [NSString stringWithFormat:@"expected: actual to be a signal or recorder"];
 }
 
 + (NSString *) expectedNotCorrectClass:(id)expected {
-    return [NSString stringWithFormat:@"expected: expected %@ to be a signal or recorder", EXPDescribeObject(expected)];
+    return [NSString stringWithFormat:@"expected: expected to be a signal or recorder"];
 }
 
 + (NSString *) actualNotFinished:(LLSignalTestRecorder *)actual {

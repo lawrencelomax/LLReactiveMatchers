@@ -37,7 +37,7 @@ failureMessageForTo(^NSString *{
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     if(!actualRecorder.hasFinished) {
-        return [LLReactiveMatchersMessageBuilder actualNotFinished:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotFinished:actualRecorder];
     }
     if(!expectedRecorder.hasFinished) {
         return [LLReactiveMatchersMessageBuilder expectedNotFinished:expected];

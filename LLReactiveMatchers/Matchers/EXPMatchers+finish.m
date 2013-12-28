@@ -29,7 +29,7 @@ failureMessageForTo(^NSString *{
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
-    return [LLReactiveMatchersMessageBuilder actualNotFinished:actual];
+    return [LLReactiveMatchersMessageBuilder actualNotFinished:actualRecorder];
 });
 
 failureMessageForNotTo(^NSString *{

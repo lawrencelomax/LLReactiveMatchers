@@ -30,10 +30,10 @@ failureMessageForTo(^NSString *{
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     if(!(actualRecorder.hasCompleted || actualRecorder.hasErrored)) {
-        return [LLReactiveMatchersMessageBuilder actualNotFinished:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotFinished:actualRecorder];
     }
     
-    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:@"complete"] actualBehaviour:@"did not complete"] build];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:@"complete"] actualBehaviour:@"error instead of completion"] build];
 });
 
 failureMessageForNotTo(^NSString *{
@@ -41,7 +41,7 @@ failureMessageForNotTo(^NSString *{
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
-    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:@"to complete"] actualBehaviour:@"did complete"] build];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:@"not complete"] actualBehaviour:@"completed"] build];
 });
 
 EXPMatcherImplementationEnd

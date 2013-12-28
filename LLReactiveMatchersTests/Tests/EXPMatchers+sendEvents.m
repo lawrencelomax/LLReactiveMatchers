@@ -9,8 +9,8 @@
     NSArray *actual = @[@1, @2, @3];
     RACSignal *expected = [LLReactiveMatchersFixtures values:@[@2, @3]];
     
-    assertFail(test_expect(actual).to.sendEvents(expected), @"expected: actual (1, 2, 3) to be a signal or recorder");
-    assertFail(test_expect(actual).toNot.sendEvents(expected), @"expected: actual (1, 2, 3) to be a signal or recorder");
+    assertFail(test_expect(actual).to.sendEvents(expected), @"expected: actual to be a signal or recorder");
+    assertFail(test_expect(actual).toNot.sendEvents(expected), @"expected: actual to be a signal or recorder");
 }
 
 - (void) test_identicalEventsCompletion {
