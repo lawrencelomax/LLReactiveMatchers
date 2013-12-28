@@ -9,8 +9,8 @@
     NSArray *actual = @[@1, @2, @3];
     NSError *expected = MI9SpecError;
     
-    assertFail(test_expect(actual).to.sendError(expected), @"Actual (1, 2, 3) is not a Signal");
-    assertFail(test_expect(actual).toNot.sendError(expected), @"Actual (1, 2, 3) is not a Signal");
+    assertFail(test_expect(actual).to.sendError(expected), @"expected: actual (1, 2, 3) to be a signal or recorder");
+    assertFail(test_expect(actual).toNot.sendError(expected), @"expected: actual (1, 2, 3) to be a signal or recorder");
 }
 
 - (void) test_endsInCompletion {

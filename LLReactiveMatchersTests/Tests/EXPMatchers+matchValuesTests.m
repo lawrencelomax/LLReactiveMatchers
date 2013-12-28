@@ -12,11 +12,11 @@
     
     assertFail(test_expect(actual).to.matchValues(^(NSUInteger index, id value){
         return YES;
-    }), @"Actual (1, 2, 3) is not a Signal");
+    }), @"expected: actual (1, 2, 3) to be a signal or recorder");
     
     assertFail(test_expect(actual).toNot.matchValues(^(NSUInteger index, id value){
         return YES;
-    }), @"Actual (1, 2, 3) is not a Signal");
+    }), @"expected: actual (1, 2, 3) to be a signal or recorder");
 }
 
 - (void) test_emptySignal {

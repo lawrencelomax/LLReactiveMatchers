@@ -12,11 +12,11 @@
     
     assertFail(test_expect(actual).to.matchValue(0, ^(id value){
         return YES;
-    }), @"Actual (1, 2, 3) is not a Signal");
+    }), @"expected: actual (1, 2, 3) to be a signal or recorder");
     
     assertFail(test_expect(actual).toNot.matchValue(0, ^(id value){
         return YES;
-    }), @"Actual (1, 2, 3) is not a Signal");
+    }), @"expected: actual (1, 2, 3) to be a signal or recorder");
 }
 
 - (void) test_emptySignal {

@@ -8,8 +8,8 @@
 - (void) test_nonSignalActual {
     NSArray *actual = @[@1, @2, @3];
     
-    assertFail(test_expect(actual).to.finish(), @"Actual (1, 2, 3) is not a Signal");
-    assertFail(test_expect(actual).toNot.finish(), @"Actual (1, 2, 3) is not a Signal");
+    assertFail(test_expect(actual).to.finish(), @"expected: actual (1, 2, 3) to be a signal or recorder");
+    assertFail(test_expect(actual).toNot.finish(), @"expected: actual (1, 2, 3) to be a signal or recorder");
 }
 
 - (void) test_completion {
