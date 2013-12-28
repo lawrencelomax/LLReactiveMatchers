@@ -24,27 +24,28 @@ Can be changed to this:
     NSError *expectedError = ...;
     expect(signal).to.sendError(expectedError);
 
-The matchers will also ensure that dependent conditions are also met. For example, when comparing the output of two Signals with the ```haveIdenticalEvents()``` matcher, the matcher will not be able to pass until both signals have ended.
+Matchers will accept a ```RACSignal```s as the actual object. ```LLSignalTestRecorder```s as the actual object, allowing the values that a Signal sends to be received before matching. This can be an important distinction as ```RACReplaySubject```s are greedy and will send their events in the order that they were sent.
 
-Using a matcher will result in the Signal passed through to be subscribed to. Further expectations using the matchers will result in additional subscriptions. This encourages the usage of [Cold Signals](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/FrameworkOverview.md#connections), as well as Signals having [repeatable results](http://en.wikipedia.org/wiki/Referential_transparency_(computer_science)).
+The matchers will also ensure that dependent conditions are also met. For example, when comparing that the output of two Signals is identical with the ```sendEvents()```, the matcher will not be able to know that both Signals are identical until they have both finished sending values.
+
+Using a matcher with a Signal as the actual value will cause the Signal passed through to be subscribed to. Further expectations using the matchers will result in additional subscriptions. This encourages the usage of [Cold Signals](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/FrameworkOverview.md#connections), as well as Signals having [repeatable results](http://en.wikipedia.org/wiki/Referential_transparency_(computer_science)).
 
 ## Examples
 
-Occasionally, you may not be able to use a ```RACReplaySubject``` because the ordering of events in a composed signal is important. In these cases you can provide ```LLSignalTestRecorder```
+- ```RACReplaySubject``` example
+- ```RACSubject `
 
 ## Matchers
     
     expect(signal).to.complete();   //Succeeds if 'signal' completes before matching
     expect(signal).to.error(); //Succeeds if 'signal' errors before matching
     expect(signal).to.finish(); //Succeeds if 'signal' completes or errors before matching
-    expect(signal).to.haveIdenticalEvents(expectedSignal);  //Succeeds if 'signal' and 'expectedSignal' send exactly the same events
-    expect(signal).to.haveIdenticalErrors(expectedSignal);  //Succeeds if 'signal' and 'expectedSignal' both send errors that are equal
-    expect(signal).to.haveIdenticalValues(expectedSignal);  //Succeeds if 'signal' and 'expectedSignal' both send the same next events in the same order
-    expect(signal).to.sendError(expectedError);  //Succeeds if 'signal' sends an error that is equal to 'expectedError'
-    expect(signal).to.sendValues( @[@1, @2] );  //Succeeds if 'signal' sends the values in the array. Ordering and additional values in the expected Signal do not effect success
-    expect(signal).to.sendValuesWithCount(4);  //Succeeds if 'signal' sends exactly 4 next events
-    expect(signal).to.sendValuesIdentically( @[@1, @2] );   //Succeeds if values sent in 'signal' is identical to the array
-    
+    expect(signal).to.matchValue(matchIndex, matchBlock); //Succeeds if 'matchBlock' returns YES from 'matchIndex' provided
+    expect(signal).to.matchValues(matchBlock);  //Succeeds if 'matchBlock' returns YES for all values that 'signal' sends
+    expect(signal).to.sendError(expectedError);  //Succeeds if 'signal' sends an error that is equal to 'expectedError'. 'expectedError' can be an NSError, RACSignal or LLSignalTestRecorder.
+    expect(signal).to.sendEvents(expectedEvents);  //Succeeds if 'signal' and 'expectedSignal' send exactly the same events. 'expectedError' can be a Object value, RACSignal or LLSignalTestRecorder.
+    expect(signal).to.sendValues(expectedValues);  //Succeeds if 'signal' exactly sends  the values of 'expectedValues'. 
+    expect(signal).to.sendValuesWithCount(expectedCount);  //Succeeds if 'signal' sends exactly 4 next events
 
 ## Tips
 

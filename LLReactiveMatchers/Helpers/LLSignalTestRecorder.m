@@ -36,12 +36,16 @@
 }
 
 + (instancetype) recordWithSignal:(RACSignal *)signal {
+    NSAssert(signal != nil, @"Signal should not be nil");
+    
     LLSignalTestRecorder *recorder = [[LLSignalTestRecorder alloc] init];
     [recorder subscribeToSignal:signal];
     return recorder;
 }
 
 + (instancetype) recorderThatSendsValuesThenCompletes:(id)values {
+    NSAssert(values != nil, @"Values should not be nil");
+    
     LLSignalTestRecorder *recorder = [[LLSignalTestRecorder alloc] init];
     recorder.receivedEvents = [values mutableCopy];
     recorder.receivedCompletedEvent = YES;
@@ -49,12 +53,13 @@
 }
 
 + (instancetype) recorderThatSendsValues:(id)values thenErrors:(NSError *)error {
+    NSAssert(values != nil, @"Values should not be nil");
+    
     LLSignalTestRecorder *recorder = [[LLSignalTestRecorder alloc] init];
     recorder.receivedEvents = [values mutableCopy];
     recorder.receivedErrorEvent = YES;
     recorder.receivedError = error;
     return recorder;
-    
 }
 
 - (void) dealloc {
@@ -143,6 +148,24 @@
     @synchronized(self) {
         return self.receivedCompletedEvent || self.receivedErrorEvent;
     }
+}
+
+#pragma mark Descriptions
+
+- (NSString *) description {
+    return self.originalSignalDescription;
+}
+
+- (NSString *) originalSignalDescription {
+    return self.originalSignal.name;
+}
+
+- (NSString *) valuesDescription {
+    return EXPDescribeObject(self.values);
+}
+
+- (NSString *) errorDescription {
+    return EXPDescribeObject(self.error);
 }
 
 @end

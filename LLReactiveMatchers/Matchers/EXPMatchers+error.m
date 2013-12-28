@@ -27,23 +27,21 @@ match(^BOOL{
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
-    @synchronized(actual) {
-        if(!(actualRecorder.hasCompleted || actualRecorder.hasErrored)) {
-            return [LLReactiveMatchersMessageBuilder actualNotFinished:actual];
-        }
+    if(!(actualRecorder.hasCompleted || actualRecorder.hasErrored)) {
+        return [LLReactiveMatchersMessageBuilder actualNotFinished:actual];
     }
     
-    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual] expectedBehaviour:@"to finish in completion"] build];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:@"to error"] actualBehaviour:@"completion"] build];
 });
 
 failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
-    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual] expectedBehaviour:@"to finish in error"] build];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:@"to not error"] actualBehaviour:@"errored"] build];
 });
 
 EXPMatcherImplementationEnd

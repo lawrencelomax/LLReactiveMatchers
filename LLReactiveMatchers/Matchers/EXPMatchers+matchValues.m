@@ -39,7 +39,7 @@ match(^BOOL{
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
     return [NSString stringWithFormat:@"Failed to match value %@ at index %ld", failingValue, (long)failingIndex];
@@ -47,7 +47,7 @@ failureMessageForTo(^NSString *{
 
 failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
     return @"Signal matched all available values";

@@ -29,24 +29,27 @@ match(^BOOL{
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     if(!(actualRecorder.hasCompleted || actualRecorder.hasErrored)) {
-        return [LLReactiveMatchersMessageBuilder actualNotFinished:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotFinished:actualRecorder];
     }
     if(!actualRecorder.hasErrored) {
-        return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:expected] expectedBehaviour:@"to finish in error"] build];
+        return [[[LLReactiveMatchersMessageBuilder message] expectedBehaviour:@"actual to finish in error"] build];
+    }
+    if(!expectedRecorder.hasErrored) {
+        return [[[LLReactiveMatchersMessageBuilder message] expectedBehaviour:@"expected to finish in error"] build];
     }
     
-    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:expected] expectedBehaviour:@"to have the same error as"] build];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expected:expectedRecorder] expectedBehaviour:@"to have the same errors"] build];
 });
 
 failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
-    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:expected] expectedBehaviour:@"to not have the same error as"] build];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expected:expectedRecorder] expectedBehaviour:@"to not have the same errors"] build];
 });
 
 EXPMatcherImplementationEnd

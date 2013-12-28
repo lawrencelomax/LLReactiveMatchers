@@ -35,4 +35,8 @@
 @property (nonatomic, readonly) BOOL hasFinished;
 @property (nonatomic, readonly) BOOL haveFinished;
 
+@property (nonatomic, readonly) NSString *originalSignalDescription;
+@property (nonatomic, readonly) NSString *valuesDescription;
+@property (nonatomic, readonly) NSString *errorDescription;
+
 @end

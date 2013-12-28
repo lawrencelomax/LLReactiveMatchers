@@ -10,72 +10,86 @@
 
 #import "Expecta.h"
 
-extern NSString *LLReactiveMatchersDescribeObject(id object) {
-    if([object isKindOfClass:RACSignal.class]) {
-        return [object name];
-    }
-    return EXPDescribeObject(object);
-}
+typedef enum  {
+    RenderActualValues = 1 << 0,
+    RenderExpectedValues = 1 << 1,
+    RenderActualError = 1 << 2,
+    RenderExpectedError = 1 << 3
+} LLReactiveMatchersMessageBuilderRendering;
 
 @interface LLReactiveMatchersMessageBuilder ()
 
-@property (nonatomic, strong) id expected;
-@property (nonatomic, assign) BOOL expectedProvided;
+@property (nonatomic, strong) LLSignalTestRecorder *actual;
+@property (nonatomic, strong) LLSignalTestRecorder *expected;
+
+@property (nonatomic, assign) LLReactiveMatchersMessageBuilderRendering rendering;
 
 @property (nonatomic, strong) NSString *expectedBehaviour;
-
-@property (nonatomic, strong) id actual;
-@property (nonatomic, assign) BOOL actualProvided;
-
 @property (nonatomic, strong) NSString *actualBehaviour;
 
 @end
 
 @implementation LLReactiveMatchersMessageBuilder
 
-+ (instancetype) messageWithActual:(id)actual {
-    LLReactiveMatchersMessageBuilder *builder = [[LLReactiveMatchersMessageBuilder alloc] init];
-    builder.actual = actual;
-    builder.actualProvided = YES;
-    return builder;
++ (instancetype) message {
+    return [[self alloc] init];
 }
 
-+ (instancetype) messageWithActual:(id)actual expected:(id)expected {
-    LLReactiveMatchersMessageBuilder *builder = [[LLReactiveMatchersMessageBuilder alloc] init];
-    builder.actual = actual;
-    builder.actualProvided = YES;
-    builder.expected = expected;
-    builder.expectedProvided = YES;
-    return builder;
+- (instancetype) actual:(LLSignalTestRecorder *)actual {
+    self.actual = actual;
+    return self;
+}
+
+- (instancetype) renderActualValues {
+    self.rendering = self.rendering & RenderActualValues;
+    return self;
+}
+
+- (instancetype) renderActualErrors {
+    self.rendering = self.rendering & RenderActualError;
+    return self;
+}
+
+- (instancetype) expected:(LLSignalTestRecorder *)expected {
+    self.expected = expected;
+    return self;
+}
+
+- (instancetype) renderExpectedValues {
+    self.rendering = self.rendering & RenderExpectedValues;
+    return self;
+}
+
+- (instancetype) renderExpectedErrors {
+    self.rendering = self.rendering & RenderExpectedError;
+    return self;
 }
 
 - (NSString *) build {
     NSMutableString *string = [NSMutableString string];
+
+    [string appendString:@"expected:"];
+    NSString *expectedString = self.expected.originalSignalDescription;
+    if(expectedString) {
+        [string appendFormat:@" %@", expectedString];
+    }
+    if(self.renderExpectedValues) {
+        [string appendFormat:@" to send values %@", self.expected.valuesDescription];
+    }
+    else if(self.expectedBehaviour) {
+        [string appendFormat:@" to %@", self.expectedBehaviour];
+    }
     
-    if(self.expectedBehaviour || self.expectedProvided) {
-        [string appendString:@"expected:"];
+    [string appendString:@" got:"];
+    NSString *actualString = self.actual.originalSignalDescription;
+    if(actualString) {
+        [string appendFormat:@" %@", actualString];
     }
-    if(self.expectedProvided) {
-        [string appendFormat:@" %@", LLReactiveMatchersDescribeObject(self.expected)];
-        if(self.expectedBehaviour) {
-            [string appendString:@","];
-        }
+    if(self.renderActualValues) {
+        [string appendFormat:@" %@ values sent", self.actual.valuesDescription];
     }
-    if(self.expectedBehaviour) {
-        [string appendFormat:@" %@", self.expectedBehaviour];
-    }
-    
-    if(self.actualBehaviour || self.expectedProvided) {
-        [string appendFormat:@" got:"];
-    }
-    if(self.actualProvided) {
-        [string appendFormat:@" %@", LLReactiveMatchersDescribeObject(self.actual)];
-        if(self.actualBehaviour) {
-            [string appendString:@","];
-        }
-    }
-    if(self.actualBehaviour) {
-        [string appendFormat:@" %@", self.actualBehaviour];
+    else if (self.actualBehaviour) {
+        [string appendFormat:@" %@", self.expected.valuesDescription];
     }
     
     return [string copy];
@@ -91,16 +105,20 @@ extern NSString *LLReactiveMatchersDescribeObject(id object) {
     return self;
 }
 
-+ (NSString *) actualNotSignal:(id)actual {
-    return [[[self messageWithActual:actual] expectedBehaviour:@"to be a Signal"] build];
++ (NSString *) actualNotCorrectClass:(id)actual {
+    return [NSString stringWithFormat:@"expected: actual %@ to be a signal or recorder", EXPDescribeObject(actual)];
 }
 
-+ (NSString *) actualNotFinished:(RACSignal *)actual {
-    return [[[self messageWithActual:actual] expectedBehaviour:@"to have finished"] build];
++ (NSString *) expectedNotCorrectClass:(id)expected {
+    return [NSString stringWithFormat:@"expected: expected %@ to be a signal or recorder", EXPDescribeObject(expected)];
 }
 
-+ (NSString *) expectedNotFinished:(RACSignal *)actual {
-    return [NSString stringWithFormat:@"Expected %@ has not finished", LLReactiveMatchersDescribeObject(actual)];
++ (NSString *) actualNotFinished:(LLSignalTestRecorder *)actual {
+    return [NSString stringWithFormat:@"expected: actual %@ to finish", actual.originalSignalDescription];
+}
+
++ (NSString *) expectedNotFinished:(LLSignalTestRecorder *)expected {
+    return [NSString stringWithFormat:@"exptected: expected %@ to finish", expected.originalSignalDescription];
 }
 
 @end

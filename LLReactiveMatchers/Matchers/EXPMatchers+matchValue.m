@@ -34,18 +34,22 @@ match(^BOOL{
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     if(notRecievedCount) {
-        return [[[[LLReactiveMatchersMessageBuilder messageWithActual:actual] expectedBehaviour:@"to match value at index %@"] actualBehaviour:@"too few values sent"] build];
+        NSString *expectedBehaviour = [NSString stringWithFormat:@"to match value at index %@", @(valueIndex)];
+        NSString *actualBehaviour = [NSString stringWithFormat:@"only %@ values sent", @(actualRecorder.valuesSentCount)];
+        return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:expectedBehaviour] actualBehaviour:actualBehaviour] build];
     }
     
-    return [NSString stringWithFormat:@"Match failed at index %lu", (unsigned long)valueIndex];
+    NSString *expectedBehaviour = [NSString stringWithFormat:@"to match value at index %@", @(valueIndex)];
+    NSString *actualBehaviour = [NSString stringWithFormat:@"did not match value at index %@", @(valueIndex)];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:expectedBehaviour] actualBehaviour:actualBehaviour] build];
 });
 
 failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
     return [NSString stringWithFormat:@"Match succeeded at index %lu", (unsigned long)valueIndex];

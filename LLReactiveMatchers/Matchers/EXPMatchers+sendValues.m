@@ -14,6 +14,9 @@ void (^subscribe)(void) = ^{
     if(!actualRecorder) {
         actualRecorder = LLRMRecorderForObject(actual);
     }
+    if(!expectedRecorder) {
+        expectedRecorder = LLRMRecorderForObject(expected);
+    }
 };
 
 prerequisite(^BOOL{
@@ -27,16 +30,18 @@ match(^BOOL{
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
-    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:expected] expectedBehaviour:@"to not contain all of the same values as"] build];
+    
+    return [[[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] renderActualValues] expected:expectedRecorder] renderExpectedValues] build];
 });
 
 failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
-    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:expected] expectedBehaviour:@"to contain all the values of"] build];
+    
+    return [[[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] renderActualValues] expected:expectedRecorder] renderExpectedValues] build];
 });
 
 EXPMatcherImplementationEnd

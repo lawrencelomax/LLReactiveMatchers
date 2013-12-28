@@ -34,7 +34,7 @@ match(^BOOL{
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     if(!actualRecorder.hasFinished) {
         return [LLReactiveMatchersMessageBuilder actualNotFinished:actual];
@@ -43,18 +43,18 @@ failureMessageForTo(^NSString *{
         return [LLReactiveMatchersMessageBuilder expectedNotFinished:expected];
     }
     if(!LLRMIdenticalValues(actualRecorder, expectedRecorder)) {
-        return [NSString stringWithFormat:@"Values %@ are not the same as %@", EXPDescribeObject(actualRecorder.values), EXPDescribeObject(expectedRecorder.values)];
+        return [[[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] renderActualValues] expected:expectedRecorder] renderExpectedValues] build];
     }
     
-    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:expected] expectedBehaviour:@"to have the same finishing event as"] build];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expected:expectedRecorder] expectedBehaviour:@"to finish in the same way"] build];
 });
 
 failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
-        return [LLReactiveMatchersMessageBuilder actualNotSignal:actual];
+        return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
-    return [[[LLReactiveMatchersMessageBuilder messageWithActual:actual expected:expected] expectedBehaviour:@"to have identical events as"] build];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expected:expectedRecorder] expectedBehaviour:@"to not have identical events"] build];
 });
 
 EXPMatcherImplementationEnd
