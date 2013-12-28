@@ -75,7 +75,7 @@ typedef enum  {
     [string appendString:@"expected:"];
     NSString *actualString = self.actual.originalSignalDescription;
     if(actualString) {
-        [string appendFormat:@" %@", actualString];
+        [string appendFormat:@" actual %@", actualString];
     }
     if(LLBitmaskIsOn(self.rendering, RenderExpectedValues)) {
         [string appendFormat:@" to send values %@", self.expected.valuesDescription];

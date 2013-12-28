@@ -16,14 +16,14 @@
     RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@1, @2, @3]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"foo"];
     
     assertPass(test_expect(signal).to.error());
-    assertFail(test_expect(signal).toNot.error(), @"expected: foo to not error, got: errored");
+    assertFail(test_expect(signal).toNot.error(), @"expected: actual foo to not error, got: errored");
 }
 
 - (void) test_endsInCompletion {
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] setNameWithFormat:@"foo"];
     
     assertPass(test_expect(signal).toNot.error());
-    assertFail(test_expect(signal).to.error(), @"expected: foo to error, got: completed");
+    assertFail(test_expect(signal).to.error(), @"expected: actual foo to error, got: completed");
 }
 
 - (void) test_notYetCompleted {

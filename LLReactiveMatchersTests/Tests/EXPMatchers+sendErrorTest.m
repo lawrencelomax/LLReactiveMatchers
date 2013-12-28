@@ -18,7 +18,7 @@
     NSError *error = nil;
     
     assertPass(test_expect(signal).toNot.sendError(error));
-    assertFail(test_expect(signal).sendError(error), @"Signal foo did not finish in error");
+    assertFail(test_expect(signal).sendError(error), @"expected: actual foo to to not finish, got: finished with completion");
 }
 
 - (void) test_endsInSameError {
