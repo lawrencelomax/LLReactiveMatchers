@@ -46,7 +46,7 @@ failureMessageForTo(^NSString *{
         return [[[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] renderActualValues] expected:expectedRecorder] renderExpectedValues] build];
     }
     
-    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expected:expectedRecorder] expectedBehaviour:@"finish in the same way"] build];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:@"finish in the same way as"] expected:expectedRecorder] build];
 });
 
 failureMessageForNotTo(^NSString *{
@@ -54,7 +54,7 @@ failureMessageForNotTo(^NSString *{
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
-    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expected:expectedRecorder] expectedBehaviour:@"not have events that are identical to"] build];
+    return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:@"not have events that are identical to"] expected:expectedRecorder] build];
 });
 
 EXPMatcherImplementationEnd

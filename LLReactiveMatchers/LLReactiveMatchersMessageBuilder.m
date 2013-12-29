@@ -84,8 +84,10 @@ typedef NS_OPTIONS(NSUInteger, LLReactiveMatchersMessageBuilderRendering) {
         [string appendFormat:@" actual %@", actualString];
     }
     
-    NSString *expectedString = self.expected.originalSignalDescription;
+    BOOL renderedExpected = NO;
     if(LLBitmaskIsOn(self.rendering, RenderExpectedValues)) {
+        renderedExpected = YES;
+        
         if(LLBitmaskIsOn(self.rendering, RenderExpectedNot)) {
             [string appendFormat:@" to not send values %@", self.expected.valuesDescription];
         } else {
@@ -93,16 +95,20 @@ typedef NS_OPTIONS(NSUInteger, LLReactiveMatchersMessageBuilderRendering) {
         }
     }
     else if(LLBitmaskIsOn(self.rendering, RenderExpectedError)) {
+        renderedExpected = YES;
+        
         if(LLBitmaskIsOn(self.rendering, RenderExpectedNot)) {
             [string appendFormat:@" to not send error %@", self.expected.errorDescription];
         } else {
             [string appendFormat:@" to send error %@", self.expected.errorDescription];
         }
     }
-    else if(self.expectedBehaviour) {
+
+    NSString *expectedString = self.expected.originalSignalDescription;
+    if(self.expectedBehaviour) {
         [string appendFormat:@" to %@", self.expectedBehaviour];
     }
-    if (expectedString) {
+    if (expectedString && !renderedExpected) {
         [string appendFormat:@" expected %@", expectedString];
     }
     

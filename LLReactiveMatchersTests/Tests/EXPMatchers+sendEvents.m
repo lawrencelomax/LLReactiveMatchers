@@ -42,7 +42,7 @@
     RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:nil]] setNameWithFormat:@"bar"];
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
-    assertFail(test_expect(signal).to.sendEvents(expected), @"Actual foo does not have the same finishing event as bar");
+    assertFail(test_expect(signal).to.sendEvents(expected), @"expected: actual foo to finish in the same way as expected bar");
 }
 
 - (void) test_identicalEventsExpectedDidNotComplete {
@@ -50,7 +50,7 @@
     RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:RACSignal.never] setNameWithFormat:@"bar"];
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
-    assertFail(test_expect(signal).to.sendEvents(expected), @"exptected: expected bar to finish");
+    assertFail(test_expect(signal).to.sendEvents(expected), @"expected: expected bar to finish");
 }
 
 - (void) test_identicalValues {
@@ -65,8 +65,8 @@
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"foo"];
     RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"bar"];
     
-    assertPass(test_expect(signal).to.sendEvents(expected));
-    assertFail(test_expect(signal).toNot.sendEvents(expected), @"Values (1, 0, 5) are the same as (1, 0, 5)");
+    assertPass(test_expect(signal).toNot.sendEvents(expected));
+    assertFail(test_expect(signal).to.sendEvents(expected), @"expected: actual foo to finish in the same way as expected bar");
 }
 
 - (void) test_differentValues {
@@ -74,7 +74,7 @@
     RACSignal *expected = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @1]] setNameWithFormat:@"bar"];
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
-    assertFail(test_expect(signal).to.sendEvents(expected), @"Values (1, 0, 5) are not the same as (1, 0, 1)");
+    assertFail(test_expect(signal).to.sendEvents(expected), @"expected: actual foo to send values (1, 0, 1), got: (1, 0, 5) values sent");
 }
 
 - (void) test_differentValuesDifferentCompletion {
@@ -82,7 +82,7 @@
     RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @1]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"bar"];
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
-    assertFail(test_expect(signal).to.sendEvents(expected), @"Values (1, 0, 5) are not the same as (1, 0, 1)");
+    assertFail(test_expect(signal).to.sendEvents(expected), @"expected: actual foo to send values (1, 0, 1), got: (1, 0, 5) values sent");
 }
 
 - (void) test_identicalValuesOneDidNotComplete {
@@ -90,7 +90,7 @@
     RACSignal *expected = [[[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:RACSignal.never] setNameWithFormat:@"foo"] setNameWithFormat:@"bar"];
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
-    assertFail(test_expect(signal).to.sendEvents(expected), @"Expected foo has not finished");
+    assertFail(test_expect(signal).to.sendEvents(expected), @"expected: expected bar to finish");
 }
 
 @end
