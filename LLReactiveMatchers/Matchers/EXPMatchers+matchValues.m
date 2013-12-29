@@ -42,7 +42,8 @@ failureMessageForTo(^NSString *{
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
-    return [NSString stringWithFormat:@"Failed to match value %@ at index %ld", failingValue, (long)failingIndex];
+    NSString *expectedBehaviour = [NSString stringWithFormat:@"match value %@ at index %@", failingValue, @(failingIndex)];
+    return [[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:expectedBehaviour] build];
 });
 
 failureMessageForNotTo(^NSString *{
@@ -50,7 +51,8 @@ failureMessageForNotTo(^NSString *{
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
-    return @"Signal matched all available values";
+    NSString *expectedBehaviour = @"not match all values";
+    return [[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:expectedBehaviour] build];
 });
 
 EXPMatcherImplementationEnd
