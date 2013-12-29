@@ -13,18 +13,32 @@
     assertFail(test_expect(actual).toNot.sendValues(expected), @"expected: actual to be a signal or recorder");
 }
 
-- (void) test_noValues {
+- (void) test_noValuesCorrect {
     RACSignal *actual = [RACSignal.empty setNameWithFormat:@"foo"];
     
     assertPass(test_expect(actual).to.sendValuesWithCount(0));
-    assertFail(test_expect(actual).toNot.sendValuesWithCount(0), @"Actual foo sent 0 next events");
+    assertFail(test_expect(actual).toNot.sendValuesWithCount(0), @"expected: actual foo to not send 0 events, got: 0 events sent");
 }
 
-- (void) test_10Values {
+- (void) test_noValuesIncorrect {
+    RACSignal *actual = [RACSignal.empty setNameWithFormat:@"foo"];
+    
+    assertPass(test_expect(actual).toNot.sendValuesWithCount(5));
+    assertFail(test_expect(actual).to.sendValuesWithCount(5), @"expected: actual foo to send 5 events, got: 0 events sent");
+}
+
+- (void) test_10ValuesCorrect {
     RACSignal *actual = [[LLReactiveMatchersFixtures values:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]] setNameWithFormat:@"foo"];
     
     assertPass(test_expect(actual).to.sendValuesWithCount(10));
-    assertFail(test_expect(actual).toNot.sendValuesWithCount(10), @"Actual foo sent 10 next events");
+    assertFail(test_expect(actual).toNot.sendValuesWithCount(10), @"expected: actual foo to not send 10 events, got: 10 events sent");
+}
+
+- (void) test_10ValuesIncorrect {
+    RACSignal *actual = [[LLReactiveMatchersFixtures values:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]] setNameWithFormat:@"foo"];
+    
+    assertPass(test_expect(actual).toNot.sendValuesWithCount(5));
+    assertFail(test_expect(actual).to.sendValuesWithCount(5), @"expected: actual foo to send 5 events, got: 10 events sent");
 }
 
 @end

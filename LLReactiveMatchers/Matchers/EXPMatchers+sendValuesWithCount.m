@@ -28,8 +28,8 @@ failureMessageForTo(^NSString *{
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
-    NSString *expectedBehaviour = [NSString stringWithFormat:@"to send %@ events", @(expected)];
-    NSString *actualBehaviour = [NSString stringWithFormat:@"%@ events sent", @(expected)];
+    NSString *expectedBehaviour = [NSString stringWithFormat:@"send %@ events", @(expected)];
+    NSString *actualBehaviour = [NSString stringWithFormat:@"%@ events sent", @(actualRecorder.valuesSentCount)];
     return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:expectedBehaviour] actualBehaviour:actualBehaviour] build];
 });
 
@@ -38,8 +38,8 @@ failureMessageForNotTo(^NSString *{
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
     }
     
-    NSString *expectedBehaviour = [NSString stringWithFormat:@"to not send %@ events", @(expected)];
-    NSString *actualBehaviour = [NSString stringWithFormat:@"%@ events sent", @(expected)];
+    NSString *expectedBehaviour = [NSString stringWithFormat:@"not send %@ events", @(expected)];
+    NSString *actualBehaviour = [NSString stringWithFormat:@"%@ events sent", @(actualRecorder.valuesSentCount)];
     return [[[[[LLReactiveMatchersMessageBuilder message] actual:actualRecorder] expectedBehaviour:expectedBehaviour] actualBehaviour:actualBehaviour] build];
 });
 
