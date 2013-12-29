@@ -11,10 +11,11 @@
 #import "Expecta.h"
 
 typedef NS_OPTIONS(NSUInteger, LLReactiveMatchersMessageBuilderRendering) {
-    RenderActualValues = 1,
-    RenderExpectedValues = 1 << 1,
-    RenderActualError = 1 << 2,
-    RenderExpectedError = 1 << 3
+    RenderActualValues = 1 << 1,
+    RenderExpectedValues = 1 << 2,
+    RenderActualError = 1 << 3,
+    RenderExpectedError = 1 << 4,
+    RenderExpectedNot = 1 << 5
 };
 
 #ifndef LLBitmaskIsOn
@@ -45,12 +46,12 @@ typedef NS_OPTIONS(NSUInteger, LLReactiveMatchersMessageBuilderRendering) {
 }
 
 - (instancetype) renderActualValues {
-    self.rendering = (self.rendering & RenderActualValues);
+    self.rendering = (self.rendering | RenderActualValues);
     return self;
 }
 
 - (instancetype) renderActualError {
-    self.rendering = (self.rendering & RenderActualError);
+    self.rendering = (self.rendering | RenderActualError);
     return self;
 }
 
@@ -61,6 +62,11 @@ typedef NS_OPTIONS(NSUInteger, LLReactiveMatchersMessageBuilderRendering) {
 
 - (instancetype) renderExpectedValues {
     self.rendering = (self.rendering | RenderExpectedValues);
+    return self;
+}
+
+- (instancetype) renderExpectedNot {
+    self.rendering = (self.rendering | RenderExpectedNot);
     return self;
 }
 
@@ -80,19 +86,27 @@ typedef NS_OPTIONS(NSUInteger, LLReactiveMatchersMessageBuilderRendering) {
     
     NSString *expectedString = self.expected.originalSignalDescription;
     if(LLBitmaskIsOn(self.rendering, RenderExpectedValues)) {
-        [string appendFormat:@" to send values %@", self.expected.valuesDescription];
+        if(LLBitmaskIsOn(self.rendering, RenderExpectedNot)) {
+            [string appendFormat:@" to not send values %@", self.expected.valuesDescription];
+        } else {
+            [string appendFormat:@" to send values %@", self.expected.valuesDescription];
+        }
     }
     else if(LLBitmaskIsOn(self.rendering, RenderExpectedError)) {
-        [string appendFormat:@" to send error %@", self.expected.errorDescription];
+        if(LLBitmaskIsOn(self.rendering, RenderExpectedNot)) {
+            [string appendFormat:@" to not send error %@", self.expected.errorDescription];
+        } else {
+            [string appendFormat:@" to send error %@", self.expected.errorDescription];
+        }
     }
     else if(self.expectedBehaviour) {
         [string appendFormat:@" to %@", self.expectedBehaviour];
     }
-    else if (expectedString) {
+    if (expectedString) {
         [string appendFormat:@" expected %@", expectedString];
     }
     
-    if(self.actualBehaviour || LLBitmaskIsOn(self.rendering, RenderActualValues)) {
+    if(self.actualBehaviour || LLBitmaskIsOn(self.rendering, RenderActualValues) || LLBitmaskIsOn(self.rendering, RenderActualError)) {
         [string appendString:@", got:"];
         if(LLBitmaskIsOn(self.rendering, RenderActualValues)) {
             [string appendFormat:@" %@ values sent", self.actual.valuesDescription];
@@ -128,7 +142,7 @@ typedef NS_OPTIONS(NSUInteger, LLReactiveMatchersMessageBuilderRendering) {
 }
 
 + (NSString *) expectedNotFinished:(LLSignalTestRecorder *)expected {
-    return [NSString stringWithFormat:@"exptected: expected %@ to finish", expected.originalSignalDescription];
+    return [NSString stringWithFormat:@"expected: expected %@ to finish", expected.originalSignalDescription];
 }
 
 @end

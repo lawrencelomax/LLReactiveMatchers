@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>77C34A71-576C-4467-99F9-02ECD05A64B7</string>
+	<string>98802EC4-6FB5-4DB5-AC05-6907D28CDD79</string>
 	<key>IDESourceControlProjectName</key>
 	<string>LLReactiveMatchers</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>434005BA-C10B-4CEB-A4FA-29E93B09C03A</key>
-		<string>https://github.com/lawrencelomax/LLReactiveMatchers.git</string>
+		<key>92F68D90-521D-4A4B-8973-B3F00551C55E</key>
+		<string>ssh://github.com/lawrencelomax/LLReactiveMatchers.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>LLReactiveMatchers.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>434005BA-C10B-4CEB-A4FA-29E93B09C03A</key>
+		<key>92F68D90-521D-4A4B-8973-B3F00551C55E</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/lawrencelomax/LLReactiveMatchers.git</string>
+	<string>ssh://github.com/lawrencelomax/LLReactiveMatchers.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>434005BA-C10B-4CEB-A4FA-29E93B09C03A</string>
+	<string>92F68D90-521D-4A4B-8973-B3F00551C55E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>434005BA-C10B-4CEB-A4FA-29E93B09C03A</string>
+			<string>92F68D90-521D-4A4B-8973-B3F00551C55E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>LLReactiveMatchers</string>
 		</dict>

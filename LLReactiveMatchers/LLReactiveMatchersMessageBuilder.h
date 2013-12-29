@@ -22,6 +22,7 @@
 - (instancetype) expected:(LLSignalTestRecorder *)actual;
 - (instancetype) renderExpectedValues;
 - (instancetype) renderExpectedError;
+- (instancetype) renderExpectedNot;
 - (instancetype) expectedBehaviour:(NSString *)behaviour;
 
 - (NSString *) build;
