@@ -17,16 +17,16 @@
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] setNameWithFormat:@"foo"];
     NSArray *expected = @[];
     
-    assertPass(test_expect(signal).to.sendValues(expected));
-    assertFail(test_expect(signal).toNot.sendValues(expected), @"expected: actual foo to send values (1, 3, 2), got: () values sent");
+    assertPass(test_expect(signal).toNot.sendValues(expected));
+    assertFail(test_expect(signal).to.sendValues(expected), @"expected: actual foo to send values (), got: (1, 2, 3) values sent");
 }
 
 - (void) test_allWrongOrder {
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] setNameWithFormat:@"foo"];
     NSArray *expected = @[@1, @3, @2];
     
-    assertPass(test_expect(signal).to.sendValues(expected));
-    assertFail(test_expect(signal).toNot.sendValues(expected), @"expected: actual foo to send values (1, 3, 2), got: (1, 2, 3) values sent");
+    assertPass(test_expect(signal).toNot.sendValues(expected));
+    assertFail(test_expect(signal).to.sendValues(expected), @"expected: actual foo to send values (1, 3, 2), got: (1, 2, 3) values sent");
 }
 
 - (void) test_allCorrectOrder {
@@ -41,16 +41,16 @@
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] setNameWithFormat:@"foo"];
     NSArray *expected = @[@1, @2];
     
-    assertPass(test_expect(signal).to.sendValues(expected));
-    assertFail(test_expect(signal).toNot.sendValues(expected), @"Signal foo contains all values (1, 2)");
+    assertPass(test_expect(signal).toNot.sendValues(expected));
+    assertFail(test_expect(signal).to.sendValues(expected), @"expected: actual foo to send values (1, 2), got: (1, 2, 3) values sent");
 }
 
 - (void) test_subRange {
-    RACSignal *actual = [LLReactiveMatchersFixtures values:@[@0, @1, @2, @3]];
+    RACSignal *actual = [[LLReactiveMatchersFixtures values:@[@0, @1, @2, @3]] setNameWithFormat:@"foo"];
     NSArray *expected = @[@0, @1, @2];
     
     assertPass(test_expect(actual).toNot.sendValues(expected));
-    assertFail(test_expect(actual).to.sendValues(expected), @"Signal values (0, 1, 2, 3) does not have identical values to (0, 1, 2)");
+    assertFail(test_expect(actual).to.sendValues(expected), @"expected: actual foo to send values (0, 1, 2), got: (0, 1, 2, 3) values sent");
 }
 
 - (void) test_none {
@@ -58,7 +58,7 @@
     NSArray *expected = @[@10, @20];
     
     assertPass(test_expect(signal).toNot.sendValues(expected));
-    assertFail(test_expect(signal).to.sendValues(expected), @"Signal foo does not contain all values (10, 20)");
+    assertFail(test_expect(signal).to.sendValues(expected), @"expected: actual foo to send values (10, 20), got: (1, 2, 3) values sent");
 }
 
 @end

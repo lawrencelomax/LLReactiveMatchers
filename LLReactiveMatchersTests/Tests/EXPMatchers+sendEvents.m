@@ -18,7 +18,7 @@
     RACSignal *expected = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"bar"];
     
     assertPass(test_expect(signal).to.sendEvents(expected));
-    assertFail(test_expect(signal).toNot.sendEvents(expected), @"expected: actual foo to send values ");
+    assertFail(test_expect(signal).toNot.sendEvents(expected), @"expected: actual foo to not have events that are identical to expected bar");
 }
 
 - (void) test_differentEventsCompletion {
@@ -26,7 +26,7 @@
     RACSignal *expected = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @2]] setNameWithFormat:@"bar"];
 
     assertPass(test_expect(signal).toNot.sendEvents(expected));
-    assertFail(test_expect(signal).to.sendEvents(expected), @"Values (1, 0, 5) are not the same as (1, 0, 2)");
+    assertFail(test_expect(signal).to.sendEvents(expected), @"expected: actual foo to send values (1, 0, 2), got: (1, 0, 5) values sent");
 }
 
 - (void) test_identicalEventsIdenticalError {
@@ -34,7 +34,7 @@
     RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"bar"];
     
     assertPass(test_expect(signal).to.sendEvents(expected));
-    assertFail(test_expect(signal).toNot.sendEvents(expected), @"Actual foo has all the same events as bar");
+    assertFail(test_expect(signal).toNot.sendEvents(expected), @"expected: actual foo to not have events that are identical to expected bar");
 }
 
 - (void) test_identicalEventsDifferentErrors {

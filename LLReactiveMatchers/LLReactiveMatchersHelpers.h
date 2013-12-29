@@ -11,8 +11,8 @@ extern BOOL __attribute__((overloadable)) LLRMIdenticalValues(LLSignalTestRecord
 extern BOOL LLRMCorrectClassesForActual(id object);
 extern LLSignalTestRecorder *LLRMRecorderForObject(id object);
 
-extern BOOL LLRMContainsAllValuesUnordered(LLSignalTestRecorder *recorder, NSArray *values);
-extern BOOL LLRMIdenticalFinishingStatus(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder);
+extern BOOL LLRMContainsAllValuesEqual(LLSignalTestRecorder *left, LLSignalTestRecorder *right);
+extern BOOL LLRMIdenticalFinishingStatus(LLSignalTestRecorder *left, LLSignalTestRecorder *right);
 
 extern id LLRMArrayValueForSignalValue(id signalValue);
 extern id LLRMSignalValueForArrayValue(id signalValue);

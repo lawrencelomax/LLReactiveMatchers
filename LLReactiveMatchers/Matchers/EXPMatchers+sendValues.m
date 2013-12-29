@@ -25,7 +25,7 @@ prerequisite(^BOOL{
 
 match(^BOOL{
     subscribe();
-    return LLRMContainsAllValuesUnordered(actualRecorder, expected);
+    return LLRMContainsAllValuesEqual(actualRecorder, expectedRecorder);
 });
 
 failureMessageForTo(^NSString *{

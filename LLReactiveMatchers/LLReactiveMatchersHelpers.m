@@ -45,17 +45,12 @@ extern LLSignalTestRecorder *LLRMRecorderForObject(id object) {
     return nil;
 }
 
-extern BOOL LLRMContainsAllValuesUnordered(LLSignalTestRecorder *recorder, NSArray *values) {
-    NSSet *receievedSet = [NSSet setWithArray:recorder.values];
-    NSSet *expectedSet = [NSSet setWithArray:values];
-    NSMutableSet *intersectionSet = [NSMutableSet setWithSet:receievedSet];
-    [intersectionSet intersectSet:expectedSet];
-    
-    return [intersectionSet isEqualToSet:expectedSet];
+extern BOOL LLRMContainsAllValuesEqual(LLSignalTestRecorder *left, LLSignalTestRecorder *right) {
+    return [left.values isEqualToArray:right.values];
 }
 
-extern BOOL LLRMIdenticalFinishingStatus(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder) {
-    return (leftRecorder.hasCompleted == rightRecorder.hasCompleted) && (leftRecorder.hasErrored == rightRecorder.hasErrored);
+extern BOOL LLRMIdenticalFinishingStatus(LLSignalTestRecorder *left, LLSignalTestRecorder *right) {
+    return (left.hasCompleted == right.hasCompleted) && (left.hasErrored == right.hasErrored);
 }
 
 extern id LLRMArrayValueForSignalValue(id signalValue) {
