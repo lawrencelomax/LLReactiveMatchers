@@ -36,15 +36,15 @@ Using a matcher with a Signal as the actual value will cause the Signal passed t
 
 ## Matchers
     
-    expect(signal).to.complete();   //Succeeds if 'signal' completes before matching
-    expect(signal).to.error(); //Succeeds if 'signal' errors before matching
-    expect(signal).to.finish(); //Succeeds if 'signal' completes or errors before matching
-    expect(signal).to.matchValue(matchIndex, matchBlock); //Succeeds if 'matchBlock' returns YES from 'matchIndex' provided
-    expect(signal).to.matchValues(matchBlock);  //Succeeds if 'matchBlock' returns YES for all values that 'signal' sends
+    expect(signal).to.complete();   //Succeeds if 'signal' completes before matching.
+    expect(signal).to.error(); //Succeeds if 'signal' errors before matching.
+    expect(signal).to.finish(); //Succeeds if 'signal' completes or errors before matching.
+    expect(signal).to.matchValue(matchIndex, matchBlock); //Succeeds if 'matchBlock' returns YES from 'matchIndex' provided.
+    expect(signal).to.matchValues(matchBlock);  //Succeeds if 'matchBlock' returns YES for all values that 'signal' sends.
     expect(signal).to.sendError(expectedError);  //Succeeds if 'signal' sends an error that is equal to 'expectedError'. 'expectedError' can be an NSError, RACSignal or LLSignalTestRecorder.
-    expect(signal).to.sendEvents(expectedEvents);  //Succeeds if 'signal' and 'expectedSignal' send exactly the same events. 'expectedError' can be a Object value, RACSignal or LLSignalTestRecorder.
-    expect(signal).to.sendValues(expectedValues);  //Succeeds if 'signal' exactly sends  the values of 'expectedValues'. 
-    expect(signal).to.sendValuesWithCount(expectedCount);  //Succeeds if 'signal' sends exactly 4 next events
+    expect(signal).to.sendEvents(expectedEvents);  //Succeeds if 'signal' and 'expectedSignal' send exactly the same events including next values. 'expectedEvents' can be a RACSignal or LLSignalTestRecorder.
+    expect(signal).to.sendValues(expectedValues);  //Succeeds if 'signal' exactly sends all of the values in 'expectedValues' and then finishes. 'expectedValues' can be a RACSignal, LLSignalTestRecorder or an NSArray of expected values. 
+    expect(signal).to.sendValuesWithCount(expectedCount);  //Succeeds if 'signal' sends exactly the number of events of 'expectedCounts', waits for 'signal' to finish.
 
 ## Tips
 
