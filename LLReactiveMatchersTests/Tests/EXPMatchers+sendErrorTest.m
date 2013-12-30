@@ -6,12 +6,12 @@
 @implementation EXPMatchers_sendErrorTests
 
 - (void) test_nonSignalActual {
-    NSArray *actual = @[@1, @2, @3];
+    NSArray *signal = @[@1, @2, @3];
     NSError *expected = MI9SpecError;
     NSString *failureString = @"expected: actual to be a signal or recorder";
     
-    assertFail(test_expect(actual).to.sendError(expected), failureString);
-    assertFail(test_expect(actual).toNot.sendError(expected), failureString);
+    assertFail(test_expect(signal).to.sendError(expected), failureString);
+    assertFail(test_expect(signal).toNot.sendError(expected), failureString);
 }
 
 - (void) test_endsInCompletion {

@@ -6,11 +6,11 @@
 @implementation EXPMatchers_errorTests
 
 - (void) test_nonSignalActual {
-    NSArray *actual = @[@1, @2, @3];
+    NSArray *signal = @[@1, @2, @3];
     NSString *failureString = @"expected: actual to be a signal or recorder";
     
-    assertFail(test_expect(actual).to.error(), failureString);
-    assertFail(test_expect(actual).toNot.error(), failureString);
+    assertFail(test_expect(signal).to.error(), failureString);
+    assertFail(test_expect(signal).toNot.error(), failureString);
 }
 
 - (void) test_endsInError {

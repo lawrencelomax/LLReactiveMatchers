@@ -6,12 +6,12 @@
 @implementation EXPMatchers_sendEventsTests
 
 - (void) test_nonSignalActual {
-    NSArray *actual = @[@1, @2, @3];
+    NSArray *signal = @[@1, @2, @3];
     RACSignal *expected = [LLReactiveMatchersFixtures values:@[@2, @3]];
     NSString *failureString = @"expected: actual to be a signal or recorder";
     
-    assertFail(test_expect(actual).to.sendEvents(expected), failureString);
-    assertFail(test_expect(actual).toNot.sendEvents(expected), failureString);
+    assertFail(test_expect(signal).to.sendEvents(expected), failureString);
+    assertFail(test_expect(signal).toNot.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalEventsCompletion {
