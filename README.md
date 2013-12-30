@@ -22,12 +22,24 @@ Can be changed to this:
 
     NSError *expectedError = ...;
     expect(signal).to.sendError(expectedError);
+    
+Matchers will accept a ```RACSignal```s as the actual object, subscribing to the Signal in order to receieve it's events. Further expectations using the matchers will result in additional subscriptions. This encourages the usage of [Cold Signals](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/FrameworkOverview.md#connections), as well as Signals having [repeatable results](http://en.wikipedia.org/wiki/Referential_transparency_(computer_science)).
 
-Matchers will accept a ```RACSignal```s as the actual object. ```LLSignalTestRecorder```s as the actual object, allowing the values that a Signal sends to be received before matching. This can be an important distinction as ```RACReplaySubject```s are greedy and will send their events in the order that they were sent.
+In another case you may care about all of the values that an asynchronous Signal sends. We want to make sure that *only* the expected values are sent:
 
-The matchers will also ensure that dependent conditions are also met. For example, when comparing that the output of two Signals is identical with the ```sendEvents()```, the matcher will not be able to know that both Signals are identical until they have both finished sending values.
+    NSMutableArray *sentValues = [NSMutableArray array];
+    [signal subscribeNext:^(id value) {
+        [sentValues addObject:value];
+    }];
+    expect(expectedValues).will.equal(@[@0, @1, @2]);
+    
+Which can be changed to:
+    
+    expect(expectedValues).will.sendValues(@[@0, @1, @2]);
 
-Using a matcher with a Signal as the actual value will cause the Signal passed through to be subscribed to. Further expectations using the matchers will result in additional subscriptions. This encourages the usage of [Cold Signals](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/FrameworkOverview.md#connections), as well as Signals having [repeatable results](http://en.wikipedia.org/wiki/Referential_transparency_(computer_science)).
+In the original test, a Mutable Array is used to contain all of the values. However, in an asynchronous test it is possible that the Signal sends more values *after* the expectation has passed. The matchers in this library will make sure that dependent conditions are met. In the case the ```sendValues``` matcher this will mean that the Signal is has finished in completion or error before passing. This ensures that no additional values are sent by the Signal and the behaviour that we are testing is correct.
+
+   ```LLSignalTestRecorder```s as the actual object, allowing the values that a Signal sends to be received before matching. This can be an important distinction as ```RACReplaySubject```s are greedy and will send their events in the order that they were sent.
 
 ## Examples
 
