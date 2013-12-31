@@ -5,6 +5,11 @@ LLReactiveMatchers
 
 [Expecta matchers](https://github.com/specta/expecta) for [ReactiveCocoa](https://github.com/reactiveCocoa/reactivecocoa)
 
+## TL;DR
+- ```LLReactiveMatchers``` should be able to cover most of the reasons you want to test Signals.
+- One matcher = One Subscription, ```n``` Matchers = ```n``` Subscriptions
+- Tests that compose on top of Subjects should use ```LLSignalTestRecorder``` and expectations should be made on the recorder.
+
 ## Introduction
 ReactiveCocoa is awesome. However, Unit-Testing Signals can be cumbersome. This set of custom matchers for Expecta exists to help make writing tests significantly easier to write and understand. By performing expectations on Signals directly, you will not have to write subscription code to find out about the events they send.
 
@@ -25,26 +30,84 @@ Can be changed to this:
     
 Matchers will accept a ```RACSignal```s as the actual object, subscribing to the Signal in order to receieve it's events. Further expectations using the matchers will result in additional subscriptions. This encourages the usage of [Cold Signals](https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/FrameworkOverview.md#connections), as well as Signals having [repeatable results](http://en.wikipedia.org/wiki/Referential_transparency_(computer_science)).
 
-In another case you may care about all of the values that an asynchronous Signal sends. We want to make sure that *only* the expected values are sent:
+In another case you may reason about all of the values that an asynchronous Signal sends. We want to make sure that *only* the expected values are sent. In other words that the array of values sent by the Signal and our expected array of values are equal:
 
     NSMutableArray *sentValues = [NSMutableArray array];
+    NSArray *expected = @[@0, @1, @2];
     [signal subscribeNext:^(id value) {
         [sentValues addObject:value];
     }];
-    expect(expectedValues).will.equal(@[@0, @1, @2]);
+    expect(hasCompleted).will.equal(expected);
+    
+In the original test, a Mutable Array is used to contain all of the values and then tested against. However, in an asynchronous test it is possible that the Signal sends more values *after* the next value expectation has passed. For this reason, the original test requires an additional expectation that the Signal has completed:
+
+    NSMutableArray *sentValues = [NSMutableArray array];
+    NSArray *expected = @[@0, @1, @2];
+    BOOL hasCompleted = NO;
+    [signal subscribeNext:^(id value) {
+        [sentValues addObject:value];
+    } completed:^{
+        hasCompleted = YES;
+    }];
+    expect(hasCompleted && [sentValues isEqualToArray:expected]).will.beTruthy();
     
 Which can be changed to:
     
     expect(expectedValues).will.sendValues(@[@0, @1, @2]);
 
-In the original test, a Mutable Array is used to contain all of the values. However, in an asynchronous test it is possible that the Signal sends more values *after* the expectation has passed. The matchers in this library will make sure that dependent conditions are met. In the case the ```sendValues``` matcher this will mean that the Signal is has finished in completion or error before passing. This ensures that no additional values are sent by the Signal and the behaviour that we are testing is correct.
+The Matchers in this library will ensure that dependent conditions such as the completion of a Signal are met. We can therefore reason that no additional values are sent by the Signal and have a higher degree of confidence in our tests.
 
-   ```LLSignalTestRecorder```s as the actual object, allowing the values that a Signal sends to be received before matching. This can be an important distinction as ```RACReplaySubject```s are greedy and will send their events in the order that they were sent.
+## Subjects & Replay Subjects
+It is quite common to use a ```RACSubject``` or ```RACReplaySubject``` in place of a ```RACSignal``` for [testing compound operators]() where the order in which order in which events are important. For example, the tests for ```combineLatest``` use two Subjects to test that the order in which next events sent effects the output of the compound Signal. 
 
-## Examples
+    __block RACSubject *subject1 = nil;
+    __block RACSubject *subject2 = nil;
+    __block RACSignal *combined = nil;
 
-- ```RACReplaySubject``` example
-- ```RACSubject `
+    beforeEach(^{
+    	subject1 = [RACSubject subject];
+    	subject2 = [RACSubject subject];
+    	combined = [RACSignal combineLatest:@[ subject1, subject2 ]];
+    });
+    
+    it(@"should send nexts when either signal sends multiple times", ^{
+    	NSMutableArray *results = [NSMutableArray array];
+    	[combined subscribeNext:^(id x) {
+    		[results addObject:x];
+    	}];
+	
+    	[subject1 sendNext:@"1"];
+    	[subject2 sendNext:@"2"];
+	
+    	[subject1 sendNext:@"3"];
+    	[subject2 sendNext:@"4"];
+	
+    	expect(results[0]).to.equal(RACTuplePack(@"1", @"2"));
+    	expect(results[1]).to.equal(RACTuplePack(@"3", @"2"));
+    	expect(results[2]).to.equal(RACTuplePack(@"3", @"4"));
+    });
+
+As ```LLReactiveMatchers``` subscribes to Signals when the expectation is resolved, none of the events sent via Subjects will get passed through to the Signal composed with ```combineLatest``` as the Subjects have sent their events before subscription. One way around this would be to use a ```RACReplaySubject``` which sends all the events. This would not have the desired effect as Replay Subjects are greedy and send all their accumilated events on subsciption, so the ordering that events of events sent by ```subject1``` and ```subject2``` are ignored.
+
+The matchers accept ```LLSignalTestRecorder```s in place of a Signal, allowing the values that a Signal to be subscribed to before the matcher evaluates. This is equivalent subscribing to subscribing to a Signal with a ```RACReplaySubject```.
+
+    it(@"should send nexts when either signal sends multiple times", ^{
+    	NSMutableArray *results = [NSMutableArray array];
+    	[combined subscribeNext:^(id x) {
+    		[results addObject:x];
+    	}];
+
+    	[subject1 sendNext:@"1"];
+    	[subject2 sendNext:@"2"];
+
+    	[subject1 sendNext:@"3"];
+    	[subject2 sendNext:@"4"];
+
+    	expect(results[0]).to.equal(RACTuplePack(@"1", @"2"));
+    	expect(results[1]).to.equal(RACTuplePack(@"3", @"2"));
+    	expect(results[2]).to.equal(RACTuplePack(@"3", @"4"));
+    });
+     
 
 ## Matchers
     
@@ -58,15 +121,8 @@ In the original test, a Mutable Array is used to contain all of the values. Howe
     expect(signal).to.sendValues(expectedValues);  //Succeeds if 'signal' exactly sends all of the values in 'expectedValues' and then finishes. 'expectedValues' can be a RACSignal, LLSignalTestRecorder or an NSArray of expected values. 
     expect(signal).to.sendValuesWithCount(expectedCount);  //Succeeds if 'signal' sends exactly the number of events of 'expectedCounts', waits for 'signal' to finish.
 
-## Tips
-
-- Keep Signals Cold
-- Use ```RACReplaySubject``` to declare the sequence of events before matching
-- If you have a Signal that does not have repeatable results by design and you need to test multiple behaviours, multicast it, or subscribe to it with a ```RACReplaySubject``` then add matchers to the result
-- Async testing isn't completely working yet
-
 ## Todo
 - Sort out async
-- Injecting mocks for testing side effects
+- Injecting Mock Objects for testing Side-Effects
 
 ## [License](./LICENSE)
