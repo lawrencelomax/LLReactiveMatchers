@@ -89,25 +89,21 @@ It is quite common to use a ```RACSubject``` or ```RACReplaySubject``` in place 
 
 As ```LLReactiveMatchers``` subscribes to Signals when the expectation is resolved, none of the events sent via Subjects will get passed through to the Signal composed with ```combineLatest``` as the Subjects have sent their events before subscription. One way around this would be to use a ```RACReplaySubject``` which sends all the events. This would not have the desired effect as Replay Subjects are greedy and send all their accumilated events on subsciption, so the ordering that events of events sent by ```subject1``` and ```subject2``` are ignored.
 
-The matchers accept ```LLSignalTestRecorder```s in place of a Signal, allowing the values that a Signal to be subscribed to before the matcher evaluates. This is equivalent subscribing to subscribing to a Signal with a ```RACReplaySubject```.
-
+The matchers accept ```LLSignalTestRecorder```s in place of a Signal, allowing the values that a Signal to be subscribed to before the matcher evaluates. This is equivalent subscribing to subscribing to a Signal with a ```RACReplaySubject``` and matching against the replay subject.
+    
     it(@"should send nexts when either signal sends multiple times", ^{
-    	NSMutableArray *results = [NSMutableArray array];
-    	[combined subscribeNext:^(id x) {
-    		[results addObject:x];
-    	}];
-
+        LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
+        
     	[subject1 sendNext:@"1"];
     	[subject2 sendNext:@"2"];
 
     	[subject1 sendNext:@"3"];
     	[subject2 sendNext:@"4"];
-
-    	expect(results[0]).to.equal(RACTuplePack(@"1", @"2"));
-    	expect(results[1]).to.equal(RACTuplePack(@"3", @"2"));
-    	expect(results[2]).to.equal(RACTuplePack(@"3", @"4"));
+        
+    	expect(results).to.sendValue(0, RACTuplePack(@"1", @"2"));
+    	expect(results).to.sendValue(1, RACTuplePack(@"3", @"2"));
+    	expect(results).to.sendValue(2, RACTuplePack(@"3", @"4"));
     });
-     
 
 ## Matchers
     
@@ -118,11 +114,12 @@ The matchers accept ```LLSignalTestRecorder```s in place of a Signal, allowing t
     expect(signal).to.matchValues(matchBlock);  //Succeeds if 'matchBlock' returns YES for all values that 'signal' sends.
     expect(signal).to.sendError(expectedError);  //Succeeds if 'signal' sends an error that is equal to 'expectedError'. 'expectedError' can be an NSError, RACSignal or LLSignalTestRecorder.
     expect(signal).to.sendEvents(expectedEvents);  //Succeeds if 'signal' and 'expectedSignal' send exactly the same events including next values. 'expectedEvents' can be a RACSignal or LLSignalTestRecorder.
+    expect(signal).to.sendValue(matchIndex, expectedValue);  //Succeeds if 'signal' sends 'expectedValue' at 'matchIndex'.
     expect(signal).to.sendValues(expectedValues);  //Succeeds if 'signal' exactly sends all of the values in 'expectedValues' and then finishes. 'expectedValues' can be a RACSignal, LLSignalTestRecorder or an NSArray of expected values. 
     expect(signal).to.sendValuesWithCount(expectedCount);  //Succeeds if 'signal' sends exactly the number of events of 'expectedCounts', waits for 'signal' to finish.
 
 ## Todo
-- Sort out async
+- Negation with async behaviour
 - Injecting Mock Objects for testing Side-Effects
 
 ## [License](./LICENSE)
