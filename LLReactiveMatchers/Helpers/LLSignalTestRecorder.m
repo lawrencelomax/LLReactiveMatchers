@@ -167,3 +167,12 @@
 }
 
 @end
+
+@implementation RACSignal(LLSignalTestRecorder)
+
+- (LLSignalTestRecorder *) testRecorder {
+    return [LLSignalTestRecorder recordWithSignal:self];
+}
+
+@end
+

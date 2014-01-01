@@ -53,3 +53,10 @@
 @property (nonatomic, readonly) NSString *errorDescription;
 
 @end
+
+// Convenience for creating a test recorder for chainging purposes
+@interface RACSignal(LLSignalTestRecorder)
+
+- (LLSignalTestRecorder *) testRecorder;
+
+@end
