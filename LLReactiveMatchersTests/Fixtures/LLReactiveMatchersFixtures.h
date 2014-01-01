@@ -12,7 +12,7 @@
 extern NSString *const LLReactiveMatcherFixtureErrorDomain;
 extern NSError * LLReactiveMatchersFixtureError();
 
-#define MI9SpecError LLReactiveMatchersFixtureError()
+#define LLSpecError LLReactiveMatchersFixtureError()
 
 @interface LLReactiveMatchersFixtures : NSObject
 

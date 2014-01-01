@@ -35,9 +35,9 @@
     expect(recorder.hasErrored).to.beFalsy();
     expect(recorder.error).to.beNil();
     
-    [subject sendError:MI9SpecError];
+    [subject sendError:LLSpecError];
     
-    expect(recorder.error).to.equal(MI9SpecError);
+    expect(recorder.error).to.equal(LLSpecError);
     expect(recorder.hasErrored).to.beTruthy();
 }
 
@@ -59,14 +59,14 @@
     [subject sendNext:@0];
     [subject sendNext:@1];
     [subject sendNext:@2];
-    [subject sendError:MI9SpecError];
+    [subject sendError:LLSpecError];
     
     expect(recorder.values[0]).to.equal(@0);
     expect(recorder.values[1]).to.equal(@1);
     expect(recorder.values[2]).to.equal(@2);
     expect(recorder.values).to.haveCountOf(3);
     
-    expect(recorder.error).to.equal(MI9SpecError);
+    expect(recorder.error).to.equal(LLSpecError);
     expect(recorder.hasErrored).to.beTruthy();
 }
 
@@ -150,9 +150,9 @@
     
     [subject sendNext:@3];
     [subject sendNext:@4];
-    [subject sendError:MI9SpecError];
+    [subject sendError:LLSpecError];
     
-    expect(errorReceived).to.equal(MI9SpecError);
+    expect(errorReceived).to.equal(LLSpecError);
     expect(values).to.equal( (@[@0, @1, @2, @3, @4]) );
 }
 

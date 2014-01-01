@@ -41,8 +41,8 @@
 }
 
 - (void) test_identicalEventsIdenticalError {
-    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"foo"];
-    RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"bar"];
+    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:LLSpecError]] setNameWithFormat:@"foo"];
+    RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:LLSpecError]] setNameWithFormat:@"bar"];
     NSString *failureString = @"expected: actual foo to not have events that are identical to expected bar";
     
     assertPass(test_expect(signal).to.sendEvents(expected));
@@ -54,7 +54,7 @@
 }
 
 - (void) test_identicalEventsDifferentErrors {
-    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"foo"];
+    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:LLSpecError]] setNameWithFormat:@"foo"];
     RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:nil]] setNameWithFormat:@"bar"];
     NSString *failureString = @"expected: actual foo to finish in the same way as expected bar";
     
@@ -94,7 +94,7 @@
 
 - (void) test_identicalValuesDifferentCompletion {
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"foo"];
-    RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"bar"];
+    RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:LLSpecError]] setNameWithFormat:@"bar"];
     NSString *failureString = @"expected: actual foo to finish in the same way as expected bar";
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
@@ -120,7 +120,7 @@
 
 - (void) test_differentValuesDifferentCompletion {
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"foo"];
-    RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @1]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"bar"];
+    RACSignal *expected = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @1]] concat:[RACSignal error:LLSpecError]] setNameWithFormat:@"bar"];
     NSString *failureString = @"expected: actual foo to send values (1, 0, 1), got: (1, 0, 5) values sent";
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));

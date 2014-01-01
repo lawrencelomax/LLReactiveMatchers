@@ -26,7 +26,7 @@
 }
 
 - (void) test_error {
-    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"foo"];
+    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] concat:[RACSignal error:LLSpecError]] setNameWithFormat:@"foo"];
     NSString *failureString = @"expected: actual foo to not finish, got: finished with error";
     
     assertPass(test_expect(signal).to.finish());

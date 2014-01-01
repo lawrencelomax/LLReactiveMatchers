@@ -7,7 +7,7 @@
 
 - (void) test_nonSignalActual {
     NSArray *signal = @[@1, @2, @3];
-    NSError *expected = MI9SpecError;
+    NSError *expected = LLSpecError;
     NSString *failureString = @"expected: actual to be a signal or recorder";
     
     assertFail(test_expect(signal).to.sendError(expected), failureString);
@@ -29,7 +29,7 @@
 
 - (void) test_notYetCompleted {
     RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@1, @2, @3]] concat:RACSignal.never] setNameWithFormat:@"foo"];
-    NSError *error = MI9SpecError;
+    NSError *error = LLSpecError;
     NSString *failureString = @"expected: actual foo to finish";
     
     assertPass(test_expect(signal).toNot.sendError(error));
@@ -41,8 +41,8 @@
 }
 
 - (void) test_endsInSameError {
-    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@1, @2, @3]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"foo"];
-    NSError *error = MI9SpecError;
+    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@1, @2, @3]] concat:[RACSignal error:LLSpecError]] setNameWithFormat:@"foo"];
+    NSError *error = LLSpecError;
     NSString *failureString = @"expected: actual foo to send error Error Domain=com.github.lawrencelomax.llreactivematchers.fixture Code=0 \"The operation couldn’t be completed. (com.github.lawrencelomax.llreactivematchers.fixture error 0.)\", got: the same error";
     
     assertPass(test_expect(signal).to.sendError(error));
@@ -54,7 +54,7 @@
 }
 
 - (void) test_endsInDifferentError {
-    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@1, @2, @3]] concat:[RACSignal error:MI9SpecError]] setNameWithFormat:@"foo"];
+    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@1, @2, @3]] concat:[RACSignal error:LLSpecError]] setNameWithFormat:@"foo"];
     NSError *error = [NSError errorWithDomain:@"foo" code:1 userInfo:@{}];
     NSString *failureString = @"expected: actual foo to send error Error Domain=foo Code=1 \"The operation couldn’t be completed. (foo error 1.)\", got: different errors";
     
