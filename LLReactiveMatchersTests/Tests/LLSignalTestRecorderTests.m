@@ -12,6 +12,20 @@
     assertEquals(subscriber.originalSignal, signal);
 }
 
+- (void) test_multicastBehaviour {
+    __block NSUInteger subscriptionCount = 0;
+    RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] initially:^{
+        subscriptionCount++;
+    }];
+    LLSignalTestRecorder *subscriber = [LLSignalTestRecorder recordWithSignal:signal];
+    
+    [subscriber subscribeCompleted:^{}];
+    [subscriber subscribeCompleted:^{}];
+    [subscriber subscribeCompleted:^{}];
+    
+    expect(subscriptionCount).to.equal(1);
+}
+
 - (void) test_recorderAccumilatesNextValues {
     RACSubject *subject = [RACSubject subject];
     LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:subject];
