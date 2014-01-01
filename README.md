@@ -87,9 +87,9 @@ It is quite common to use a ```RACSubject``` or ```RACReplaySubject``` in place 
     	expect(results[2]).to.equal(RACTuplePack(@"3", @"4"));
     });
 
-As ```LLReactiveMatchers``` subscribes to Signals when the expectation is resolved, none of the events sent via Subjects will get passed through to the Signal composed with ```combineLatest``` as the Subjects have sent their events before subscription. One way around this would be to use a ```RACReplaySubject``` which sends all the events. This would not have the desired effect as Replay Subjects are greedy and send all their accumilated events on subsciption, so the ordering that events of events sent by ```subject1``` and ```subject2``` are ignored.
+As all the matchers subscribe to Signals when the expectation is resolved, none of the events sent via Subjects will get passed through to the Signal composed with ```combineLatest```; the Subjects have sent their events before the composed Signal is subscribed to. It would be wrong to rectifty this with a ```RACReplaySubject``` to re-send events on subscription as Replay Subjects are greedy and will send all their accumilated events on subsciption. This will ignore the ordering in which events were sent by ```subject1``` and ```subject2```, essential for the behaviour we wish to test.
 
-The matchers accept ```LLSignalTestRecorder```s in place of a Signal, allowing the values that a Signal to be subscribed to before the matcher evaluates. This is equivalent subscribing to subscribing to a Signal with a ```RACReplaySubject``` and matching against the replay subject.
+The matchers accept ```LLSignalTestRecorder``` in place of a Signal. By creating the ```LLSignalTestRecorder``` *before* Subjects send their values, the composed Signal will receive values sent by the Subjects. This is equivalent subscribing to subscribing to the composed Signal with a ```RACReplaySubject``` and matching against the Replay Subject.
     
     it(@"should send nexts when either signal sends multiple times", ^{
         LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
@@ -104,7 +104,15 @@ The matchers accept ```LLSignalTestRecorder```s in place of a Signal, allowing t
     	expect(results).to.sendValue(1, RACTuplePack(@"3", @"2"));
     	expect(results).to.sendValue(2, RACTuplePack(@"3", @"4"));
     });
+    
+```LLSignalTestRecorder``` does provide additional conveniences over ```RACReplaySubject```. You can avoid repeated calls to create a recorder by creating the recorder up front, in a ```beforeEach``` block:
 
+    beforeEach(^{
+    	subject1 = [RACSubject subject];
+    	subject2 = [RACSubject subject];
+    	combined = [[RACSignal combineLatest:@[ subject1, subject2 ]] testRecorder];
+    });
+    
 ## Matchers
     
     expect(signal).to.complete();   //Succeeds if 'signal' completes before matching.
