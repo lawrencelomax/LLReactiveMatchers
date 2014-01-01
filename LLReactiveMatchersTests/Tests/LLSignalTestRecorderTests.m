@@ -102,25 +102,58 @@
     expect(recorder.hasCompleted).to.beTruthy();
 }
 
-- (void) test_recorderRelays {
+- (void) test_recorderRelaysValuesAndCompletion {
     RACSubject *subject = [RACSubject subject];
     LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:subject];
     
-    expect(recorder.relayedSignal).toNot.complete();
+    NSMutableArray *values = [NSMutableArray array];
+    __block BOOL hasCompleted = NO;
+    [recorder subscribeNext:^(id x) {
+        [values addObject:x];
+    } completed:^{
+        hasCompleted = YES;
+    }];
     
     [subject sendNext:@0];
     [subject sendNext:@1];
     [subject sendNext:@2];
  
-    expect(recorder.hasCompleted).to.beFalsy();
-    expect(recorder.values).to.equal( (@[@0, @1, @2]) );
+    expect(hasCompleted).to.beFalsy();
+    expect(values).to.equal( (@[@0, @1, @2]) );
 
     [subject sendNext:@3];
     [subject sendNext:@4];
     [subject sendCompleted];
     
-    expect(recorder.hasCompleted).to.beTruthy();
-    expect(recorder.values).to.equal( (@[@0, @1, @2, @3, @4]) );
+    expect(hasCompleted).to.beTruthy();
+    expect(values).to.equal( (@[@0, @1, @2, @3, @4]) );
+}
+
+- (void) test_recorderRelaysValuesAndError {
+    RACSubject *subject = [RACSubject subject];
+    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:subject];
+    
+    NSMutableArray *values = [NSMutableArray array];
+    __block NSError *errorReceived = nil;
+    [recorder subscribeNext:^(id x) {
+        [values addObject:x];
+    } error:^(NSError *error) {
+        errorReceived = error;
+    }];
+    
+    [subject sendNext:@0];
+    [subject sendNext:@1];
+    [subject sendNext:@2];
+    
+    expect(errorReceived).to.beNil();
+    expect(values).to.equal( (@[@0, @1, @2]) );
+    
+    [subject sendNext:@3];
+    [subject sendNext:@4];
+    [subject sendError:MI9SpecError];
+    
+    expect(errorReceived).to.equal(MI9SpecError);
+    expect(values).to.equal( (@[@0, @1, @2, @3, @4]) );
 }
 
 @end
