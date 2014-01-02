@@ -66,6 +66,8 @@
 }
 
 - (void) subscribeToSignal:(RACSignal *)signal {
+    [self setNameWithFormat:@"TestRecorder [%@]", signal.name];
+    
     self.originalSignal = signal;
     
     self.disposable = [[[[signal
