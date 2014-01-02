@@ -21,10 +21,6 @@
     
     assertPass(test_expect(signal).toNot.sendValues(expected));
     assertFail(test_expect(signal).to.sendValues(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendValues(expected));
-    assertFail(test_expect(recorder).to.sendValues(expected), failureString);
 }
 
 - (void) test_allWrongOrder {
@@ -34,10 +30,6 @@
     
     assertPass(test_expect(signal).toNot.sendValues(expected));
     assertFail(test_expect(signal).to.sendValues(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendValues(expected));
-    assertFail(test_expect(recorder).to.sendValues(expected), failureString);
 }
 
 - (void) test_allCorrectOrder {
@@ -47,10 +39,6 @@
     
     assertPass(test_expect(signal).to.sendValues(expected));
     assertFail(test_expect(signal).toNot.sendValues(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).to.sendValues(expected));
-    assertFail(test_expect(recorder).toNot.sendValues(expected), failureString);
 }
 
 - (void) test_someAllExpected {
@@ -60,10 +48,6 @@
     
     assertPass(test_expect(signal).toNot.sendValues(expected));
     assertFail(test_expect(signal).to.sendValues(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendValues(expected));
-    assertFail(test_expect(recorder).to.sendValues(expected), failureString);
 }
 
 - (void) test_subRange {
@@ -73,10 +57,6 @@
     
     assertPass(test_expect(signal).toNot.sendValues(expected));
     assertFail(test_expect(signal).to.sendValues(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendValues(expected));
-    assertFail(test_expect(recorder).to.sendValues(expected), failureString);
 }
 
 - (void) test_none {
@@ -86,10 +66,6 @@
     
     assertPass(test_expect(signal).toNot.sendValues(expected));
     assertFail(test_expect(signal).to.sendValues(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendValues(expected));
-    assertFail(test_expect(recorder).to.sendValues(expected), failureString);
 }
 
 @end

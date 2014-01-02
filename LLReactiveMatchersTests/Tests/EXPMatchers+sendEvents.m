@@ -21,10 +21,6 @@
     
     assertPass(test_expect(signal).to.sendEvents(expected));
     assertFail(test_expect(signal).toNot.sendEvents(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).to.sendEvents(expected));
-    assertFail(test_expect(recorder).toNot.sendEvents(expected), failureString);
 }
 
 - (void) test_differentEventsCompletion {
@@ -34,10 +30,6 @@
 
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendEvents(expected));
-    assertFail(test_expect(recorder).to.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalEventsIdenticalError {
@@ -47,10 +39,6 @@
     
     assertPass(test_expect(signal).to.sendEvents(expected));
     assertFail(test_expect(signal).toNot.sendEvents(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).to.sendEvents(expected));
-    assertFail(test_expect(recorder).toNot.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalEventsDifferentErrors {
@@ -60,10 +48,6 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendEvents(expected));
-    assertFail(test_expect(recorder).to.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalEventsExpectedDidNotComplete {
@@ -73,10 +57,6 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendEvents(expected));
-    assertFail(test_expect(recorder).to.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalValues {
@@ -86,10 +66,6 @@
     
     assertPass(test_expect(signal).to.sendEvents(expected));
     assertFail(test_expect(signal).toNot.sendEvents(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).to.sendEvents(expected));
-    assertFail(test_expect(recorder).toNot.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalValuesDifferentCompletion {
@@ -99,10 +75,6 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendEvents(expected));
-    assertFail(test_expect(recorder).to.sendEvents(expected), failureString);
 }
 
 - (void) test_differentValues {
@@ -112,10 +84,6 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendEvents(expected));
-    assertFail(test_expect(recorder).to.sendEvents(expected), failureString);
 }
 
 - (void) test_differentValuesDifferentCompletion {
@@ -125,10 +93,6 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendEvents(expected));
-    assertFail(test_expect(recorder).to.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalValuesOneDidNotComplete {
@@ -138,10 +102,6 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.sendEvents(expected));
-    assertFail(test_expect(recorder).to.sendEvents(expected), failureString);
 }
 
 @end

@@ -13,16 +13,22 @@
     assertFail(test_expect(signal).toNot.complete(), failureString);
 }
 
+- (void) test_noResubscriptionForTestSubscriber {
+    __block NSUInteger subscriptionCount = 0;
+    RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@1, @2, @3]] initially:^{
+        subscriptionCount++;
+    }] testRecorder];
+    
+    assertPass(test_expect(signal).to.complete());
+    expect(subscriptionCount).to.equal(1);
+}
+
 - (void) test_actualDidNotComplete {
     RACSignal *signal = [[[LLReactiveMatchersFixtures values:@[@1, @2, @3]] concat:RACSignal.never] setNameWithFormat:@"foo"];
     NSString *failureString = @"expected: actual foo to finish";
     
     assertPass(test_expect(signal).toNot.complete());
     assertFail(test_expect(signal).to.complete(), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.complete());
-    assertFail(test_expect(recorder).to.complete(), failureString);
 }
 
 - (void) test_endsInCompletion {
@@ -31,10 +37,6 @@
     
     assertPass(test_expect(signal).to.complete());
     assertFail(test_expect(signal).toNot.complete(), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).to.complete());
-    assertFail(test_expect(recorder).toNot.complete(), failureString);
 }
 
 - (void) test_endsInError {
@@ -43,10 +45,6 @@
     
     assertPass(test_expect(signal).toNot.complete());
     assertFail(test_expect(signal).to.complete(), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.complete());
-    assertFail(test_expect(recorder).to.complete(), failureString);
 }
 
 

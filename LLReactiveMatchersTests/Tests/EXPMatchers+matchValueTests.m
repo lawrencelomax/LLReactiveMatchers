@@ -30,14 +30,6 @@
     assertFail(test_expect(signal).to.matchValue(0, ^(id value){
         return NO;
     }), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.matchValue(0, ^(id value){
-        return NO;
-    }));
-    assertFail(test_expect(recorder).to.matchValue(0, ^(id value){
-        return NO;
-    }), failureString);
 }
 
 - (void) test_matchIndexToDamnHigh {
@@ -48,14 +40,6 @@
         return NO;
     }));
     assertFail(test_expect(signal).to.matchValue(10, ^(id value){
-        return NO;
-    }), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.matchValue(10, ^(id value){
-        return NO;
-    }));
-    assertFail(test_expect(recorder).to.matchValue(10, ^(id value){
         return NO;
     }), failureString);
 }
@@ -69,16 +53,6 @@
         return YES;
     }));
     assertFail(test_expect(signal).toNot.matchValue(2, ^(id value){
-        assertEqualObjects(@2, value);
-        return YES;
-    }), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).to.matchValue(2, ^(id value){
-        assertEqualObjects(@2, value);
-        return YES;
-    }));
-    assertFail(test_expect(recorder).toNot.matchValue(2, ^(id value){
         assertEqualObjects(@2, value);
         return YES;
     }), failureString);

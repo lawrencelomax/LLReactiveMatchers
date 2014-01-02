@@ -29,14 +29,6 @@
     assertFail(test_expect(signal).toNot.matchValues(^(NSUInteger index, id value){
         return NO;
     }), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).to.matchValues(^(NSUInteger index, id value){
-        return NO;
-    }));
-    assertFail(test_expect(recorder).toNot.matchValues(^(NSUInteger index, id value){
-        return NO;
-    }), failureString);
 }
 
 - (void) test_passAll {
@@ -45,22 +37,12 @@
     
     NSArray *expected = @[RACTuplePack(@0, @0), RACTuplePack(@1, @1), RACTuplePack(@2, @2), RACTuplePack(@3, @3)];
     NSMutableArray *values = [NSMutableArray array];
+    
     assertPass(test_expect(signal).to.matchValues(^(NSUInteger index, id value){
         [values addObject:RACTuplePack(@(index), value)];
         return YES;
     }));
-    assertTrue([values isEqualToArray:expected]);
     assertFail(test_expect(signal).toNot.matchValues(^(NSUInteger index, id value){
-        return YES;
-    }), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    [values removeAllObjects];
-    assertPass(test_expect(recorder).to.matchValues(^(NSUInteger index, id value){
-        [values addObject:RACTuplePack(@(index), value)];
-        return YES;
-    }));
-    assertFail(test_expect(recorder).toNot.matchValues(^(NSUInteger index, id value){
         return YES;
     }), failureString);
     assertTrue([values isEqualToArray:expected]);
@@ -72,25 +54,11 @@
     
     NSArray *expected = @[RACTuplePack(@0, @0), RACTuplePack(@1, @1), RACTuplePack(@2, @2) ];
     NSMutableArray *values = [NSMutableArray array];
+    
     assertPass(test_expect(signal).toNot.matchValues(^(NSUInteger index, id value){
         return NO;
     }));
     assertFail(test_expect(signal).to.matchValues(^(NSUInteger index, id value){
-        [values addObject:RACTuplePack(@(index), value)];
-        
-        if(index == 2) {
-            return NO;
-        }
-        return YES;
-    }), failureString);
-    assertTrue([values isEqualToArray:expected]);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    [values removeAllObjects];
-    assertPass(test_expect(recorder).toNot.matchValues(^(NSUInteger index, id value){
-        return NO;
-    }));
-    assertFail(test_expect(recorder).to.matchValues(^(NSUInteger index, id value){
         [values addObject:RACTuplePack(@(index), value)];
         
         if(index == 2) {

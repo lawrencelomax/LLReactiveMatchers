@@ -19,10 +19,6 @@
     
     assertPass(test_expect(signal).to.error());
     assertFail(test_expect(signal).toNot.error(), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).to.error());
-    assertFail(test_expect(recorder).toNot.error(), failureString);
 }
 
 - (void) test_endsInCompletion {
@@ -31,10 +27,6 @@
     
     assertPass(test_expect(signal).toNot.error());
     assertFail(test_expect(signal).to.error(), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.error());
-    assertFail(test_expect(recorder).to.error(), failureString);
 }
 
 - (void) test_notYetCompleted {
@@ -43,10 +35,6 @@
     
     assertPass(test_expect(signal).toNot.error());
     assertFail(test_expect(signal).to.error(), failureString);
-    
-    LLSignalTestRecorder *recorder = [LLSignalTestRecorder recordWithSignal:signal];
-    assertPass(test_expect(recorder).toNot.error());
-    assertFail(test_expect(recorder).to.error(), failureString);
 }
 
 @end
