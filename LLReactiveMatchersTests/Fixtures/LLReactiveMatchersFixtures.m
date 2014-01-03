@@ -31,3 +31,11 @@ extern NSError * LLReactiveMatchersFixtureError() {
 }
 
 @end
+
+@implementation RACSignal (LLRMTestHelpers)
+
+- (RACSignal *) asyncySignal {
+    return [[[self delay:0.01] subscribeOn:[RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault]] setNameWithFormat:@"%@", self.name];
+}
+
+@end

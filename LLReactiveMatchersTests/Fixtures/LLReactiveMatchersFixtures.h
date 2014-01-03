@@ -22,3 +22,10 @@ extern NSError * LLReactiveMatchersFixtureError();
 + (RACSignal *) valuesAsynchronously:(NSArray *)values;
 
 @end
+
+@interface RACSignal (LLRMTestHelpers)
+
+// Delays events a little by sending them on a background scheduler
+- (RACSignal *) asyncySignal;
+
+@end
