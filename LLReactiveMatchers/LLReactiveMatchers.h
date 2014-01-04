@@ -1,5 +1,6 @@
 // Umbrella Header
 #import "LLSignalTestRecorder.h"
+#import "EXPExpect+LLReactiveMatchersExtensions.h"
 
 #import "EXPMatchers+complete.h"
 #import "EXPMatchers+finish.h"

@@ -26,6 +26,8 @@
 		21A1FCF91859903A0097995D /* EXPMatchers+sendValuesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCF81859903A0097995D /* EXPMatchers+sendValuesTests.m */; };
 		21A1FCFD1859B7770097995D /* LLReactiveMatchersMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCFC1859B7770097995D /* LLReactiveMatchersMessageBuilder.m */; };
 		21A1FD011859BDA20097995D /* LLSignalTestRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FD001859BDA20097995D /* LLSignalTestRecorder.m */; };
+		21A8A3201878B22E00A1461F /* EXPExpect+LLReactiveMatchersExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8A31F1878B22E00A1461F /* EXPExpect+LLReactiveMatchersExtensions.m */; };
+		21A8A3221878B99600A1461F /* EXPExpect+LLReactiveMatchersExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8A3211878B99600A1461F /* EXPExpect+LLReactiveMatchersExtensionsTests.m */; };
 		21BEA100185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BEA0FF185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.m */; };
 		21BEA102185D2D0300D8030C /* EXPMatchers+sendValuesWithCountTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BEA101185D2D0300D8030C /* EXPMatchers+sendValuesWithCountTests.m */; };
 		21DD76CD1851792C00488C18 /* EXPExpect+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76C91851792C00488C18 /* EXPExpect+Test.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -97,6 +99,9 @@
 		21A1FCFC1859B7770097995D /* LLReactiveMatchersMessageBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLReactiveMatchersMessageBuilder.m; sourceTree = "<group>"; };
 		21A1FCFF1859BDA20097995D /* LLSignalTestRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSignalTestRecorder.h; sourceTree = "<group>"; };
 		21A1FD001859BDA20097995D /* LLSignalTestRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSignalTestRecorder.m; sourceTree = "<group>"; };
+		21A8A31E1878B22E00A1461F /* EXPExpect+LLReactiveMatchersExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPExpect+LLReactiveMatchersExtensions.h"; sourceTree = "<group>"; };
+		21A8A31F1878B22E00A1461F /* EXPExpect+LLReactiveMatchersExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPExpect+LLReactiveMatchersExtensions.m"; sourceTree = "<group>"; };
+		21A8A3211878B99600A1461F /* EXPExpect+LLReactiveMatchersExtensionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPExpect+LLReactiveMatchersExtensionsTests.m"; sourceTree = "<group>"; };
 		21BEA0FE185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+sendValuesWithCount.h"; sourceTree = "<group>"; };
 		21BEA0FF185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+sendValuesWithCount.m"; sourceTree = "<group>"; };
 		21BEA101185D2D0300D8030C /* EXPMatchers+sendValuesWithCountTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+sendValuesWithCountTests.m"; sourceTree = "<group>"; };
@@ -173,6 +178,7 @@
 		218E716A18513F5B00D42D57 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				21A8A3211878B99600A1461F /* EXPExpect+LLReactiveMatchersExtensionsTests.m */,
 				21A1FCEC18596DB30097995D /* EXPMatchers+completeTests.m */,
 				21F569CB1863BE7B009C47B4 /* EXPMatchers+errorTests.m */,
 				21A1FCF318598B2B0097995D /* EXPMatchers+finishTests.m */,
@@ -211,6 +217,8 @@
 		21A1FCFE1859BDA20097995D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				21A8A31E1878B22E00A1461F /* EXPExpect+LLReactiveMatchersExtensions.h */,
+				21A8A31F1878B22E00A1461F /* EXPExpect+LLReactiveMatchersExtensions.m */,
 				21A1FCFF1859BDA20097995D /* LLSignalTestRecorder.h */,
 				21A1FD001859BDA20097995D /* LLSignalTestRecorder.m */,
 			);
@@ -411,6 +419,7 @@
 			files = (
 				21A1FCEB18596B8E0097995D /* EXPMatchers+complete.m in Sources */,
 				21BEA100185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.m in Sources */,
+				21A8A3201878B22E00A1461F /* EXPExpect+LLReactiveMatchersExtensions.m in Sources */,
 				216348CF18612DFB00A457F1 /* EXPMatchers+matchValues.m in Sources */,
 				21A1FCF218598AA60097995D /* EXPMatchers+finish.m in Sources */,
 				212E349F1856DE7000D04066 /* LLReactiveMatchersHelpers.m in Sources */,
@@ -429,6 +438,7 @@
 			files = (
 				21BEA102185D2D0300D8030C /* EXPMatchers+sendValuesWithCountTests.m in Sources */,
 				21DD76CE1851792C00488C18 /* FakeTestCase.m in Sources */,
+				21A8A3221878B99600A1461F /* EXPExpect+LLReactiveMatchersExtensionsTests.m in Sources */,
 				21A1FCF91859903A0097995D /* EXPMatchers+sendValuesTests.m in Sources */,
 				21F569CC1863BE7B009C47B4 /* EXPMatchers+errorTests.m in Sources */,
 				21DD76CD1851792C00488C18 /* EXPExpect+Test.m in Sources */,
