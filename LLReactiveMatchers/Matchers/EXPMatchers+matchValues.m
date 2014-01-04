@@ -34,12 +34,15 @@ match(^BOOL{
         }
     }];
     
-    return passed;
+    return passed && actualRecorder.hasFinished;
 });
 
 failureMessageForTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
+    }
+    if(!actualRecorder.hasFinished) {
+        return [LLReactiveMatchersMessageBuilder actualNotFinished:actualRecorder];
     }
     
     NSString *expectedBehaviour = [NSString stringWithFormat:@"match value %@ at index %@", failingValue, @(failingIndex)];
@@ -49,6 +52,9 @@ failureMessageForTo(^NSString *{
 failureMessageForNotTo(^NSString *{
     if(!LLRMCorrectClassesForActual(actual)) {
         return [LLReactiveMatchersMessageBuilder actualNotCorrectClass:actual];
+    }
+    if(!actualRecorder.hasFinished) {
+        return [LLReactiveMatchersMessageBuilder actualNotFinished:actualRecorder];
     }
     
     NSString *expectedBehaviour = @"not match all values";
