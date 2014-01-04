@@ -9,6 +9,7 @@
     NSString *failureMessage = @"willContinueTo is not yet supported";
     
     assertFail(test_expect(nil).willContinueTo.beNil(), failureMessage);
+    assertPass(test_expect(nil).beNil());
 }
 
 @end
