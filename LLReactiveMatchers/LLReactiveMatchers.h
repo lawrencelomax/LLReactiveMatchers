@@ -1,6 +1,7 @@
 // Umbrella Header
 #import "LLSignalTestRecorder.h"
 
+#import "EXPMatchers+beSubscribedTo.h"
 #import "EXPMatchers+complete.h"
 #import "EXPMatchers+finish.h"
 #import "EXPMatchers+matchValue.h"
