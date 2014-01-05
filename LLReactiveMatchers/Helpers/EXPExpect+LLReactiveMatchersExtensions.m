@@ -10,6 +10,7 @@
 
 #import "Expecta.h"
 
+#import <libkern/OSAtomic.h>
 #import <objc/objc-runtime.h>
 
 @implementation EXPExpect (LLReactiveMatchersExtensions)
@@ -54,15 +55,57 @@ static void *continousAsyncKey = &continousAsyncKey;
 }
 
 - (void) applyMatcherLLRMTrampoline:(id<EXPMatcher>)matcher to:(NSObject *__autoreleasing *)actual originalImplementation:(IMP)originalIMP {
-    if(self.willContinueTo) {
+    if(self.continuousAsync) {
         [self applyMatcherLLRMContinousAsync:matcher to:actual];
     } else {
-        originalIMP(self, _cmd, matcher, actual);
+        __strong NSObject *originalObject = *actual;
+        originalIMP(self, _cmd, matcher, &originalObject);
     }
 }
 
 - (void) applyMatcherLLRMContinousAsync:(id<EXPMatcher>)matcher to:(NSObject *__autoreleasing *)actual {
-    EXPFail(self.testCase, self.lineNumber, self.fileName, @"willContinueTo is not yet supported");
+    BOOL failed = YES;
+    
+    if([matcher respondsToSelector:@selector(meetsPrerequesiteFor:)] && ![matcher meetsPrerequesiteFor:*actual]) {
+        failed = YES;
+    } else {
+        BOOL matchResult = NO;
+        
+        NSTimeInterval timeOut = [Expecta asynchronousTestTimeout];
+        NSDate *expiryDate = [NSDate dateWithTimeIntervalSinceNow:timeOut];
+    
+        while(1) {
+            matchResult = [matcher matches:*actual];
+            failed = self.negative ? matchResult : !matchResult;
+            if([[NSDate date] compare:expiryDate] == NSOrderedDescending) {
+                break;
+            }
+            
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+            OSMemoryBarrier();
+            *actual = self.actual;
+        }
+        
+        failed = self.negative ? matchResult : !matchResult;
+    }
+    if(failed) {
+        NSString *message = nil;
+        
+        if(self.negative) {
+            if ([matcher respondsToSelector:@selector(failureMessageForNotTo:)]) {
+                message = [matcher failureMessageForNotTo:*actual];
+            }
+        } else {
+            if ([matcher respondsToSelector:@selector(failureMessageForTo:)]) {
+                message = [matcher failureMessageForTo:*actual];
+            }
+        }
+        if (message == nil) {
+            message = @"Match Failed.";
+        }
+        
+        EXPFail(self.testCase, self.lineNumber, self.fileName, message);
+    }
 }
 
 @end
