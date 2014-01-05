@@ -34,6 +34,7 @@
 + (instancetype) recorderThatSendsValuesThenCompletes:(id)values;
 
 @property (nonatomic, readonly) RACSignal *originalSignal;
+@property (nonatomic, readonly) NSUInteger subscriptionCount;
 
 @property (nonatomic, readonly) NSArray *values;
 @property (nonatomic, readonly) NSUInteger valuesSentCount;
