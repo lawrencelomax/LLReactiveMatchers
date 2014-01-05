@@ -113,6 +113,17 @@ The matchers accept ```LLSignalTestRecorder``` in place of a Signal. By creating
     	combined = [[RACSignal combineLatest:@[ subject1, subject2 ]] testRecorder];
     });
     
+## Asynchronous Testing
+When Asynchronously with ``willNot``` and some matchers have behaviour that may deviate from what you expect:
+     
+    RACSignal *signal = ....; //Assume this signal does complete, but not immediately/synchronously
+    expect(signal).willNot.complete();  // This will pass as the Signal does not start complete.
+
+You may want to use the supplied ```willContinueTo```/```willNotContinueTo``` methods on ```EXPExpect```, which will continue matching until the asynchronous timeout:
+
+    RACSignal *signal = ....; //Assume this signal does complete, but not immediately/synchronously
+    expect(signal).willNotContinueTo.complete();  // This will fail, just after the signal completes.
+
 ## Matchers
     
     expect(signal).to.complete();   //Succeeds if 'signal' completes before matching.
