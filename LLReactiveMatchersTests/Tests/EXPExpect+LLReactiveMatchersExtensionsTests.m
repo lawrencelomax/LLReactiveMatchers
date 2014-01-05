@@ -20,6 +20,13 @@ NSString *failureMessageNegative = @"expected: a non-truthy value, got: 1, which
     assertFail(test_expect(pass).willNotContinueTo.beTruthy(), failureMessageNegative);
 }
 
+- (void) test_failAlways {
+    BOOL pass = NO;
+    
+    assertFail(test_expect(pass).willContinueTo.beTruthy(), failureMessage);
+    assertPass(test_expect(pass).willNotContinueTo.beTruthy());
+}
+
 - (void) test_passThenFail {
     __block BOOL pass = YES;
     
