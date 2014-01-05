@@ -34,6 +34,15 @@ static void *continousAsyncKey = &continousAsyncKey;
     return self;
 }
 
+- (EXPExpect *) willNotContinueTo {
+    self.continuousAsync = YES;
+    self.negative = YES;
+    
+    [self.class swizzleApplyMatcherIfNeeded];
+    
+    return self;
+}
+
 + (void) swizzleApplyMatcherIfNeeded {
     static BOOL hasSwizzledMethod = NO;
     

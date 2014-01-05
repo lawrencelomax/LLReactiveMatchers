@@ -10,8 +10,9 @@
 
 @interface EXPExpect (LLReactiveMatchersExtensions)
 
-@property (nonatomic, readonly) BOOL continuousAsync;
+@property (nonatomic) BOOL continuousAsync;
 
 @property (nonatomic, readonly) EXPExpect *willContinueTo;
+@property (nonatomic, readonly) EXPExpect *willNotContinueTo;
 
 @end
