@@ -40,7 +40,10 @@ static void *continousAsyncKey = &continousAsyncKey;
     @synchronized(EXPExpect.class) {
         if(!hasSwizzledMethod) {
             SEL originalSelector = @selector(applyMatcher:to:);
-            IMP originalImplementation = class_getMethodImplementation(EXPExpect.class, originalSelector);
+            
+            void (*originalImplementation)(id, SEL, id<EXPMatcher>, NSObject **) = NULL;
+            originalImplementation = (typeof(originalImplementation)) class_getMethodImplementation(EXPExpect.class, originalSelector);
+            
             IMP newImplementation = imp_implementationWithBlock(^(id blockSelf, id<EXPMatcher>matcher, NSObject *__autoreleasing* actual){
                 [blockSelf applyMatcherLLRMTrampoline:matcher to:actual originalImplementation:originalImplementation];
             });
@@ -54,7 +57,7 @@ static void *continousAsyncKey = &continousAsyncKey;
     }
 }
 
-- (void) applyMatcherLLRMTrampoline:(id<EXPMatcher>)matcher to:(NSObject *__autoreleasing *)actual originalImplementation:(IMP)originalIMP {
+- (void) applyMatcherLLRMTrampoline:(id<EXPMatcher>)matcher to:(NSObject *__autoreleasing *)actual originalImplementation:(void (*)(id, SEL, id<EXPMatcher>, NSObject **) )originalIMP {
     if(self.continuousAsync) {
         [self applyMatcherLLRMContinousAsync:matcher to:actual];
     } else {

@@ -27,7 +27,7 @@
 		21A1FCFD1859B7770097995D /* LLReactiveMatchersMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCFC1859B7770097995D /* LLReactiveMatchersMessageBuilder.m */; };
 		21A1FD011859BDA20097995D /* LLSignalTestRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FD001859BDA20097995D /* LLSignalTestRecorder.m */; };
 		21A8A3201878B22E00A1461F /* EXPExpect+LLReactiveMatchersExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8A31F1878B22E00A1461F /* EXPExpect+LLReactiveMatchersExtensions.m */; };
-		21A8A3221878B99600A1461F /* EXPExpect+LLReactiveMatchersExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8A3211878B99600A1461F /* EXPExpect+LLReactiveMatchersExtensionsTests.m */; };
+		21A8A3231878E09B00A1461F /* EXPExpect+LLReactiveMatchersExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8A3211878B99600A1461F /* EXPExpect+LLReactiveMatchersExtensionsTests.m */; };
 		21BEA100185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BEA0FF185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.m */; };
 		21BEA102185D2D0300D8030C /* EXPMatchers+sendValuesWithCountTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BEA101185D2D0300D8030C /* EXPMatchers+sendValuesWithCountTests.m */; };
 		21DD76CD1851792C00488C18 /* EXPExpect+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76C91851792C00488C18 /* EXPExpect+Test.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -438,7 +438,7 @@
 			files = (
 				21BEA102185D2D0300D8030C /* EXPMatchers+sendValuesWithCountTests.m in Sources */,
 				21DD76CE1851792C00488C18 /* FakeTestCase.m in Sources */,
-				21A8A3221878B99600A1461F /* EXPExpect+LLReactiveMatchersExtensionsTests.m in Sources */,
+				21A8A3231878E09B00A1461F /* EXPExpect+LLReactiveMatchersExtensionsTests.m in Sources */,
 				21A1FCF91859903A0097995D /* EXPMatchers+sendValuesTests.m in Sources */,
 				21F569CC1863BE7B009C47B4 /* EXPMatchers+errorTests.m in Sources */,
 				21DD76CD1851792C00488C18 /* EXPExpect+Test.m in Sources */,
