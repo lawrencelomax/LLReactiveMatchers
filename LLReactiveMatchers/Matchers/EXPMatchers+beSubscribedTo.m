@@ -10,7 +10,7 @@ static void setSubscriptionCount(RACSignal *signal, NSUInteger count) {
 
 static NSUInteger getSubscriptionCount(RACSignal *signal) {
     NSNumber *subscriptionCount = objc_getAssociatedObject(signal, subscriptionCountKey);
-    return subscriptionCount ? subscriptionCount.integerValue : -1;
+    return subscriptionCount ? subscriptionCount.integerValue : 0;
 }
 
 static void swizzleSubscribeIfNeeded() {
@@ -41,18 +41,16 @@ static void swizzleSubscribeIfNeeded() {
 EXPMatcherImplementationBegin(beSubscribedTo, (NSInteger times))
 
 BOOL correctClasses = [actual isKindOfClass:RACSignal.class];
-__block NSInteger subscriptionCount = 0;
-__block BOOL hasSubscribed = NO;
 
 prerequisite(^BOOL{
-    return correctClasses;
+    return LLRMCorrectClassesForActual(actual);
 });
 
 match(^BOOL{
     swizzleSubscribeIfNeeded();
     
     @synchronized(actual) {
-        return (times == subscriptionCount);
+        return (getSubscriptionCount(actual) == times);
     }
 });
 
@@ -63,7 +61,9 @@ failureMessageForTo(^NSString *{
     
     @synchronized(actual) {
         NSInteger subscriptionCount = getSubscriptionCount(actual);
-        return [NSString stringWithFormat:@"Signal %@ subscribed to %d times instead of %d", LLDescribeSignal(actual), subscriptionCount, times];
+        NSString *expectedBehaviour = [NSString stringWithFormat:@"be subscribed to %@ times", @(times)];
+        NSString *actualBehaviour = [NSString stringWithFormat:@"subscribed to %@ times", @(subscriptionCount)];
+        return [[[[[LLReactiveMatchersMessageBuilder message] actual:actual] expectedBehaviour:expectedBehaviour] actualBehaviour:actualBehaviour] build];
     }
 });
 
@@ -74,8 +74,9 @@ failureMessageForNotTo(^NSString *{
     
     @synchronized(actual) {
         NSInteger subscriptionCount = getSubscriptionCount(actual);
-
-        return [NSString stringWithFormat:@"Signal %@ subscribed to %d times", LLDescribeSignal(actual), subscriptionCount];
+        NSString *expectedBehaviour = [NSString stringWithFormat:@"not be subscribed to %@ times", @(times)];
+        NSString *actualBehaviour = [NSString stringWithFormat:@"subscribed to %@ times", @(subscriptionCount)];
+        return [[[[[LLReactiveMatchersMessageBuilder message] actual:actual] expectedBehaviour:expectedBehaviour] actualBehaviour:actualBehaviour] build];
     }
 });
 
