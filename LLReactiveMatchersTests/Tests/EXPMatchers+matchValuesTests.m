@@ -34,9 +34,9 @@
     assertPass(test_expect(signal).will.matchValues(^(NSUInteger index, id value){
         return NO;
     }));
-    assertFail(test_expect(signal).willNot.matchValues(^(NSUInteger index, id value){
+    assertPass(test_expect(signal).willNot.matchValues(^(NSUInteger index, id value){
         return NO;
-    }), failureString);
+    }));
 }
 
 - (void) test_passAll {
@@ -62,9 +62,9 @@
     assertPass(test_expect(signal).will.matchValues(^(NSUInteger index, id value){
         return YES;
     }));
-    assertFail(test_expect(signal).willNot.matchValues(^(NSUInteger index, id value){
+    assertPass(test_expect(signal).willNot.matchValues(^(NSUInteger index, id value){
         return YES;
-    }), failureString);
+    }));
 }
 
 - (void) test_nonFinishingSignal {
@@ -80,10 +80,10 @@
     assertTrue([values isEqualToArray:expected]);
     
     [values removeAllObjects];
-    assertFail(test_expect(signal).toNot.matchValues(^(NSUInteger index, id value){
+    assertPass(test_expect(signal).toNot.matchValues(^(NSUInteger index, id value){
         [values addObject:RACTuplePack(@(index), value)];
         return YES;
-    }), failureString);
+    }));
     assertTrue([values isEqualToArray:expected]);
 }
 
@@ -91,8 +91,8 @@
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@0, @1, @2, @3]] setNameWithFormat:@"foo"];
     NSString *failureString = @"expected: actual foo to match value 2 at index 2";
     
-    NSArray *expected = @[RACTuplePack(@0, @0), RACTuplePack(@1, @1), RACTuplePack(@2, @2) ];
     NSMutableArray *values = [NSMutableArray array];
+    NSArray *expected = @[RACTuplePack(@0, @0)];
     assertPass(test_expect(signal).toNot.matchValues(^(NSUInteger index, id value){
         [values addObject:RACTuplePack(@(index), value)];
         return NO;
@@ -100,6 +100,7 @@
     assertTrue([values isEqualToArray:expected]);
     
     [values removeAllObjects];
+    expected = @[RACTuplePack(@0, @0), RACTuplePack(@1, @1), RACTuplePack(@2, @2) ];
     assertFail(test_expect(signal).to.matchValues(^(NSUInteger index, id value){
         [values addObject:RACTuplePack(@(index), value)];
         

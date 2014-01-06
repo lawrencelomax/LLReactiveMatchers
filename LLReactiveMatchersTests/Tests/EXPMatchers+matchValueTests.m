@@ -30,6 +30,14 @@
     assertFail(test_expect(signal).to.matchValue(0, ^(id value){
         return NO;
     }), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.matchValue(0, ^(id value){
+        return NO;
+    }));
+    assertFail(test_expect(signal).will.matchValue(0, ^(id value){
+        return NO;
+    }), failureString);
 }
 
 - (void) test_matchIndexToDamnHigh {
@@ -40,6 +48,14 @@
         return NO;
     }));
     assertFail(test_expect(signal).to.matchValue(10, ^(id value){
+        return NO;
+    }), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.matchValue(10, ^(id value){
+        return NO;
+    }));
+    assertFail(test_expect(signal).will.matchValue(10, ^(id value){
         return NO;
     }), failureString);
 }
@@ -56,6 +72,16 @@
         assertEqualObjects(@2, value);
         return YES;
     }), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).will.matchValue(2, ^(id value){
+        assertEqualObjects(@2, value);
+        return YES;
+    }));
+    assertPass(test_expect(signal).willNot.matchValue(2, ^(id value){
+        assertEqualObjects(@2, value);
+        return YES;
+    }));
 }
 
 
