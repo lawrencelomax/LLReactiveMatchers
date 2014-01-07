@@ -26,6 +26,7 @@
 		21A1FCF91859903A0097995D /* EXPMatchers+sendValuesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCF81859903A0097995D /* EXPMatchers+sendValuesTests.m */; };
 		21A1FCFD1859B7770097995D /* LLReactiveMatchersMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FCFC1859B7770097995D /* LLReactiveMatchersMessageBuilder.m */; };
 		21A1FD011859BDA20097995D /* LLSignalTestRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1FD001859BDA20097995D /* LLSignalTestRecorder.m */; };
+		21A491B8187BD10600AC4C8B /* LLInvocationRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A491B7187BD10600AC4C8B /* LLInvocationRecorder.m */; };
 		21BEA100185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BEA0FF185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.m */; };
 		21BEA102185D2D0300D8030C /* EXPMatchers+sendValuesWithCountTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BEA101185D2D0300D8030C /* EXPMatchers+sendValuesWithCountTests.m */; };
 		21DD76CD1851792C00488C18 /* EXPExpect+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DD76C91851792C00488C18 /* EXPExpect+Test.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -97,6 +98,8 @@
 		21A1FCFC1859B7770097995D /* LLReactiveMatchersMessageBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLReactiveMatchersMessageBuilder.m; sourceTree = "<group>"; };
 		21A1FCFF1859BDA20097995D /* LLSignalTestRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSignalTestRecorder.h; sourceTree = "<group>"; };
 		21A1FD001859BDA20097995D /* LLSignalTestRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSignalTestRecorder.m; sourceTree = "<group>"; };
+		21A491B6187BD10600AC4C8B /* LLInvocationRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLInvocationRecorder.h; sourceTree = "<group>"; };
+		21A491B7187BD10600AC4C8B /* LLInvocationRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLInvocationRecorder.m; sourceTree = "<group>"; };
 		21BEA0FE185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+sendValuesWithCount.h"; sourceTree = "<group>"; };
 		21BEA0FF185D2A9600D8030C /* EXPMatchers+sendValuesWithCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+sendValuesWithCount.m"; sourceTree = "<group>"; };
 		21BEA101185D2D0300D8030C /* EXPMatchers+sendValuesWithCountTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+sendValuesWithCountTests.m"; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 		21A1FCFE1859BDA20097995D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				21A491B6187BD10600AC4C8B /* LLInvocationRecorder.h */,
+				21A491B7187BD10600AC4C8B /* LLInvocationRecorder.m */,
 				21A1FCFF1859BDA20097995D /* LLSignalTestRecorder.h */,
 				21A1FD001859BDA20097995D /* LLSignalTestRecorder.m */,
 			);
@@ -418,6 +423,7 @@
 				21F569CA1863BE37009C47B4 /* EXPMatchers+error.m in Sources */,
 				212E34AD185746FA00D04066 /* EXPMatchers+sendError.m in Sources */,
 				21A1FCF718598D3E0097995D /* EXPMatchers+sendValues.m in Sources */,
+				21A491B8187BD10600AC4C8B /* LLInvocationRecorder.m in Sources */,
 				212E34941856BC5D00D04066 /* EXPMatchers+sendEvents.m in Sources */,
 				216348D4186154C200A457F1 /* EXPMatchers+matchValue.m in Sources */,
 			);
