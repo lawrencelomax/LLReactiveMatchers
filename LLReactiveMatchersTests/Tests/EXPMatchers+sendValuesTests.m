@@ -30,6 +30,10 @@
     
     assertPass(test_expect(signal).toNot.sendValues(expected));
     assertFail(test_expect(signal).to.sendValues(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendValues(expected));
+    assertFail(test_expect(signal).will.sendValues(expected), failureString);
 }
 
 - (void) test_allCorrectOrder {
@@ -39,6 +43,10 @@
     
     assertPass(test_expect(signal).to.sendValues(expected));
     assertFail(test_expect(signal).toNot.sendValues(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).will.sendValues(expected));
+    assertPass(test_expect(signal).willNot.sendValues(expected));
 }
 
 - (void) test_someAllExpected {
@@ -48,6 +56,10 @@
     
     assertPass(test_expect(signal).toNot.sendValues(expected));
     assertFail(test_expect(signal).to.sendValues(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendValues(expected));
+    assertFail(test_expect(signal).will.sendValues(expected), failureString);
 }
 
 - (void) test_subRange {
@@ -57,6 +69,10 @@
     
     assertPass(test_expect(signal).toNot.sendValues(expected));
     assertFail(test_expect(signal).to.sendValues(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendValues(expected));
+    assertFail(test_expect(signal).will.sendValues(expected), failureString);
 }
 
 - (void) test_none {
@@ -66,6 +82,10 @@
     
     assertPass(test_expect(signal).toNot.sendValues(expected));
     assertFail(test_expect(signal).to.sendValues(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendValues(expected));
+    assertFail(test_expect(signal).will.sendValues(expected), failureString);
 }
 
 @end
