@@ -26,16 +26,14 @@ extern NSError * LLReactiveMatchersFixtureError() {
     return [[values.rac_sequence signalWithScheduler:RACScheduler.immediateScheduler] setNameWithFormat:@"values %@", EXPDescribeObject(values)];
 }
 
-+ (RACSignal *) valuesAsynchronously:(NSArray *)values {
-    return [[[values.rac_sequence signalWithScheduler:RACScheduler.scheduler] delay:0.1] setNameWithFormat:@"values %@", EXPDescribeObject(values)];
-}
-
 @end
 
 @implementation RACSignal (LLRMTestHelpers)
 
 - (RACSignal *) asyncySignal {
-    return [[[self delay:0.01] subscribeOn:[RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault]] setNameWithFormat:@"%@", self.name];
+    // -delay: will always immediately send errors, we want to avoid that
+    return [[[[[self materialize] delay:0.01] dematerialize] deliverOn:[RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault]]
+        setNameWithFormat:@"%@", self.name];
 }
 
 @end
