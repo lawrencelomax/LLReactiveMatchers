@@ -151,4 +151,12 @@ typedef NS_OPTIONS(NSUInteger, LLReactiveMatchersMessageBuilderRendering) {
     return [NSString stringWithFormat:@"expected: expected %@ to finish", expected.originalSignalDescription];
 }
 
++ (NSString *) expectedSignal:(RACSignal *)signal toBeSubscribedTo:(NSInteger)expected actual:(NSInteger)actual {
+    return [NSString stringWithFormat:@"expected: actual %@ to be subscribed to %@ times, got: %@ times", signal.name, @(expected), @(actual)];
+}
+
++ (NSString *) expectedSignal:(RACSignal *)signal toNotBeSubscribedTo:(NSInteger)expected {
+    return [NSString stringWithFormat:@"expected: actual %@ to not be subscribed to %@ times", signal.name, @(expected)];
+}
+
 @end

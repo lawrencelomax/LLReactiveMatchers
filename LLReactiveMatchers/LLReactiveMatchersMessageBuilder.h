@@ -33,4 +33,7 @@
 + (NSString *) actualNotFinished:(LLSignalTestRecorder *)actual;
 + (NSString *) expectedNotFinished:(LLSignalTestRecorder *)expected;
 
++ (NSString *) expectedSignal:(RACSignal *)signal toBeSubscribedTo:(NSInteger)expected actual:(NSInteger)actual;
++ (NSString *) expectedSignal:(RACSignal *)signal toNotBeSubscribedTo:(NSInteger)expected;
+
 @end

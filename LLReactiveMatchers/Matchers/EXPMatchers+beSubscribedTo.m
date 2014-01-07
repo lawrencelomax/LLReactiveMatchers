@@ -61,9 +61,7 @@ failureMessageForTo(^NSString *{
     
     @synchronized(actual) {
         NSInteger subscriptionCount = getSubscriptionCount(actual);
-        NSString *expectedBehaviour = [NSString stringWithFormat:@"be subscribed to %@ times", @(times)];
-        NSString *actualBehaviour = [NSString stringWithFormat:@"subscribed to %@ times", @(subscriptionCount)];
-        return [[[[[LLReactiveMatchersMessageBuilder message] actual:actual] expectedBehaviour:expectedBehaviour] actualBehaviour:actualBehaviour] build];
+        return [LLReactiveMatchersMessageBuilder expectedSignal:actual toBeSubscribedTo:times actual:subscriptionCount];
     }
 });
 
@@ -73,10 +71,7 @@ failureMessageForNotTo(^NSString *{
     }
     
     @synchronized(actual) {
-        NSInteger subscriptionCount = getSubscriptionCount(actual);
-        NSString *expectedBehaviour = [NSString stringWithFormat:@"not be subscribed to %@ times", @(times)];
-        NSString *actualBehaviour = [NSString stringWithFormat:@"subscribed to %@ times", @(subscriptionCount)];
-        return [[[[[LLReactiveMatchersMessageBuilder message] actual:actual] expectedBehaviour:expectedBehaviour] actualBehaviour:actualBehaviour] build];
+        return [LLReactiveMatchersMessageBuilder expectedSignal:actual toNotBeSubscribedTo:times];
     }
 });
 

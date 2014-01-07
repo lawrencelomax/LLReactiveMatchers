@@ -9,10 +9,10 @@
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] setNameWithFormat:@"foo"];
     
     assertPass(test_expect(signal).to.beSubscribedTo(0));
-    assertFail(test_expect(signal).toNot.beSubscribedTo(0), @"Signal foo subscribed to 0 times");
+    assertFail(test_expect(signal).toNot.beSubscribedTo(0), @"expected: actual foo to not be subscribed to 0 times");
 }
 
-- (void) testMultipleSubscriptions {
+- (void) test_MultipleSubscriptions {
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@1, @2, @3]] setNameWithFormat:@"foo"];
     
     assertPass(test_expect(signal).will.beSubscribedTo(3));
