@@ -23,6 +23,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).will.error());
     assertPass(test_expect(signal).willNot.error());
+    
+    assertPass(test_expect(signal).willContinueTo.error());
+    assertFail(test_expect(signal).willNotContinueTo.error(), failureString);
 }
 
 - (void) test_endsInCompletion {
@@ -35,6 +38,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.error());
     assertFail(test_expect(signal).will.error(), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.error());
+    assertFail(test_expect(signal).willContinueTo.error(), failureString);
 }
 
 - (void) test_notYetCompleted {
@@ -47,6 +53,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.error());
     assertFail(test_expect(signal).will.error(), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.error());
+    assertFail(test_expect(signal).willContinueTo.error(), failureString);
 }
 
 @end

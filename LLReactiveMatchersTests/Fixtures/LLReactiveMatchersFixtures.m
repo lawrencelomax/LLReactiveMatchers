@@ -31,6 +31,9 @@ extern NSError * LLReactiveMatchersFixtureError() {
 @implementation RACSignal (LLRMTestHelpers)
 
 - (RACSignal *) asyncySignal {
+    // Not a great place to set this globally, but as good as any
+    [Expecta setAsynchronousTestTimeout:0.2];
+    
     // -delay: will always immediately send errors, we want to avoid that
     return [[[[[self materialize] delay:0.01] dematerialize] deliverOn:[RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault]]
         setNameWithFormat:@"%@", self.name];
