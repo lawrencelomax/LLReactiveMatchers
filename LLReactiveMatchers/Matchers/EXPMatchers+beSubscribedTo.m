@@ -1,42 +1,7 @@
 #import "EXPMatchers+beSubscribedTo.h"
+#import "RACSignal+LLSubscriptionCounting.h"
 
 #import <objc/runtime.h>
-
-static void *subscriptionCountKey = &subscriptionCountKey;
-
-static void setSubscriptionCount(RACSignal *signal, NSUInteger count) {
-    objc_setAssociatedObject(signal, subscriptionCountKey, @(count), OBJC_ASSOCIATION_COPY);
-}
-
-static NSUInteger getSubscriptionCount(RACSignal *signal) {
-    NSNumber *subscriptionCount = objc_getAssociatedObject(signal, subscriptionCountKey);
-    return subscriptionCount ? subscriptionCount.integerValue : 0;
-}
-
-static void swizzleSubscribeIfNeeded() {
-    static BOOL hasSwizzledSubscribe = NO;
-
-    @synchronized(RACSignal.class) {
-        if(!hasSwizzledSubscribe) {
-            SEL subscribeSelector = @selector(subscribe:);
-            
-            static RACDisposable *(*originalSubscribeImplementation)(id, SEL, id<RACSubscriber>) = NULL;
-            originalSubscribeImplementation = (typeof(originalSubscribeImplementation)) class_getMethodImplementation(RACSignal.class, subscribeSelector);
-            
-            typeof(originalSubscribeImplementation) newImplementation = (typeof(originalSubscribeImplementation)) imp_implementationWithBlock(^(RACSignal *signal, id<RACSubscriber> subscriber){
-                
-                setSubscriptionCount(signal, getSubscriptionCount(signal) + 1);
-                
-                return originalSubscribeImplementation(signal, subscribeSelector, subscriber);
-            });
-            
-            Method method = class_getInstanceMethod(RACSignal.class, subscribeSelector);
-            method_setImplementation(method, (IMP) newImplementation);
-            
-            hasSwizzledSubscribe = YES;
-        }
-    }
-}
 
 EXPMatcherImplementationBegin(beSubscribedTo, (NSInteger times))
 
@@ -47,10 +12,8 @@ prerequisite(^BOOL{
 });
 
 match(^BOOL{
-    swizzleSubscribeIfNeeded();
-    
     @synchronized(actual) {
-        return (getSubscriptionCount(actual) == times);
+        return ([actual subscriptionCount] == times);
     }
 });
 
@@ -60,7 +23,10 @@ failureMessageForTo(^NSString *{
     }
     
     @synchronized(actual) {
-        NSInteger subscriptionCount = getSubscriptionCount(actual);
+        NSInteger subscriptionCount = [actual subscriptionCount];
+        if(subscriptionCount == -1) {
+            return [LLReactiveMatchersMessageBuilder expectedSignalDidNotRecordSubscriptions:actual];
+        }
         return [LLReactiveMatchersMessageBuilder expectedSignal:actual toBeSubscribedTo:times actual:subscriptionCount];
     }
 });

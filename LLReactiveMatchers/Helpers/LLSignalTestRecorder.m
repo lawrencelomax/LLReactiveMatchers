@@ -13,7 +13,6 @@
 @interface LLSignalTestRecorder ()
 
 @property (nonatomic, strong) RACSignal *originalSignal;
-@property (nonatomic, assign) NSUInteger subscriptionCount;
 
 @property (nonatomic, strong) RACReplaySubject *passthrough;
 @property (nonatomic, strong) RACDisposable *disposable;
@@ -95,7 +94,6 @@
 #pragma mark RACSignal
 
 - (RACDisposable *)subscribe:(id<RACSubscriber>)subscriber {
-    self.subscriptionCount = (self.subscriptionCount + 1);
     return [self.passthrough subscribe:subscriber];
 }
 
