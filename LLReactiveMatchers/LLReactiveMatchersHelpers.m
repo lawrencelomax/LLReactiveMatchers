@@ -12,20 +12,12 @@ extern BOOL __attribute__((overloadable)) LLRMIdenticalErrors(LLSignalTestRecord
     return LLRMIdenticalErrors(leftRecorder.error, rightRecorder.error);
 }
 
-extern BOOL __attribute__((overloadable)) LLRMIdenticalErrors(LLSignalTestRecorder *recorder, NSError *error) {
-    return LLRMIdenticalErrors(recorder.error, error);
-}
-
 extern BOOL __attribute__((overloadable)) LLRMIdenticalValues(NSArray *left, NSArray *right) {
     return [left isEqualToArray:right];
 }
 
 extern BOOL __attribute__((overloadable)) LLRMIdenticalValues(LLSignalTestRecorder *leftRecorder, LLSignalTestRecorder *rightRecorder) {
     return LLRMIdenticalValues(leftRecorder.values, rightRecorder.values);
-}
-
-extern BOOL __attribute__((overloadable)) LLRMIdenticalValues(LLSignalTestRecorder *recorder, NSArray *array) {
-    return LLRMIdenticalValues(recorder.values, array);
 }
 
 extern BOOL LLRMCorrectClassesForActual(id object) {
