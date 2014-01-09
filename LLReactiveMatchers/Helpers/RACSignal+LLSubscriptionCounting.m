@@ -8,6 +8,7 @@
 
 #import "RACSignal+LLSubscriptionCounting.h"
 
+#import <ReactiveCocoa/RACEXTScope.h>
 #import <objc/runtime.h>
 
 static inline NSMutableSet *swizzledClasses () {
@@ -34,14 +35,14 @@ static NSInteger getSubscriptionCount(RACSignal *signal) {
 
 static void *referencedSubscriberKey = &referencedSubscriberKey;
 
-static id<RACSubscriber> getReferencedSubscriber(RACSignal *signal) {
-    @synchronized(signal) {
-        return objc_getAssociatedObject(signal, referencedSubscriberKey);
-    }
+static void *getReferencedSubscriber(RACSignal *signal) {
+    NSValue *value = objc_getAssociatedObject(signal, referencedSubscriberKey);
+    return value ? value.pointerValue : NULL;
 }
 
-static void setReferencedSubscriber(RACSignal *signal, id<RACSubscriber> subscriber) {
-    objc_setAssociatedObject(signal, referencedSubscriberKey, subscriber, OBJC_ASSOCIATION_ASSIGN);
+static void setReferencedSubscriber(RACSignal *signal, void *subscriber) {
+    NSValue *value = [NSValue valueWithPointer:subscriber];
+    objc_setAssociatedObject(signal, referencedSubscriberKey, value, OBJC_ASSOCIATION_RETAIN);
 }
 
 static void *countingSubscriptionsKey = &countingSubscriptionsKey;
@@ -74,13 +75,21 @@ static void swizzleSubscribeIfNeeded(RACSignal *signal) {
             
             typeof(originalSubscribeImplementation) newImplementation = (typeof(originalSubscribeImplementation)) imp_implementationWithBlock(^(RACSignal *signal, id<RACSubscriber> subscriber){
                 
-                id<RACSubscriber> previousSubscriber = getReferencedSubscriber(signal);
-                if(getCountingSubscriptions(signal) && previousSubscriber != signal) {
+                void *currentSubscriber = (__bridge void *) subscriber;
+                void *previousSubscriber = getReferencedSubscriber(signal);
+                if(getCountingSubscriptions(signal) && previousSubscriber != currentSubscriber) {
                     setSubscriptionCount(signal, getSubscriptionCount(signal) + 1);
                 }
-                if(previousSubscriber != subscriber) {
-                    setReferencedSubscriber(signal, subscriber);
+                if(previousSubscriber != currentSubscriber) {
+                    setReferencedSubscriber(signal, currentSubscriber);
+                    
+                    @weakify(signal)
+                    [subscriber didSubscribeWithDisposable:[RACDisposable disposableWithBlock:^{
+                        @strongify(signal)
+                        setReferencedSubscriber(signal, NULL);
+                    }]];
                 }
+                
                 
                 return originalSubscribeImplementation(signal, subscribeSelector, subscriber);
             });
