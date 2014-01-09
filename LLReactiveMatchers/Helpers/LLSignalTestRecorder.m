@@ -70,24 +70,30 @@
     
     self.originalSignal = signal;
     
-    self.disposable = [[[[signal
-      doNext:^(id x) {
-          @synchronized(self) {
-              [self.receivedEvents addObject:LLRMArrayValueForSignalValue(x)];
-          }
-    }]
-      doError:^(NSError *error) {
-         @synchronized(self) {
-             self.receivedErrorEvent = YES;
-             self.receivedError = error;
-         }
-    }]
-      doCompleted:^{
-         @synchronized(self) {
-             self.receivedCompletedEvent = YES;
-         }
-    }]
-    subscribe:self.passthrough];
+    RACSignal *locallyRecordingSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        return [signal subscribeNext:^(id x) {
+            @synchronized(self) {
+                [self.receivedEvents addObject:LLRMArrayValueForSignalValue(x)];
+            }
+            
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            @synchronized(self) {
+                self.receivedErrorEvent = YES;
+                self.receivedError = error;
+            }
+            
+            [subscriber sendError:error];
+        } completed:^{
+            @synchronized(self) {
+                self.receivedCompletedEvent = YES;
+            }
+            
+            [subscriber sendCompleted];
+        }];
+    }];
+    
+    self.disposable = [locallyRecordingSignal subscribe:self.passthrough];
 }
 
 #pragma mark RACSignal
