@@ -113,8 +113,21 @@ The matchers accept ```LLSignalTestRecorder``` in place of a Signal. By creating
     	combined = [[RACSignal combineLatest:@[ subject1, subject2 ]] testRecorder];
     });
     
+## Subscription Counts
+Occasionally, you may need to make assertions about the number of subscriptions to a Signal, for example when describing multicasting behaviour, where repeated side-effects pose a problem. Instead of deriving a new Signal, you can mark a Signal as having it's subscription invocations counted. Use ```startCountingSubscriptions```
+
+    RACSignal *signal = [[RACSignal sideEffectingSignal] startCountingSubscriptions];
+    RACSignal *multicastingSignal = [RACSignal multicastingSignalWithSignal:signal];
+    
+    [multicastingSignal subscribeCompleted:^{}];
+    [multicastingSignal subscribeCompleted:^{}];
+    [multicastingSignal subscribeCompleted:^{}];
+    
+    expect(signal).to.beSubscribedTo(1);
+    
 ## Matchers
     
+    expect(signal).to.beSubscribedTo(expectedCount);  //Succeeds if 'signal' sends exactly the number of events of 'expectedCounts'. Fails if startCountingSubscriptions has not been called.
     expect(signal).to.complete();   //Succeeds if 'signal' completes before matching.
     expect(signal).to.error(); //Succeeds if 'signal' errors before matching.
     expect(signal).to.finish(); //Succeeds if 'signal' completes or errors before matching.
