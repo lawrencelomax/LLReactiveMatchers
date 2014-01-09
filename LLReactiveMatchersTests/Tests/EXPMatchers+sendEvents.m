@@ -21,6 +21,10 @@
     
     assertPass(test_expect(signal).to.sendEvents(expected));
     assertFail(test_expect(signal).toNot.sendEvents(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).will.sendEvents(expected));
+    assertPass(test_expect(signal).willNot.sendEvents(expected));
 }
 
 - (void) test_differentEventsCompletion {
@@ -30,6 +34,10 @@
 
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendEvents(expected));
+    assertFail(test_expect(signal).will.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalEventsIdenticalError {
@@ -39,6 +47,10 @@
     
     assertPass(test_expect(signal).to.sendEvents(expected));
     assertFail(test_expect(signal).toNot.sendEvents(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).will.sendEvents(expected));
+    assertPass(test_expect(signal).willNot.sendEvents(expected));
 }
 
 - (void) test_identicalEventsDifferentErrors {
@@ -48,6 +60,10 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendEvents(expected));
+    assertFail(test_expect(signal).will.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalEventsExpectedDidNotComplete {
@@ -57,15 +73,23 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendEvents(expected));
+    assertFail(test_expect(signal).will.sendEvents(expected), failureString);
 }
 
-- (void) test_identicalValues {
+- (void) test_identicalValuesBothComplete {
     RACSignal *signal = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"foo"];
     RACSignal *expected = [[LLReactiveMatchersFixtures values:@[@YES, @NO, @5]] setNameWithFormat:@"bar"];
     NSString *failureString = @"expected: actual foo to not have events that are identical to expected bar";
     
     assertPass(test_expect(signal).to.sendEvents(expected));
     assertFail(test_expect(signal).toNot.sendEvents(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).will.sendEvents(expected));
+    assertPass(test_expect(signal).willNot.sendEvents(expected));
 }
 
 - (void) test_identicalValuesDifferentCompletion {
@@ -75,6 +99,10 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendEvents(expected));
+    assertFail(test_expect(signal).will.sendEvents(expected), failureString);
 }
 
 - (void) test_differentValues {
@@ -84,6 +112,10 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendEvents(expected));
+    assertFail(test_expect(signal).will.sendEvents(expected), failureString);
 }
 
 - (void) test_differentValuesDifferentCompletion {
@@ -93,6 +125,10 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendEvents(expected));
+    assertFail(test_expect(signal).will.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalValuesOneDidNotComplete {
@@ -102,6 +138,10 @@
     
     assertPass(test_expect(signal).toNot.sendEvents(expected));
     assertFail(test_expect(signal).to.sendEvents(expected), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendEvents(expected));
+    assertFail(test_expect(signal).will.sendEvents(expected), failureString);
 }
 
 @end

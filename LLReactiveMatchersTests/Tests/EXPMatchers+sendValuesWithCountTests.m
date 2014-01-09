@@ -20,6 +20,10 @@
     
     assertPass(test_expect(signal).to.sendValuesWithCount(0));
     assertFail(test_expect(signal).toNot.sendValuesWithCount(0), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).will.sendValuesWithCount(0));
+    assertFail(test_expect(signal).willNot.sendValuesWithCount(0), failureString);
 }
 
 - (void) test_noValuesIncorrect {
@@ -28,6 +32,11 @@
     
     assertPass(test_expect(signal).toNot.sendValuesWithCount(5));
     assertFail(test_expect(signal).to.sendValuesWithCount(5), failureString);
+    
+    signal = [signal asyncySignal];
+    failureString = @"expected: actual foo to not send 0 events, got: 0 events sent";
+    assertPass(test_expect(signal).will.sendValuesWithCount(0));
+    assertFail(test_expect(signal).willNot.sendValuesWithCount(0), failureString);
 }
 
 - (void) test_10ValuesCorrect {
@@ -36,6 +45,10 @@
     
     assertPass(test_expect(signal).to.sendValuesWithCount(10));
     assertFail(test_expect(signal).toNot.sendValuesWithCount(10), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).will.sendValuesWithCount(0));
+    assertPass(test_expect(signal).willNot.sendValuesWithCount(0));
 }
 
 - (void) test_10ValuesIncorrect {
@@ -44,6 +57,10 @@
     
     assertPass(test_expect(signal).toNot.sendValuesWithCount(5));
     assertFail(test_expect(signal).to.sendValuesWithCount(5), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendValuesWithCount(5));
+    assertFail(test_expect(signal).will.sendValuesWithCount(5), failureString);
 }
 
 @end

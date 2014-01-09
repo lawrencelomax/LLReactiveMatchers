@@ -25,7 +25,7 @@ prerequisite(^BOOL{
 match(^BOOL{
     subscribe();
     
-    if(!actualRecorder.hasFinished || !expectedRecorder.hasFinished) {
+    if(!(actualRecorder.hasFinished && expectedRecorder.hasFinished)) {
         return NO;
     }
     

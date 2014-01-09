@@ -20,7 +20,11 @@
     NSString *failureString = @"expected: actual foo to error, got: completed";
     
     assertPass(test_expect(signal).toNot.sendError(error));
-    assertFail(test_expect(signal).sendError(error), failureString);
+    assertFail(test_expect(signal).to.sendError(error), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendError(error));
+    assertFail(test_expect(signal).will.sendError(error), failureString);
 }
 
 - (void) test_notYetCompleted {
@@ -30,6 +34,10 @@
     
     assertPass(test_expect(signal).toNot.sendError(error));
     assertFail(test_expect(signal).to.sendError(error), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendError(error));
+    assertFail(test_expect(signal).will.sendError(error), failureString);
 }
 
 - (void) test_endsInSameError {
@@ -39,6 +47,10 @@
     
     assertPass(test_expect(signal).to.sendError(error));
     assertFail(test_expect(signal).toNot.sendError(error), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).will.sendError(error));
+    assertPass(test_expect(signal).willNot.sendError(error));
 }
 
 - (void) test_endsInDifferentError {
@@ -48,6 +60,10 @@
     
     assertPass(test_expect(signal).toNot.sendError(error));
     assertFail(test_expect(signal).to.sendError(error), failureString);
+    
+    signal = [signal asyncySignal];
+    assertPass(test_expect(signal).willNot.sendError(error));
+    assertFail(test_expect(signal).will.sendError(error), failureString);
 }
 
 @end
