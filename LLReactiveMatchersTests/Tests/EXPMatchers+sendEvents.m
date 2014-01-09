@@ -25,6 +25,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).will.sendEvents(expected));
     assertPass(test_expect(signal).willNot.sendEvents(expected));
+    
+    assertPass(test_expect(signal).willContinueTo.sendEvents(expected));
+    assertFail(test_expect(signal).willNotContinueTo.sendEvents(expected), failureString);
 }
 
 - (void) test_differentEventsCompletion {
@@ -38,6 +41,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.sendEvents(expected));
     assertFail(test_expect(signal).will.sendEvents(expected), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.sendEvents(expected));
+    assertFail(test_expect(signal).willContinueTo.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalEventsIdenticalError {
@@ -51,6 +57,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).will.sendEvents(expected));
     assertPass(test_expect(signal).willNot.sendEvents(expected));
+    
+    assertPass(test_expect(signal).willContinueTo.sendEvents(expected));
+    assertFail(test_expect(signal).willNotContinueTo.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalEventsDifferentErrors {
@@ -64,6 +73,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.sendEvents(expected));
     assertFail(test_expect(signal).will.sendEvents(expected), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.sendEvents(expected));
+    assertFail(test_expect(signal).willContinueTo.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalEventsExpectedDidNotComplete {
@@ -77,6 +89,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.sendEvents(expected));
     assertFail(test_expect(signal).will.sendEvents(expected), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.sendEvents(expected));
+    assertFail(test_expect(signal).willContinueTo.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalValuesBothComplete {
@@ -90,6 +105,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).will.sendEvents(expected));
     assertPass(test_expect(signal).willNot.sendEvents(expected));
+    
+    assertPass(test_expect(signal).willContinueTo.sendEvents(expected));
+    assertFail(test_expect(signal).willNotContinueTo.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalValuesDifferentCompletion {
@@ -103,6 +121,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.sendEvents(expected));
     assertFail(test_expect(signal).will.sendEvents(expected), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.sendEvents(expected));
+    assertFail(test_expect(signal).willContinueTo.sendEvents(expected), failureString);
 }
 
 - (void) test_differentValues {
@@ -116,6 +137,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.sendEvents(expected));
     assertFail(test_expect(signal).will.sendEvents(expected), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.sendEvents(expected));
+    assertFail(test_expect(signal).willContinueTo.sendEvents(expected), failureString);
 }
 
 - (void) test_differentValuesDifferentCompletion {
@@ -129,6 +153,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.sendEvents(expected));
     assertFail(test_expect(signal).will.sendEvents(expected), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.sendEvents(expected));
+    assertFail(test_expect(signal).willContinueTo.sendEvents(expected), failureString);
 }
 
 - (void) test_identicalValuesOneDidNotComplete {
@@ -142,6 +169,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.sendEvents(expected));
     assertFail(test_expect(signal).will.sendEvents(expected), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.sendEvents(expected));
+    assertFail(test_expect(signal).willContinueTo.sendEvents(expected), failureString);
 }
 
 @end

@@ -34,6 +34,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.sendValues(expected));
     assertFail(test_expect(signal).will.sendValues(expected), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.sendValues(expected));
+    assertFail(test_expect(signal).willContinueTo.sendValues(expected), failureString);
 }
 
 - (void) test_allCorrectOrder {
@@ -47,6 +50,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).will.sendValues(expected));
     assertPass(test_expect(signal).willNot.sendValues(expected));
+    
+    assertPass(test_expect(signal).willContinueTo.sendValues(expected));
+    assertFail(test_expect(signal).willNotContinueTo.sendValues(expected), failureString);
 }
 
 - (void) test_someAllExpected {
@@ -60,6 +66,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.sendValues(expected));
     assertFail(test_expect(signal).will.sendValues(expected), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.sendValues(expected));
+    assertFail(test_expect(signal).willContinueTo.sendValues(expected), failureString);
 }
 
 - (void) test_subRange {
@@ -71,8 +80,8 @@
     assertFail(test_expect(signal).to.sendValues(expected), failureString);
     
     signal = [signal asyncySignal];
-    assertPass(test_expect(signal).willNot.sendValues(expected));
-    assertFail(test_expect(signal).will.sendValues(expected), failureString);
+    assertPass(test_expect(signal).willNotContinueTo.sendValues(expected));
+    assertFail(test_expect(signal).willContinueTo.sendValues(expected), failureString);
 }
 
 - (void) test_none {
@@ -86,6 +95,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.sendValues(expected));
     assertFail(test_expect(signal).will.sendValues(expected), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.sendValues(expected));
+    assertFail(test_expect(signal).willContinueTo.sendValues(expected), failureString);
 }
 
 @end
