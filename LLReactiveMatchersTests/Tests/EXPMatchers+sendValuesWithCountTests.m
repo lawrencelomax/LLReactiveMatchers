@@ -24,6 +24,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).will.sendValuesWithCount(0));
     assertFail(test_expect(signal).willNot.sendValuesWithCount(0), failureString);
+    
+    assertPass(test_expect(signal).willContinueTo.sendValuesWithCount(0));
+    assertFail(test_expect(signal).willNotContinueTo.sendValuesWithCount(0), failureString);
 }
 
 - (void) test_noValuesIncorrect {
@@ -34,9 +37,12 @@
     assertFail(test_expect(signal).to.sendValuesWithCount(5), failureString);
     
     signal = [signal asyncySignal];
-    failureString = @"expected: actual foo to not send 0 events, got: 0 events sent";
-    assertPass(test_expect(signal).will.sendValuesWithCount(0));
-    assertFail(test_expect(signal).willNot.sendValuesWithCount(0), failureString);
+    assertFail(test_expect(signal).willContinueTo.sendValuesWithCount(5), failureString);
+    assertPass(test_expect(signal).willNotContinueTo.sendValuesWithCount(5));
+    
+    failureString = @"expected: actual foo to send 5 events, got: 0 events sent";
+    assertFail(test_expect(signal).will.sendValuesWithCount(5), failureString);
+    assertPass(test_expect(signal).willNot.sendValuesWithCount(5));
 }
 
 - (void) test_10ValuesCorrect {
@@ -47,8 +53,11 @@
     assertFail(test_expect(signal).toNot.sendValuesWithCount(10), failureString);
     
     signal = [signal asyncySignal];
-    assertPass(test_expect(signal).will.sendValuesWithCount(0));
-    assertPass(test_expect(signal).willNot.sendValuesWithCount(0));
+    assertPass(test_expect(signal).will.sendValuesWithCount(10));
+    assertPass(test_expect(signal).willNot.sendValuesWithCount(10));
+    
+    assertPass(test_expect(signal).willContinueTo.sendValuesWithCount(10));
+    assertFail(test_expect(signal).willNotContinueTo.sendValuesWithCount(10), failureString);
 }
 
 - (void) test_10ValuesIncorrect {
@@ -61,6 +70,9 @@
     signal = [signal asyncySignal];
     assertPass(test_expect(signal).willNot.sendValuesWithCount(5));
     assertFail(test_expect(signal).will.sendValuesWithCount(5), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.sendValuesWithCount(5));
+    assertFail(test_expect(signal).willContinueTo.sendValuesWithCount(5), failureString);
 }
 
 @end

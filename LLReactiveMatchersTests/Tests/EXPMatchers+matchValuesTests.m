@@ -37,6 +37,13 @@
     assertPass(test_expect(signal).willNot.matchValues(^(NSUInteger index, id value){
         return NO;
     }));
+    
+    assertPass(test_expect(signal).willContinueTo.matchValues(^(NSUInteger index, id value){
+        return NO;
+    }));
+    assertFail(test_expect(signal).willNotContinueTo.matchValues(^(NSUInteger index, id value){
+        return NO;
+    }), failureString);
 }
 
 - (void) test_passAll {
@@ -65,6 +72,13 @@
     assertPass(test_expect(signal).willNot.matchValues(^(NSUInteger index, id value){
         return YES;
     }));
+    
+    assertPass(test_expect(signal).willContinueTo.matchValues(^(NSUInteger index, id value){
+        return YES;
+    }));
+    assertFail(test_expect(signal).willNotContinueTo.matchValues(^(NSUInteger index, id value){
+        return YES;
+    }), failureString);
 }
 
 - (void) test_nonFinishingSignal {
@@ -116,6 +130,16 @@
         return NO;
     }));
     assertFail(test_expect(signal).will.matchValues(^(NSUInteger index, id value){
+        if(index == 2) {
+            return NO;
+        }
+        return YES;
+    }), failureString);
+    
+    assertPass(test_expect(signal).willNotContinueTo.matchValues(^(NSUInteger index, id value){
+        return NO;
+    }));
+    assertFail(test_expect(signal).willContinueTo.matchValues(^(NSUInteger index, id value){
         if(index == 2) {
             return NO;
         }
