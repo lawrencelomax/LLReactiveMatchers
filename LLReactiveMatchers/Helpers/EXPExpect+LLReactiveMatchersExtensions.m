@@ -58,8 +58,8 @@ static void *continousAsyncKey = &continousAsyncKey;
             });
             
             Method method = class_getInstanceMethod(EXPExpect.class, originalSelector);
-            BOOL swizzleSuccess = method_setImplementation(method, newImplementation);
-            NSAssert(swizzleSuccess, @"Could not Swizzle %@", NSStringFromSelector(originalSelector));
+            IMP previousImplementation = method_setImplementation(method, newImplementation);
+            NSAssert(previousImplementation != NULL, @"Could not Swizzle %@", NSStringFromSelector(originalSelector));
             
             hasSwizzledMethod = YES;
         }
