@@ -1,6 +1,7 @@
 // Umbrella Header
 #import "LLSignalTestRecorder.h"
 #import "RACSignal+LLSubscriptionCounting.h"
+#import "EXPExpect+LLReactiveMatchersExtensions.h"
 
 #import "EXPMatchers+beSubscribedTo.h"
 #import "EXPMatchers+complete.h"

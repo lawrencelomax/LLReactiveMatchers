@@ -125,6 +125,17 @@ Occasionally, you may need to make assertions about the number of subscriptions 
     
     expect(signal).to.beSubscribedTo(1);
     
+## Asynchronous Testing
+When Asynchronously with ``willNot``` and some matchers have behaviour that may deviate from what you expect:
+     
+    RACSignal *signal = ....; //Assume this signal does complete, but not immediately/synchronously
+    expect(signal).willNot.complete();  // This will pass as the Signal does not start complete.
+
+You may want to use the supplied ```willContinueTo```/```willNotContinueTo``` methods on ```EXPExpect```, which will continue matching until the asynchronous timeout:
+
+    RACSignal *signal = ....; //Assume this signal does complete, but not immediately/synchronously
+    expect(signal).willNotContinueTo.complete();  // This will fail, just after the signal completes.
+
 ## Matchers
     
     expect(signal).to.beSubscribedTo(expectedCount);  //Succeeds if 'signal' sends exactly the number of events of 'expectedCounts'. Fails if startCountingSubscriptions has not been called.
