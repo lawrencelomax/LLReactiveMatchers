@@ -57,6 +57,19 @@ Which can be changed to:
 
 The Matchers in this library will ensure that dependent conditions such as the completion of a Signal are met. We can therefore reason that no additional values are sent by the Signal and have a higher degree of confidence in our tests.
 
+## Asynchonous Testing
+Though Synchronous behaviour is common in Signals and readily testable with ```to```/```toNot```, ```LLReactiveMatchers``` works great with the asynchronous ```will```/```willNot```. The only exception to this rule is asynchronous negation (```willNot```) on some asynchronous matchers.
+    
+    // This will allways pass if signal does not complete as soon as is subscribed to.
+    // If the signal completes in 0.2 seconds and the async timeout is 1.0 seconds this will still pass
+    expect(signal).willNot.complete();
+
+Since ```willNot``` will succeed as soon as the matcher passes for the first time, a Signal that completes asynchronously will pass this test. Instead of using ```willContinueTo```/```willNotContinueTo``` can be used, as these matching methods will wait until the asynchronous timeout before matching.
+    
+    // This will allways pass if signal does not complete as soon as is subscribed to.
+    // If the signal completes in 0.2 seconds and the async timeout is 1.0 seconds this will fail.
+    expect(signal).willNotContinueTo.complete();
+
 ## Subjects & Replay Subjects
 It is quite common to use a ```RACSubject``` or ```RACReplaySubject``` in place of a ```RACSignal``` for [testing compound operators]() where the order in which order in which events are important. For example, the tests for ```combineLatest``` use two Subjects to test that the order in which next events sent effects the output of the compound Signal. 
 
@@ -113,17 +126,6 @@ The matchers accept ```LLSignalTestRecorder``` in place of a Signal. By creating
     	combined = [[RACSignal combineLatest:@[ subject1, subject2 ]] testRecorder];
     });
     
-## Asynchronous Testing
-When Asynchronously with ``willNot``` and some matchers have behaviour that may deviate from what you expect:
-     
-    RACSignal *signal = ....; //Assume this signal does complete, but not immediately/synchronously
-    expect(signal).willNot.complete();  // This will pass as the Signal does not start complete.
-
-You may want to use the supplied ```willContinueTo```/```willNotContinueTo``` methods on ```EXPExpect```, which will continue matching until the asynchronous timeout:
-
-    RACSignal *signal = ....; //Assume this signal does complete, but not immediately/synchronously
-    expect(signal).willNotContinueTo.complete();  // This will fail, just after the signal completes.
-
 ## Matchers
     
     expect(signal).to.complete();   //Succeeds if 'signal' completes before matching.
@@ -138,7 +140,6 @@ You may want to use the supplied ```willContinueTo```/```willNotContinueTo``` me
     expect(signal).to.sendValuesWithCount(expectedCount);  //Succeeds if 'signal' sends exactly the number of events of 'expectedCounts', waits for 'signal' to finish.
 
 ## Todo
-- Negation with async behaviour
 - Injecting Mock Objects for testing Side-Effects
 
 ## [License](./LICENSE)
