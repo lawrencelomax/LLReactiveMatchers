@@ -8,11 +8,14 @@
 
 #import "LLSignalTestRecorder.h"
 
+#import "Expecta.h"
+#import "RACSignal+LLSubscriptionCounting.h"
 #import "LLReactiveMatchersHelpers.h"
 
 @interface LLSignalTestRecorder ()
 
 @property (nonatomic, strong) RACSignal *originalSignal;
+
 @property (nonatomic, strong) RACReplaySubject *passthrough;
 @property (nonatomic, strong) RACDisposable *disposable;
 
@@ -30,6 +33,7 @@
     if( (self = [super init]) ) {
         self.receivedEvents = [NSMutableArray array];
         self.passthrough = [RACReplaySubject replaySubjectWithCapacity:RACReplaySubjectUnlimitedCapacity];
+        [self startCountingSubscriptions];
     }
     return self;
 }
@@ -67,6 +71,7 @@
 
 - (void) subscribeToSignal:(RACSignal *)signal {
     [self setNameWithFormat:@"TestRecorder [%@]", signal.name];
+    [signal startCountingSubscriptions];
     
     self.originalSignal = signal;
     
