@@ -1,5 +1,7 @@
 #import "EXPMatchers+beSubscribedTo.h"
 #import "RACSignal+LLSubscriptionCounting.h"
+#import "LLReactiveMatchersHelpers.h"
+#import "LLReactiveMatchersMessageBuilder.h"
 
 #import <objc/runtime.h>
 

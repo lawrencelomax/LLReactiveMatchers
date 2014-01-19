@@ -9,6 +9,9 @@
 #import "RACSignal+LLSubscriptionCounting.h"
 
 #import <ReactiveCocoa/RACEXTScope.h>
+#import "RACSubscriber.h"
+#import "RACDisposable.h"
+
 #import <objc/runtime.h>
 
 static inline NSMutableSet *swizzledClasses () {
@@ -24,7 +27,7 @@ static inline NSMutableSet *swizzledClasses () {
 
 static void *subscriptionCountKey = &subscriptionCountKey;
 
-static void setSubscriptionCount(RACSignal *signal, NSUInteger count) {
+static void setSubscriptionCount(RACSignal *signal, NSInteger count) {
     objc_setAssociatedObject(signal, subscriptionCountKey, @(count), OBJC_ASSOCIATION_RETAIN);
 }
 
