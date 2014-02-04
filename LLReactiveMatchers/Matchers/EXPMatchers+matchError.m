@@ -4,7 +4,7 @@
 #import "LLReactiveMatchersHelpers.h"
 #import "LLReactiveMatchersMessageBuilder.h"
 
-EXPMatcherImplementationBegin(matchError, (BOOL(^matchBlock)(id value)) )
+EXPMatcherImplementationBegin(matchError, (BOOL(^matchBlock)(NSError *error)) )
 
 __block LLSignalTestRecorder *actualRecorder;
 __block BOOL notErrored;
