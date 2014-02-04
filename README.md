@@ -144,6 +144,7 @@ Occasionally, you may need to make assertions about the number of subscriptions 
     expect(signal).to.complete();   //Succeeds if 'signal' completes before matching.
     expect(signal).to.error(); //Succeeds if 'signal' errors before matching.
     expect(signal).to.finish(); //Succeeds if 'signal' completes or errors before matching.
+    expect(signal).to.matchError(matchBlock); //Succeeds if 'matchBlock' returns YES from 'matchBlock' provided.
     expect(signal).to.matchValue(matchIndex, matchBlock); //Succeeds if 'matchBlock' returns YES from 'matchIndex' provided.
     expect(signal).to.matchValues(matchBlock);  //Succeeds if 'matchBlock' returns YES for all values that 'signal' sends.
     expect(signal).to.sendError(expectedError);  //Succeeds if 'signal' sends an error that is equal to 'expectedError'. 'expectedError' can be an NSError, RACSignal or LLSignalTestRecorder.
