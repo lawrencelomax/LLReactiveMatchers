@@ -4,11 +4,9 @@ branches:
   only:
     - master
 
-#before_install:
-#  - sudo pip install cpp-coveralls --use-mirrors
+before_install:
+  - gem update cocoapods
   
 script: 
   - xctool -workspace 'LLReactiveMatchers.xcworkspace' -scheme 'LLReactiveMatchers' -configuration Debug -sdk iphonesimulator clean build test -freshSimulator -freshInstall ARCHS=i386 VALID_ARCHS=i386 ONLY_ACTIVE_ARCH=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
-
-#after_success:
-#  - ./coveralls.sh
+  
