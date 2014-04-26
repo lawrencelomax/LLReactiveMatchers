@@ -6,7 +6,10 @@ branches:
 
 before_install:
   - gem update cocoapods
-  
+  - brew update
+  - brew uninstall xctool
+  - brew install xctool --HEAD
+
 script: 
   - xctool -workspace 'LLReactiveMatchers.xcworkspace' -scheme 'LLReactiveMatchers' -configuration Debug -sdk iphonesimulator clean build test -freshSimulator -freshInstall ARCHS=i386 VALID_ARCHS=i386 ONLY_ACTIVE_ARCH=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
   
