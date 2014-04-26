@@ -168,11 +168,11 @@ Occasionally, you may need to make assertions about the number of subscriptions 
     expect(signal).to.error(); //Succeeds if 'signal' errors before matching.
     expect(signal).to.finish(); //Succeeds if 'signal' completes or errors before matching.
     expect(signal).to.matchError(matchBlock); //Succeeds if 'matchBlock' returns YES from 'matchBlock' provided.
-    expect(signal).to.matchValue(matchIndex, matchBlock); //Succeeds if 'matchBlock' returns YES from 'matchIndex' provided.
+    expect(signal).to.matchValue(matchIndex, matchBlock); //Succeeds if 'matchBlock' returns YES for the next value sent by 'signal' at index 'matchIndex'.
     expect(signal).to.matchValues(matchBlock);  //Succeeds if 'matchBlock' returns YES for all values that 'signal' sends.
     expect(signal).to.sendError(expectedError);  //Succeeds if 'signal' sends an error that is equal to 'expectedError'. 'expectedError' can be an NSError, RACSignal or LLSignalTestRecorder.
     expect(signal).to.sendEvents(expectedEvents);  //Succeeds if 'signal' and 'expectedSignal' send exactly the same events including next values. 'expectedEvents' can be a RACSignal or LLSignalTestRecorder.
-    expect(signal).to.sendValue(matchIndex, expectedValue);  //Succeeds if 'signal' sends 'expectedValue' at 'matchIndex'.
+    expect(signal).to.sendValue(valueIndex, expectedValue);  //Succeeds if 'signal' sends the next value 'expectedValue' at index 'matchIndex'.
     expect(signal).to.sendValues(expectedValues);  //Succeeds if 'signal' exactly sends all of the values in 'expectedValues' and then finishes. 'expectedValues' can be a RACSignal, LLSignalTestRecorder or an NSArray of expected values. 
     expect(signal).to.sendValuesWithCount(expectedCount);  //Succeeds if 'signal' sends exactly the number of events of 'expectedCounts', waits for 'signal' to finish.
 ```
